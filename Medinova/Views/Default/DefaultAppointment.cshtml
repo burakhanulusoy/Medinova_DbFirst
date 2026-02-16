@@ -1,0 +1,156 @@
+﻿
+<div class="container-fluid bg-primary my-5 py-5">
+    <div class="container py-5">
+        <div class="row gx-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="mb-4">
+                    <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Appointment</h5>
+                    <h1 class="display-4">Make An Appointment For Your Family</h1>
+                </div>
+                <p class="text-white mb-5">
+                    Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum.
+                    Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero
+                    eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit.
+                    Sea dolore sanctus sed et. Takimata takimata sanctus sed.
+                </p>
+                <a class="btn btn-dark rounded-pill py-3 px-5 me-3" href="#!">Find Doctor</a>
+                <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="#!">Read More</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-white text-center rounded p-5">
+
+                    <h1 class="mb-4">Randevu Oluştur</h1>
+
+                    <form method="post" action="/Default/DefaultAppointment">
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <label>Bölüm Seçiniz</label>
+
+                                @Html.DropDownList("DepartmentId", (List<SelectListItem>)ViewBag.Departments, "---Doktorunuzun Bölümünü Seçiniz---", new { @class = "form-control" })
+
+
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label>Doktorunuzu Seçiniz</label>
+                                <select id="DoctorId" name="DoctorId" class="form-control bg-light border-0" style="height: 55px;">
+                                    <option disabled selected>--Önce Doktorunuzun Bölümünü Seçiniz--</option>
+
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input name="FullName" type="text" class="form-control bg-light border-0" placeholder="Adınız ve Soyadınız"
+                                       style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input name="Email" type="email" class="form-control bg-light border-0" placeholder="Mail Adresiniz"
+                                       style="height: 55px;">
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <input name="PhoneNumber" type="tel" class="form-control bg-light border-0" placeholder="Telefon Numaranız"
+                                       style="height: 55px;">
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="date" id="date" data-target-input="nearest">
+                                    <input type="text" class="form-control bg-light border-0 datetimepicker-input"
+                                           placeholder="Date" data-target="#date" data-toggle="datetimepicker"
+                                           style="height: 55px;">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="time" id="time" data-target-input="nearest">
+                                    <input type="text" class="form-control bg-light border-0 datetimepicker-input"
+                                           placeholder="Time" data-target="#time" data-toggle="datetimepicker"
+                                           style="height: 55px;">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">
+                                    Make An
+                                    Appointment
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+        $("#DepartmentId").change(function () {
+
+            var selectedDepId = $(this).val();
+
+            var doctorDropDown = $("#DoctorId");
+
+            $.ajax({
+
+                url: '/Default/GetDoctorsByDepartmentId',
+                type: 'GET',
+                data: { departmentId: selectedDepId },
+                dataType: 'json',
+                success: function (data) {
+
+                    doctorDropDown.empty();
+                    $.each(data, function (i, doctor) {
+
+                        doctorDropDown.append($(' <option></option>').val(doctor.Value).html(doctor.Text));
+
+                    });
+
+
+                }
+
+            });
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

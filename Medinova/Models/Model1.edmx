@@ -29,8 +29,8 @@
           <Property Name="AppointmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="DoctorId" Type="int" />
-          <Property Name="AppointmentDate" Type="date" />
-          <Property Name="AppointmentTime" Type="time" Precision="7" />
+          <Property Name="AppointmentDate" Type="datetime2" Precision="7" />
+          <Property Name="AppointmentTime" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nchar" MaxLength="100" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
@@ -140,8 +140,8 @@
           <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DoctorId" Type="Int32" />
-          <Property Name="AppointmentDate" Type="DateTime" Precision="0" />
-          <Property Name="AppointmentTime" Type="Time" Precision="7" />
+          <Property Name="AppointmentDate" Type="DateTime" Precision="7" />
+          <Property Name="AppointmentTime" Type="String" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />

@@ -18,7 +18,7 @@ namespace Medinova.Models
         public string FullName { get; set; }
         public Nullable<int> DoctorId { get; set; }
         public Nullable<System.DateTime> AppointmentDate { get; set; }
-        public Nullable<System.TimeSpan> AppointmentTime { get; set; }
+        public string AppointmentTime { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Nullable<bool> IsActive { get; set; }
