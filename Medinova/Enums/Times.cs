@@ -1,23 +1,44 @@
-﻿namespace Medinova.Enums
+﻿using System.Collections.Generic;
+
+namespace Medinova.Enums
 {
     public static class Times 
     {
-       
-        public const string Time9= "09:00";
-        public const string Time9_30= "09:00";
-        public const string Time10 = "10:00";
-        public const string Time10_30 = "10:30";
-        public const string Time11 = "11:00";
-        public const string Time11_30 = "11:30";
-        public const string Time12 = "12:00";
-        public const string Time13_30 = "13:30";
-        public const string Time14 = "14:00";
-        public const string Time14_30 = "14:30";
-        public const string Time15 = "15:00";
-        public const string Time15_30 = "15:30";
-        public const string Time16 = "16:00";
-        public const string Time16_30 = "16:30";
-        public const string Time17 = "17:00";
+        public static List<string> AppointmentsHour = new List<string>()
+       {
+           "08:00",
+           "08:20",
+           "08:40",
+           "09:00",
+           "09:20",
+           "09:40",
+           "10:00",
+           "10:20",
+           "10:40",
+           "11:00",
+           "11:20",
+           "11:40",
+           "12:40",
+           "13:00",
+           "13:20",
+           "13:40",
+           "14:00",
+           "14:20",
+           "14:40",
+           "15:00",
+           "15:20",
+           "15:40",
+           "16:00",
+           "16:20",
+           "16:40"
+
+
+
+
+
+
+       };
+    
 
 
     }

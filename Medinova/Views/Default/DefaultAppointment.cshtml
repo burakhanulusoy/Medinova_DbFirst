@@ -53,22 +53,23 @@
 
                             <div class="col-12 col-sm-6">
                                 <div class="date" id="date" data-target-input="nearest">
-                                    <input type="text" class="form-control bg-light border-0 datetimepicker-input"
-                                           placeholder="Date" data-target="#date" data-toggle="datetimepicker"
-                                           style="height: 55px;">
+                                  <label>Randevu Tarihi Seçiniz</label>
+@Html.DropDownList("AppointmentDate", (List<SelectListItem>)ViewBag.DateList, "--Tarih Seçiniz--", new { @class = "form-control" });
+
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="time" id="time" data-target-input="nearest">
-                                    <input type="text" class="form-control bg-light border-0 datetimepicker-input"
-                                           placeholder="Time" data-target="#time" data-toggle="datetimepicker"
-                                           style="height: 55px;">
+                                    <label>Randevu Saati Seçiniz</label>
+                                    <select id="AppointmentTime" name="AppointmentTime" class="form-control bg-light border-0" style="height: 55px;">
+                                        <option disabled selected>--Önce Tarih Seçiniz--</option>
+
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">
-                                    Make An
-                                    Appointment
+                                    Randevu Oluştur 
                                 </button>
                             </div>
                         </div>
@@ -121,6 +122,61 @@
 
 
         });
+
+
+        $("#AppointmentDate").change(function () {
+
+
+            var selectedDate = $(this).val();
+
+            var selectedDoctorId = $("#DoctorId").val();
+
+            var timeDropDown = $("#AppointmentTime");
+
+            $.ajax({
+
+                url: '/Default/GetAvailableHours',
+                type: 'POST',
+                data: { selectedDate: selectedDate, doctorId: selectedDoctorId },
+                dataType: 'json',
+                success: function (data) {
+
+                    timeDropDown.empty();
+
+                    $.each(data, function (i, item) {
+
+                       
+                        var isDisabled = false;
+                        var optionText = item.Time;
+
+
+                        if (item.IsBooked) {
+                            optionText += " (Dolu)";
+                            isDisabled = true;
+                        }
+
+                        var option = $('<option> </option>').val(item.Time).html(optionText);
+
+                        if (isDisabled) {
+
+                            option.prop('disabled', true);
+                        }
+
+                        timeDropDown.append(option);
+                        timeDropDown.prop('disabled', false);
+
+                    });
+
+
+                }
+
+            });
+
+
+
+        });
+
+
 
 
 
