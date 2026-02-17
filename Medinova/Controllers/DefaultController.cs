@@ -30,7 +30,7 @@ namespace Medinova.Controllers
                                    }).ToList();
 
 
-
+            //part2 tarih bugun ve +7gün gellsin diyorum
             var dateList = new List<SelectListItem>();
 
             for(int i=0;i<7;i++)
@@ -60,16 +60,7 @@ namespace Medinova.Controllers
         public ActionResult DefaultAppointment(Appointment appointment)
         {
         
-            var departments=_context.Departments.ToList();
-            ViewBag.Departments = (from deparment in departments
-                                   select new SelectListItem
-                                   {
-                                       Text = deparment.Name,
-                                       Value = deparment.DepartmentId.ToString()
-                                   }).ToList();
-
-
-            var doctors = _context.Doctors.ToList();
+            
            
 
 

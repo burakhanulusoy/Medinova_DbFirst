@@ -1,4 +1,39 @@
-﻿
+﻿<style>
+    .appointment-form-card {
+        border: none;
+        border-radius: 20px; /* Daha yumuşak köşeler */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Modern gölge */
+    }
+
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+        border-radius: 12px; /* Input köşeleri */
+        border: 1px solid #eef0f3;
+        background-color: #f8f9fa;
+        height: 60px; /* Biraz daha dolgun görünüm */
+    }
+
+        .form-floating > .form-control:focus,
+        .form-floating > .form-select:focus {
+            background-color: #fff;
+            border-color: #0d6efd; /* Bootstrap primary color */
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        }
+
+    .btn-submit-custom {
+        border-radius: 12px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3);
+    }
+
+        .btn-submit-custom:hover {
+            transform: translateY(-2px); /* Buton hafif yukarı kalkar */
+            box-shadow: 0 8px 15px rgba(13, 110, 253, 0.4);
+        }
+</style>
+
 <div class="container-fluid bg-primary my-5 py-5">
     <div class="container py-5">
         <div class="row gx-5">
@@ -16,62 +51,75 @@
                 <a class="btn btn-dark rounded-pill py-3 px-5 me-3" href="#!">Find Doctor</a>
                 <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="#!">Read More</a>
             </div>
-            <div class="col-lg-6">
-                <div class="bg-white text-center rounded p-5">
 
-                    <h1 class="mb-4">Randevu Oluştur</h1>
+            <div class="col-lg-6">
+                <div class="bg-white text-center p-5 appointment-form-card">
+
+                    <h1 class="mb-4" style="color: #2c3e50;">Randevu Oluştur</h1>
+                    <p class="mb-4 text-muted">Lütfen aşağıdaki formu eksiksiz doldurunuz.</p>
 
                     <form method="post" action="/Default/DefaultAppointment">
                         <div class="row g-3">
-                            <div class="col-12 col-sm-6">
-                                <label>Bölüm Seçiniz</label>
-
-                                @Html.DropDownList("DepartmentId", (List<SelectListItem>)ViewBag.Departments, "---Doktorunuzun Bölümünü Seçiniz---", new { @class = "form-control" })
-
-
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <label>Doktorunuzu Seçiniz</label>
-                                <select id="DoctorId" name="DoctorId" class="form-control bg-light border-0" style="height: 55px;">
-                                    <option disabled selected>--Önce Doktorunuzun Bölümünü Seçiniz--</option>
-
-                                </select>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input name="FullName" type="text" class="form-control bg-light border-0" placeholder="Adınız ve Soyadınız"
-                                       style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input name="Email" type="email" class="form-control bg-light border-0" placeholder="Mail Adresiniz"
-                                       style="height: 55px;">
-                            </div>
 
                             <div class="col-12 col-sm-6">
-                                <input name="PhoneNumber" type="tel" class="form-control bg-light border-0" placeholder="Telefon Numaranız"
-                                       style="height: 55px;">
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="date" id="date" data-target-input="nearest">
-                                  <label>Randevu Tarihi Seçiniz</label>
-@Html.DropDownList("AppointmentDate", (List<SelectListItem>)ViewBag.DateList, "--Tarih Seçiniz--", new { @class = "form-control" });
-
+                                <div class="form-floating">
+                                    @Html.DropDownList("DepartmentId", (List<SelectListItem>)ViewBag.Departments, "Seçiniz", new { @class = "form-select", id = "DepartmentId" })
+                                    <label for="DepartmentId">Bölüm Seçiniz</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="time" id="time" data-target-input="nearest">
-                                    <label>Randevu Saati Seçiniz</label>
-                                    <select id="AppointmentTime" name="AppointmentTime" class="form-control bg-light border-0" style="height: 55px;">
-                                        <option disabled selected>--Önce Tarih Seçiniz--</option>
 
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <select id="DoctorId" name="DoctorId" class="form-select">
+                                        <option disabled selected>-- Önce Bölüm Seçiniz --</option>
                                     </select>
+                                    <label for="DoctorId">Doktorunuzu Seçiniz</label>
                                 </div>
                             </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <input name="FullName" type="text" class="form-control" id="FullName" placeholder="Adınız Soyadınız">
+                                    <label for="FullName">Adınız ve Soyadınız</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <input name="Email" type="email" class="form-control" id="Email" placeholder="name@example.com">
+                                    <label for="Email">Mail Adresiniz</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <input name="PhoneNumber" type="tel" class="form-control" id="PhoneNumber" placeholder="Telefon">
+                                    <label for="PhoneNumber">Telefon Numaranız</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    @Html.DropDownList("AppointmentDate", (List<SelectListItem>)ViewBag.DateList, "Tarih Seçiniz", new { @class = "form-select", id = "AppointmentDate" })
+                                    <label for="AppointmentDate">Randevu Tarihi</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <select id="AppointmentTime" name="AppointmentTime" class="form-select">
+                                        <option disabled selected>-- Önce Tarih Seçiniz --</option>
+                                    </select>
+                                    <label for="AppointmentTime">Randevu Saati</label>
+                                </div>
+                            </div>
+
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">
-                                    Randevu Oluştur 
+                                <button class="btn btn-primary w-100 py-3 btn-submit-custom" type="submit">
+                                    Randevu Oluştur
                                 </button>
                             </div>
+
                         </div>
                     </form>
 
@@ -81,74 +129,55 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-
-
     $(document).ready(function () {
 
-
         $("#DepartmentId").change(function () {
-
             var selectedDepId = $(this).val();
-
             var doctorDropDown = $("#DoctorId");
+            var dateDropDown = $("#AppointmentDate");
+            var timeDropDown = $("#AppointmentTime");
+
+            // Bölüm değişince tarihi sıfırla
+            $("#AppointmentDate").val('').trigger('change');
 
             $.ajax({
-
                 url: '/Default/GetDoctorsByDepartmentId',
                 type: 'GET',
                 data: { departmentId: selectedDepId },
                 dataType: 'json',
                 success: function (data) {
-
                     doctorDropDown.empty();
+                    // Varsayılan seçenek erhan hocammmmmmmm mükemmelsıniz
+                    doctorDropDown.append($('<option disabled selected></option>').val('').html('-- Doktor Seçiniz --'));
+
                     $.each(data, function (i, doctor) {
-
-                        doctorDropDown.append($(' <option></option>').val(doctor.Value).html(doctor.Text));
-
+                        doctorDropDown.append($('<option></option>').val(doctor.Value).html(doctor.Text));
                     });
-
-
                 }
-
             });
-
-
-
-
-
-
-
         });
 
-
         $("#AppointmentDate").change(function () {
-
-
             var selectedDate = $(this).val();
-
             var selectedDoctorId = $("#DoctorId").val();
-
             var timeDropDown = $("#AppointmentTime");
 
             $.ajax({
-
                 url: '/Default/GetAvailableHours',
                 type: 'POST',
                 data: { selectedDate: selectedDate, doctorId: selectedDoctorId },
                 dataType: 'json',
                 success: function (data) {
-
                     timeDropDown.empty();
+                    // Varsayılan seçenek
+                    timeDropDown.append($('<option disabled selected></option>').val('').html('-- Saat Seçiniz --'));
 
                     $.each(data, function (i, item) {
-
-                       
                         var isDisabled = false;
                         var optionText = item.Time;
-
 
                         if (item.IsBooked) {
                             optionText += " (Dolu)";
@@ -158,55 +187,13 @@
                         var option = $('<option> </option>').val(item.Time).html(optionText);
 
                         if (isDisabled) {
-
                             option.prop('disabled', true);
                         }
-
                         timeDropDown.append(option);
                         timeDropDown.prop('disabled', false);
-
                     });
-
-
                 }
-
             });
-
-
-
         });
-
-
-
-
-
-
-
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-

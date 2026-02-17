@@ -7,4 +7,4 @@
         public bool IsBooked { get; set; }
 
     }
-}
+}  
