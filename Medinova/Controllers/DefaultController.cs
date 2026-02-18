@@ -1,5 +1,6 @@
 ﻿using Medinova.DTOs;
 using Medinova.Enums;
+using Medinova.MailService;
 using Medinova.Models;
 using System;
 using System.Collections.Generic;
@@ -67,25 +68,64 @@ namespace Medinova.Controllers
 
 
         [HttpPost]
-        public ActionResult DefaultAppointment(Appointment appointment)
+        public JsonResult SendVerificationCode(string phoneNumber)
         {
+            var user = _context.Users.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
 
-            var user = _context.Users.Where(x => x.PhoneNumber == appointment.PhoneNumber).FirstOrDefault();
-
-            if (user is null)
+            // 1. Kullanıcı Var mı?
+            if (user == null)
             {
                 return Json(new { success = false, message = "UserNotFound" });
-
             }
 
+            // 2. Rastgele 6 Haneli Kod Üret
+            Random rnd = new Random();
+            string code = rnd.Next(100000, 999999).ToString();
 
+            // 3. Kodu Session'a Kaydet (Sunucu tarafında geçici sakla)
+            Session["VerificationCode"] = code;
 
+            // 4. Mail Gönder
+            try
+            {
+                MaiiHelper.SendVerificationCode(user.Email, code);
+                return Json(new { success = true, message = "CodeSent" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "MailError" });
+            }
+        }
 
+        // --- GÜNCELLENEN METOD: RANDEVU KAYDI ---
+        [HttpPost]
+        public ActionResult DefaultAppointment(Appointment appointment, string userCode)
+        {
+            // Session'daki kod ile kullanıcının girdiği kodu karşılaştır
+            string serverCode = Session["VerificationCode"] as string;
+
+            // Eğer kod boşsa veya uyuşmuyorsa hata dön
+            if (string.IsNullOrEmpty(serverCode) || serverCode != userCode)
+            {
+                return Json(new { success = false, message = "WrongCode" });
+            }
+
+            // Kod doğruysa, kullanıcı kontrolünü tekrar yapmaya gerek yok ama garanti olsun diye bakabilirsin
+            // Burada artık kullanıcı doğrulanmış demektir.
 
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
+
+            // Güvenlik için Session'ı temizle
+            Session.Remove("VerificationCode");
+
             return Json(new { success = true, message = "Success" });
         }
+
+
+
+
+
 
 
         //ajax ile çalısırken js kodları ıle calısılır js de jsondur

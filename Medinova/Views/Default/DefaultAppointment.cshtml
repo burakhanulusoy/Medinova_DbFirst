@@ -1,4 +1,117 @@
 ﻿<style>
+
+  /* --- Profesyonel Mavi EKG Loader --- */
+.medical-loader {
+    width: 60px;
+    height: 30px; /* Daha yayvan EKG görünümü */
+    display: inline-block;
+    position: relative;
+}
+.medical-loader::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e0e0e0; /* Zemin çizgisi */
+}
+.medical-loader::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, #007bff 50%, transparent 100%);
+    clip-path: polygon(0% 100%, 20% 100%, 30% 0%, 50% 100%, 60% 100%, 70% 60%, 80% 100%, 100% 100%);
+    animation: ekg 1.5s linear infinite;
+}
+
+@@keyframes ekg {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* --- Validasyon Hatası (Kırmızı kalabilir, hata hatadır) --- */
+@@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+.input-error {
+    border: 2px solid #ff6b6b !important;
+    background-color: #fff5f5 !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+/* --- Premium Bilet Kartı --- */
+.ticket-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eef2f7;
+    overflow: hidden;
+}
+.ticket-header {
+    background: #007bff; /* Hastane Mavisi */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+.ticket-body {
+    padding: 20px;
+}
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+.ticket-row:last-child {
+    border-bottom: none;
+}
+.ticket-label {
+    color: #8898aa;
+    font-size: 13px;
+    font-weight: 500;
+}
+.ticket-value {
+    color: #32325d;
+    font-weight: 700;
+    font-size: 14px;
+}
+.success-checkmark-anim {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px auto;
+}
+    /* Hata durumunda inputlar titrer */
+@@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.input-error {
+    border: 2px solid #e74c3c !important; /* Kırmızı çerçeve */
+    background-color: #fff6f6 !important; /* Hafif kırmızı zemin */
+    animation: shake 0.3s ease-in-out; /* Titreşim efekti */
+}
+
+/* Toast Bildirimleri İçin Font */
+.swal2-popup {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
     .appointment-form-card {
         border: none;
         border-radius: 20px; /* Daha yumuşak köşeler */
@@ -209,57 +322,226 @@
 
 
 
+
+
+
+
+        // Toast Ayarı (Mavi Tema)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
         $("#appointmentForm").submit(function (e) {
-            e.preventDefault(); // Sayfanın yenilenmesini engeller (Layout bozulmaz!)
+            e.preventDefault();
 
-            // Form verilerini al
+            // --- 1. VALIDASYON (Aynen koruduk) ---
+            $(".form-control, .form-select").removeClass("input-error");
+            let hasError = false;
+            let firstError = null;
+            const fields = ['DepartmentId', 'DoctorId', 'FullName', 'Email', 'PhoneNumber', 'AppointmentDate', 'AppointmentTime'];
+
+            fields.forEach(f => {
+                let el = $("[name='" + f + "']");
+                if (!el.val()) {
+                    el.addClass("input-error");
+                    hasError = true;
+                    if (!firstError) firstError = el;
+                }
+            });
+
+            if (hasError) {
+                firstError.focus();
+                Toast.fire({ icon: 'error', title: 'Lütfen işaretli alanları doldurunuz.' });
+                return;
+            }
+
+            // Verileri Al
             var formData = $(this).serialize();
+            var phoneNumber = $("#PhoneNumber").val();
+            var userEmail = $("#Email").val();
 
+            // Görsel Veriler
+            var docName = $("#DoctorId option:selected").text();
+            var deptName = $("#DepartmentId option:selected").text();
+            var appDate = $("#AppointmentDate option:selected").text();
+            var appTime = $("#AppointmentTime option:selected").text();
+
+            // --- 2. YÜKLENİYOR (MAVİ EKG) ---
+            Swal.fire({
+                title: 'Sistem Bağlanıyor',
+                html: `
+                    <div class="my-4">
+                        <div class="medical-loader"></div>
+                    </div>
+                    <p style="color:#6c757d; font-size:14px; font-weight:500;">
+                        Müsaitlik durumu sorgulanıyor, lütfen bekleyiniz...
+                    </p>
+                `,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                width: 400,
+                padding: '2em',
+                background: '#fff',
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            // --- 3. AJAX İSTEĞİ ---
             $.ajax({
-                url: '/Default/DefaultAppointment', // Gideceği adres
+                url: '/Default/SendVerificationCode',
                 type: 'POST',
-                data: formData,
+                data: { phoneNumber: phoneNumber },
                 success: function (response) {
 
+                    Swal.close();
+
                     if (response.success === false && response.message === "UserNotFound") {
-                        // KULLANICI BULUNAMADI - SWEETALERT AÇILIYOR
+                        // Kullanıcı Yoksa
                         Swal.fire({
-                            title: 'Kullanıcı Bulunamadı!',
-                            text: 'Bu telefon numarasıyla kayıtlı bir hasta bulamadık.',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
+                            icon: 'info',
+                            title: 'Hasta Kaydı Gerekli',
+                            text: 'Randevu sistemini kullanabilmek için kayıt oluşturmalısınız.',
                             confirmButtonText: 'Kayıt Ol',
-                            cancelButtonText: 'Tekrar Dene',
-                            footer: '<a href="/Register/Index">Hesabınız yok mu? Hemen oluşturun.</a>'
+                            confirmButtonColor: '#007bff', // Mavi Buton
+                            showCancelButton: true,
+                            cancelButtonText: 'Kapat'
+                        }).then((r) => { if (r.isConfirmed) window.location.href = "/Register/Index"; });
+                    }
+                    else if (response.success === true && response.message === "CodeSent") {
+
+                        // --- 4. GÜVENLİK KODU (MAVİ/TEMİZ TEMA) ---
+                        let timerInterval;
+
+                        Swal.fire({
+                            title: 'Güvenlik Doğrulaması',
+                            html: `
+                                <div style="text-align:center;">
+                                    <div style="background:#f8f9fa; padding:10px; border-radius:8px; margin-bottom:15px; font-size:14px; color:#555;">
+                                        <b>${userEmail}</b> adresine gönderilen kodu giriniz.
+                                    </div>
+                                    <div class="progress" style="height: 6px; margin: 15px 0; background-color:#e9ecef;">
+                                      <div id="otp-progress" class="progress-bar" role="progressbar" style="width: 100%; background-color:#007bff;"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted" style="font-size:12px;">
+                                        <span>Süre:</span>
+                                        <span id="otp-timer-text" style="font-weight:bold; color:#007bff;">120 sn</span>
+                                    </div>
+                                </div>
+                            `,
+                            input: 'text',
+                            inputAttributes: {
+                                placeholder: '------',
+                                maxlength: '6',
+                                // DÜZELTME BURADA YAPILDI:
+                                style: 'text-align: center; letter-spacing: 12px; font-size: 26px; border: 1px solid #ced4da; border-radius: 8px; color: #495057; font-weight: 600; box-shadow:none; width: 90%; max-width: 350px; margin: 0 auto; box-sizing: border-box;'
+                            },
+                            showCancelButton: true,
+                            confirmButtonText: 'Doğrula',
+                            cancelButtonText: 'İptal',
+                            confirmButtonColor: '#007bff', // Hastane Mavisi
+                            cancelButtonColor: '#6c757d', // Gri
+                            showLoaderOnConfirm: true,
+                            customClass: {
+                                input: 'form-control form-control-lg' // Bootstrap stili
+                            },
+
+                            didOpen: () => {
+                                const progressBar = Swal.getHtmlContainer().querySelector('#otp-progress');
+                                const timerText = Swal.getHtmlContainer().querySelector('#otp-timer-text');
+                                let totalTime = 120;
+                                let timeLeft = 120;
+
+                                timerInterval = setInterval(() => {
+                                    timeLeft--;
+                                    let percentage = (timeLeft / totalTime) * 100;
+                                    progressBar.style.width = percentage + "%";
+                                    timerText.textContent = timeLeft + " sn";
+
+                                    if (timeLeft <= 0) {
+                                        clearInterval(timerInterval);
+                                        Swal.close();
+                                        Toast.fire({ icon: 'warning', title: 'Süre doldu.' });
+                                    }
+                                }, 1000);
+                            },
+                            willClose: () => { clearInterval(timerInterval); },
+
+                            preConfirm: (inputCode) => {
+                                if (!inputCode || inputCode.length < 6) {
+                                    Swal.showValidationMessage('Lütfen kodu eksiksiz giriniz.');
+                                    return false;
+                                }
+                                var finalData = formData + "&userCode=" + inputCode;
+
+                                return $.ajax({
+                                    url: '/Default/DefaultAppointment',
+                                    type: 'POST',
+                                    data: finalData
+                                }).then(res => {
+                                    if (!res.success) throw new Error(res.message);
+                                    return res;
+                                }).catch(err => {
+                                    Swal.showValidationMessage('Hatalı kod, lütfen kontrol ediniz.');
+                                });
+                            }
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/Register/Index"; // Kayıt sayfasına yönlendir
+                                // --- 5. FİNAL: TEMİZ & PROFESYONEL BİLET ---
+                                Swal.fire({
+                                    title: 'Talebiniz Oluşturuldu',
+                                    html: `
+                                        <div class="ticket-card mt-3">
+                                            <div class="ticket-header">
+                                                <span><i class="fas fa-hospital-alt me-2"></i> MEDINOVA</span>
+                                                <span class="badge bg-light text-primary" style="font-weight:600;">İşlemde</span>
+                                            </div>
+                                            <div class="ticket-body">
+                                                <div class="text-center mb-3">
+                                                    <i class="fas fa-check-circle text-primary" style="font-size:3rem; opacity:0.2;"></i>
+                                                    <p class="mt-2 text-muted" style="font-size:13px;">
+                                                        Randevu talebiniz başarıyla alınmıştır.
+                                                        <br>Onay mesajı tarafınıza iletilecektir.
+                                                    </p>
+                                                </div>
+                                                <div class="ticket-row">
+                                                    <span class="ticket-label">Bölüm</span>
+                                                    <span class="ticket-value">${deptName}</span>
+                                                </div>
+                                                <div class="ticket-row">
+                                                    <span class="ticket-label">Doktor</span>
+                                                    <span class="ticket-value">${docName}</span>
+                                                </div>
+                                                <div class="ticket-row">
+                                                    <span class="ticket-label">Tarih & Saat</span>
+                                                    <span class="ticket-value">${appDate} - ${appTime}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `,
+                                    icon: null,
+                                    confirmButtonText: 'Tamam',
+                                    confirmButtonColor: '#007bff',
+                                    width: 450
+                                }).then(() => {
+                                    window.location.reload();
+                                });
                             }
                         });
                     }
-                    else if (response.success === true) {
-                        // İŞLEM BAŞARILI
-                        Swal.fire({
-                            title: 'Harika!',
-                            text: 'Randevunuz başarıyla oluşturuldu.',
-                            icon: 'success',
-                            confirmButtonText: 'Tamam'
-                        }).then(() => {
-                            window.location.reload(); // Sayfayı yenile veya başka yere yönlendir
-                        });
-                    }
-                },
-                error: function () {
-                    Swal.fire('Hata', 'Bir sorun oluştu, lütfen tekrar deneyin.', 'error');
                 }
             });
         });
 
-
-
-
+        $(".form-control, .form-select").on('input change', function () {
+            if ($(this).val()) $(this).removeClass("input-error");
+        });
     });
 </script>
 
