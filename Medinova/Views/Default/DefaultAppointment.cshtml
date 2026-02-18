@@ -135,18 +135,22 @@
     $(document).ready(function () {
 
         $("#DepartmentId").change(function () {
+
             var selectedDepId = $(this).val();
+
             var doctorDropDown = $("#DoctorId");
+
             var dateDropDown = $("#AppointmentDate");
+
             var timeDropDown = $("#AppointmentTime");
 
-            // Bölüm değişince tarihi sıfırla
+            // Bölüm değişince tarihi sıfırla yeni bilgi unutma!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             $("#AppointmentDate").val('').trigger('change');
 
             $.ajax({
-                url: '/Default/GetDoctorsByDepartmentId',
+                url: '/Default/GetDoctorsByDepartmentId',//çalışacak action controllerda
                 type: 'GET',
-                data: { departmentId: selectedDepId },
+                data: { departmentId: selectedDepId },//parametlerşeri
                 dataType: 'json',
                 success: function (data) {
                     doctorDropDown.empty();
@@ -164,6 +168,9 @@
             var selectedDate = $(this).val();
             var selectedDoctorId = $("#DoctorId").val();
             var timeDropDown = $("#AppointmentTime");
+
+            $("#AppointmentTime").val('').trigger('change');
+
 
             $.ajax({
                 url: '/Default/GetAvailableHours',

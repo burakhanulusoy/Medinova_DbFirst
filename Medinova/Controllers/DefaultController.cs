@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Medinova.Controllers
 {
+    [AllowAnonymous]//bu controllerdaki actionlara herkes erişebilir demek
     public class DefaultController : Controller
     {
        MedinovaContext _context=new MedinovaContext();
@@ -18,6 +19,9 @@ namespace Medinova.Controllers
         {
             return View();
         }
+
+
+
         [HttpGet]
         public PartialViewResult DefaultAppointment()
         {
@@ -38,8 +42,8 @@ namespace Medinova.Controllers
                 var date = DateTime.Now.AddDays(i);
                 dateList.Add(new SelectListItem
                 {
-                    Text = date.ToString("dd.MMMM.dddd"),
-                    Value = date.ToString("yyyy-MM-dd")
+                    Text = date.ToString("dd.MMMM.dddd"),//19 aralık cuma
+                    Value = date.ToString("yyyy-MM-dd")  //database e kaydederken böyle kaydedilirrr..
 
 
                 });
@@ -61,12 +65,7 @@ namespace Medinova.Controllers
         {
         
             
-           
-
-
-
-
-
+        
 
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
@@ -91,11 +90,13 @@ namespace Medinova.Controllers
         [HttpPost]
         public JsonResult GetAvailableHours(DateTime selectedDate,int doctorId)
         {
-
+            //doktorun o günkü randevu saatleri datadan çekiyoruz bro
             var bookedTimes=_context.Appointments.Where(x=>x.DoctorId==doctorId && x.AppointmentDate==selectedDate).Select(x=>x.AppointmentTime).ToList();
 
             var dtoList = new List<AppointmentAvailabilityDto>();
 
+
+            //enumsdaki times sttaik oldugu için direk ulaşabşliriz
             foreach(var hour in Times.AppointmentsHour)
             {
 
@@ -105,6 +106,7 @@ namespace Medinova.Controllers
 
                 if(bookedTimes.Contains(hour))
                 {
+                    //işaretlimi yani doktorun os satte randevusu var mı diye bakıyoruz
                     dto.IsBooked = true;
                 }
                 else
