@@ -20,10 +20,7 @@ namespace Medinova.Controllers
             return View();
         }
 
-
-
-        [HttpGet]
-        public PartialViewResult DefaultAppointment()
+        private void loadDropDown()
         {
             var departments = _context.Departments.ToList();
             ViewBag.Departments = (from deparment in departments
@@ -37,7 +34,7 @@ namespace Medinova.Controllers
             //part2 tarih bugun ve +7gün gellsin diyorum
             var dateList = new List<SelectListItem>();
 
-            for(int i=0;i<7;i++)
+            for (int i = 0; i < 7; i++)
             {
                 var date = DateTime.Now.AddDays(i);
                 dateList.Add(new SelectListItem
@@ -55,7 +52,16 @@ namespace Medinova.Controllers
 
 
 
+        }
 
+
+
+        [HttpGet]
+        public PartialViewResult DefaultAppointment()
+        {
+           
+
+            loadDropDown();
             return PartialView();
         }
 
@@ -63,13 +69,22 @@ namespace Medinova.Controllers
         [HttpPost]
         public ActionResult DefaultAppointment(Appointment appointment)
         {
-        
-            
-        
+
+            var user = _context.Users.Where(x => x.PhoneNumber == appointment.PhoneNumber).FirstOrDefault();
+
+            if (user is null)
+            {
+                return Json(new { success = false, message = "UserNotFound" });
+
+            }
+
+
+
+
 
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Success" });
         }
 
 

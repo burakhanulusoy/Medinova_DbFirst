@@ -22,7 +22,9 @@ namespace Medinova.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual Doctor Doctor { get; set; }
+        public virtual User User { get; set; }
     }
 }

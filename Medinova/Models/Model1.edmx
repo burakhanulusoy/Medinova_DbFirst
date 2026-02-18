@@ -34,6 +34,7 @@
           <Property Name="Email" Type="nchar" MaxLength="100" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="Banners">
           <Key>
@@ -95,6 +96,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Appointments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Doctors_Departments">
           <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
           <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
@@ -118,6 +131,10 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Appointments_Doctors" Association="Self.FK_Appointments_Doctors">
             <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Users" Association="Self.FK_Appointments_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Doctors_Departments" Association="Self.FK_Doctors_Departments">
@@ -159,6 +176,8 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Doctor" Relationship="MedinovaDBModel.FK_Appointments_Doctors" FromRole="Appointment" ToRole="Doctor" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="MedinovaDBModel.FK_Appointments_Users" FromRole="Appointment" ToRole="User" />
         </EntityType>
         <EntityType Name="Banner">
           <Key>
@@ -206,6 +225,10 @@
             <End Role="Doctor" EntitySet="Doctors" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="MedinovaDBModel.User" />
+          <AssociationSet Name="FK_Appointments_Users" Association="MedinovaDBModel.FK_Appointments_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -252,7 +275,20 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="MedinovaDBModel.FK_Appointments_Users" FromRole="User" ToRole="Appointment" />
         </EntityType>
+        <Association Name="FK_Appointments_Users">
+          <End Type="MedinovaDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MedinovaDBModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -281,6 +317,7 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="MedinovaDBModel.Appointment">
               <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
