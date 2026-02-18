@@ -9,9 +9,7 @@ namespace Medinova.DTOs
         [Required(ErrorMessage = "*Şifre boş geçilemez.")]
         public string Password { get; set; }
 
-        [Compare("Password", ErrorMessage = "*Şifreler uyumlu değil kontrol ediniz.")]
-        public string ConfirmPassword { get; set; }
-
+    
 
     }
 }

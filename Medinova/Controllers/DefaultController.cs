@@ -110,6 +110,19 @@ namespace Medinova.Controllers
                 return Json(new { success = false, message = "WrongCode" });
             }
 
+            var user = _context.Users.FirstOrDefault(x => x.PhoneNumber == appointment.PhoneNumber);
+
+            if(user is null)
+            {
+                return Json(new { success = false, message = "UserNotFound" });
+            }
+
+            appointment.UserId = user.UserId;
+            appointment.FullName = user.FirstName + " " + user.LastName;
+            appointment.Email = user.Email;
+            appointment.IsActive = false;
+
+
             // Kod doğruysa, kullanıcı kontrolünü tekrar yapmaya gerek yok ama garanti olsun diye bakabilirsin
             // Burada artık kullanıcı doğrulanmış demektir.
 

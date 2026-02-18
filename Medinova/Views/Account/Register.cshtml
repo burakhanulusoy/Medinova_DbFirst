@@ -1,0 +1,191 @@
+﻿@model Medinova.DTOs.RegisterDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hastane Sistemi Kayıt - Medinova</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-hover": "#0f6bd0",
+                        "primary-light": "#e0effd",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-stretch">
+    <div class="hidden lg:flex w-1/2 relative overflow-hidden bg-primary/5">
+        <div class="absolute inset-0 z-0 bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop");'></div>
+        <div class="absolute inset-0 z-10 bg-gradient-to-br from-primary/90 to-blue-900/90 mix-blend-multiply"></div>
+        <div class="relative z-20 flex flex-col justify-between p-12 w-full h-full text-white">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-3xl">local_hospital</span>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight">Medinova Hastaneleri</h1>
+            </div>
+            <div class="space-y-6 max-w-lg">
+                <h2 class="text-5xl font-extrabold leading-tight">Sağlık Ağımıza Katılın</h2>
+                <p class="text-blue-100 text-lg leading-relaxed">Uzman doktorlarla işbirliği yapın, kapsamlı hasta verilerine güvenle erişin ve sağlık yönetiminin geleceğinin bir parçası olun.</p>
+                <div class="flex gap-4 pt-4">
+                    <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+                        <span class="material-symbols-outlined text-sm">groups</span>
+                        <span class="text-sm font-medium">5000+ Uzman</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+                        <span class="material-symbols-outlined text-sm">verified</span>
+                        <span class="text-sm font-medium">Onaylı Ağ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-blue-200 text-sm font-medium">
+                © 2024 Medinova Sağlık Grubu. Tüm hakları saklıdır.
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 xl:p-24 bg-white dark:bg-background-dark overflow-y-auto max-h-screen">
+        <div class="w-full max-w-[520px] flex flex-col gap-6 my-auto">
+
+            <div class="lg:hidden flex items-center gap-2 mb-2 text-primary">
+                <span class="material-symbols-outlined text-4xl">local_hospital</span>
+                <span class="text-xl font-bold text-slate-900 dark:text-white">MedPortal</span>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Hesap Oluştur</h3>
+                <p class="text-slate-500 dark:text-slate-400">Sağlık profesyonelleri için güvenli portalımıza katılın.</p>
+            </div>
+
+            <form method="post" class="flex flex-col gap-5">
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1 flex flex-col gap-2">
+                        <label class="text-slate-900 dark:text-white text-sm font-semibold" for="first-name">Adınız</label>
+                        <div class="relative group">
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined">person</span>
+                            </div>
+                            <input name="FirstName" class="w-full h-11 pl-11 pr-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="first-name" placeholder="Adınız" type="text" />
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col gap-2">
+                        <label class="text-slate-900 dark:text-white text-sm font-semibold" for="last-name">Soyadınız</label>
+                        <div class="relative group">
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined">badge</span>
+                            </div>
+                            <input name="LastName" class="w-full h-11 pl-11 pr-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="last-name" placeholder="Soyadınız" type="text" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1 flex flex-col gap-2">
+                        <label class="text-slate-900 dark:text-white text-sm font-semibold" for="email">E-Posta Adresi</label>
+                        <div class="relative group">
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined">mail</span>
+                            </div>
+                            <input name="Email" class="w-full h-11 pl-11 pr-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="email" placeholder="ornek@mail.com" type="email" />
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col gap-2">
+                        <label class="text-slate-900 dark:text-white text-sm font-semibold" for="phone">Telefon Numarası</label>
+                        <div class="relative group">
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined">call</span>
+                            </div>
+                            <input name="PhoneNumber" class="w-full h-11 pl-11 pr-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="phone" placeholder="0555 000 0000" type="tel" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-slate-900 dark:text-white text-sm font-semibold" for="username">Kullanıcı Adı</label>
+                    <div class="relative group">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </div>
+                        <input name="UserName" class="w-full h-11 pl-11 pr-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="username" placeholder="kullanici_adi" type="text" />
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-slate-900 dark:text-white text-sm font-semibold" for="password">Şifre</label>
+                    <div class="relative group">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <input name="Password" class="w-full h-11 pl-11 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="password" placeholder="Güçlü bir şifre oluşturun" type="password" />
+                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" type="button">
+                            <span class="material-symbols-outlined text-xl">visibility_off</span>
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1 flex items-start gap-1">
+                        <span class="material-symbols-outlined text-[14px] mt-0.5">info</span>
+                        En az 8 karakter, bir sayı ve bir sembol içermelidir.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-slate-900 dark:text-white text-sm font-semibold" for="confirm-password">Şifre Tekrar</label>
+                    <div class="relative group">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <input name="ConfirmPassword" class="w-full h-11 pl-11 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium" id="confirm-password" placeholder="Şifrenizi tekrar girin" type="password" />
+                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" type="button">
+                            <span class="material-symbols-outlined text-xl">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-2 mt-1">
+                    <span class="text-red-500 text-sm font-medium">@Html.ValidationSummary()</span>
+                </div>
+
+                <button type="submit" class="w-full h-12 mt-4 bg-primary hover:bg-primary-hover text-white font-bold rounded-lg shadow-lg shadow-primary/30 hover:shadow-primary/40 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                    <span>Hesap Oluştur</span>
+                    <span class="material-symbols-outlined text-lg">person_add</span>
+                </button>
+            </form>
+
+            <div class="text-center mt-2">
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                    Zaten hesabınız var mı?
+                    <a class="text-primary hover:text-primary-hover font-bold transition-colors" href="/Account/Login">Giriş Yap</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

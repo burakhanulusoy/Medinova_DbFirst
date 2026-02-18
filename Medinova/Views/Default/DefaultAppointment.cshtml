@@ -494,43 +494,48 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // --- 5. FİNAL: TEMİZ & PROFESYONEL BİLET ---
+                                // --- 5. FİNAL: TEMİZ & PROFESYONEL BİLET ---
                                 Swal.fire({
                                     title: 'Talebiniz Oluşturuldu',
                                     html: `
-                                        <div class="ticket-card mt-3">
-                                            <div class="ticket-header">
-                                                <span><i class="fas fa-hospital-alt me-2"></i> MEDINOVA</span>
-                                                <span class="badge bg-light text-primary" style="font-weight:600;">İşlemde</span>
-                                            </div>
-                                            <div class="ticket-body">
-                                                <div class="text-center mb-3">
-                                                    <i class="fas fa-check-circle text-primary" style="font-size:3rem; opacity:0.2;"></i>
-                                                    <p class="mt-2 text-muted" style="font-size:13px;">
-                                                        Randevu talebiniz başarıyla alınmıştır.
-                                                        <br>Onay mesajı tarafınıza iletilecektir.
-                                                    </p>
-                                                </div>
-                                                <div class="ticket-row">
-                                                    <span class="ticket-label">Bölüm</span>
-                                                    <span class="ticket-value">${deptName}</span>
-                                                </div>
-                                                <div class="ticket-row">
-                                                    <span class="ticket-label">Doktor</span>
-                                                    <span class="ticket-value">${docName}</span>
-                                                </div>
-                                                <div class="ticket-row">
-                                                    <span class="ticket-label">Tarih & Saat</span>
-                                                    <span class="ticket-value">${appDate} - ${appTime}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `,
+        <div class="ticket-card mt-3">
+            <div class="ticket-header">
+                <span><i class="fas fa-hospital-alt me-2"></i> MEDINOVA</span>
+                <span class="badge bg-light text-primary" style="font-weight:600;">İşlemde</span>
+            </div>
+            <div class="ticket-body">
+                <div class="text-center mb-3">
+                    <i class="fas fa-check-circle text-primary" style="font-size:3rem; opacity:0.2;"></i>
+                    <p class="mt-2 text-muted" style="font-size:13px;">
+                        Randevu talebiniz başarıyla alınmıştır.
+                        <br>Durumunu takip etmek için lütfen giriş yapınız.
+                    </p>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Bölüm</span>
+                    <span class="ticket-value">${deptName}</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Doktor</span>
+                    <span class="ticket-value">${docName}</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Tarih & Saat</span>
+                    <span class="ticket-value">${appDate} - ${appTime}</span>
+                </div>
+            </div>
+        </div>
+    `,
                                     icon: null,
-                                    confirmButtonText: 'Tamam',
+                                    // Buton metnini ve rengini değiştirdik
+                                    confirmButtonText: 'Giriş Yap ve Takip Et <i class="fas fa-arrow-right ms-2"></i>',
                                     confirmButtonColor: '#007bff',
                                     width: 450
-                                }).then(() => {
-                                    window.location.reload();
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // --- DÜZELTME BURADA: Login sayfasına yönlendiriyoruz ---
+                                        window.location.href = "/Account/Login";
+                                    }
                                 });
                             }
                         });

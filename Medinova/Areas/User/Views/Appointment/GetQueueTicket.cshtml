@@ -1,0 +1,78 @@
+﻿@model Medinova.Models.Appointment
+@{
+    Layout = null; // Layout kullanmıyoruz, sadece fiş olacak
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sıra Fişi</title>
+    <style>
+        body {
+            background-color: #555; /* Arka plan koyu olsun ki fiş belli olsun */
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            font-family: 'Courier New', Courier, monospace; /* Fiş fontu */
+        }
+        .ticket {
+            background: white;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        /* Tırtıklı kağıt efekti (isteğe bağlı) */
+        .ticket:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: radial-gradient(circle, transparent 70%, white 75%) 0 0;
+            background-size: 20px 20px;
+        }
+        .logo { font-weight: bold; font-size: 18px; margin-bottom: 10px; border-bottom: 2px dashed #000; padding-bottom: 10px; display:block;}
+        .queue-label { font-size: 14px; margin-top: 20px; }
+        .queue-number { font-size: 60px; font-weight: bold; margin: 10px 0; line-height: 1; }
+        .info { font-size: 12px; margin-top: 5px; text-align: left; margin-left: 20px;}
+        .footer { margin-top: 20px; font-size: 10px; border-top: 1px dashed #000; padding-top: 10px; }
+        .btn-print { margin-top: 20px; padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px;}
+
+        @@media print {
+            body { background: white; padding: 0; display: block; }
+            .ticket { box-shadow: none; width: 100%; }
+            .btn-print { display: none; } /* Yazdırırken butonu gizle */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ticket">
+        <span class="logo">MEDINOVA HASTANESİ</span>
+
+        <div class="info">
+            <strong>Tarih:</strong> @Model.AppointmentDate.Value.ToString("dd.MM.yyyy")<br />
+            <strong>Bölüm:</strong> @(Model.Doctor?.Department?.Name ?? "Genel")<br />
+            <strong>Doktor:</strong> @(Model.Doctor?.FullName)
+        </div>
+
+        <div class="queue-label">SIRA NUMARANIZ</div>
+        <div class="queue-number">@ViewBag.QueueNumber</div>
+
+        <div class="info" style="text-align: center; margin-left:0;">
+            Randevu Saati: <strong>@Model.AppointmentTime</strong>
+        </div>
+
+        <div class="footer">
+            Lütfen sıranız gelene kadar bekleyiniz.<br />
+            Geçmiş olsun dileklerimizle.
+        </div>
+
+        <button class="btn-print" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button>
+    </div>
+
+</body>
+</html>
