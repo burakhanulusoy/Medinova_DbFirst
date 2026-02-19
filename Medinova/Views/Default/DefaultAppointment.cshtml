@@ -1,116 +1,159 @@
 ﻿<style>
 
-  /* --- Profesyonel Mavi EKG Loader --- */
-.medical-loader {
-    width: 60px;
-    height: 30px; /* Daha yayvan EKG görünümü */
-    display: inline-block;
-    position: relative;
-}
-.medical-loader::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #e0e0e0; /* Zemin çizgisi */
-}
-.medical-loader::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, transparent 0%, #007bff 50%, transparent 100%);
-    clip-path: polygon(0% 100%, 20% 100%, 30% 0%, 50% 100%, 60% 100%, 70% 60%, 80% 100%, 100% 100%);
-    animation: ekg 1.5s linear infinite;
-}
+    /* --- Profesyonel Mavi EKG Loader --- */
+    .medical-loader {
+        width: 60px;
+        height: 30px; /* Daha yayvan EKG görünümü */
+        display: inline-block;
+        position: relative;
+    }
 
-@@keyframes ekg {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
+        .medical-loader::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #e0e0e0; /* Zemin çizgisi */
+        }
 
-/* --- Validasyon Hatası (Kırmızı kalabilir, hata hatadır) --- */
-@@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-.input-error {
-    border: 2px solid #ff6b6b !important;
-    background-color: #fff5f5 !important;
-    animation: shake 0.3s ease-in-out;
-}
+        .medical-loader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 0%, #007bff 50%, transparent 100%);
+            clip-path: polygon(0% 100%, 20% 100%, 30% 0%, 50% 100%, 60% 100%, 70% 60%, 80% 100%, 100% 100%);
+            animation: ekg 1.5s linear infinite;
+        }
 
-/* --- Premium Bilet Kartı --- */
-.ticket-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #eef2f7;
-    overflow: hidden;
-}
-.ticket-header {
-    background: #007bff; /* Hastane Mavisi */
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-.ticket-body {
-    padding: 20px;
-}
-.ticket-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 8px;
-}
-.ticket-row:last-child {
-    border-bottom: none;
-}
-.ticket-label {
-    color: #8898aa;
-    font-size: 13px;
-    font-weight: 500;
-}
-.ticket-value {
-    color: #32325d;
-    font-weight: 700;
-    font-size: 14px;
-}
-.success-checkmark-anim {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px auto;
-}
+    @@keyframes ekg {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    /* --- Validasyon Hatası (Kırmızı kalabilir, hata hatadır) --- */
+    @@keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        50% {
+            transform: translateX(5px);
+        }
+
+        75% {
+            transform: translateX(-5px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .input-error {
+        border: 2px solid #ff6b6b !important;
+        background-color: #fff5f5 !important;
+        animation: shake 0.3s ease-in-out;
+    }
+
+    /* --- Premium Bilet Kartı --- */
+    .ticket-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #eef2f7;
+        overflow: hidden;
+    }
+
+    .ticket-header {
+        background: #007bff; /* Hastane Mavisi */
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .ticket-body {
+        padding: 20px;
+    }
+
+    .ticket-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 8px;
+    }
+
+        .ticket-row:last-child {
+            border-bottom: none;
+        }
+
+    .ticket-label {
+        color: #8898aa;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .ticket-value {
+        color: #32325d;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    .success-checkmark-anim {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px auto;
+    }
     /* Hata durumunda inputlar titrer */
-@@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
+    @@keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
 
-.input-error {
-    border: 2px solid #e74c3c !important; /* Kırmızı çerçeve */
-    background-color: #fff6f6 !important; /* Hafif kırmızı zemin */
-    animation: shake 0.3s ease-in-out; /* Titreşim efekti */
-}
+        25% {
+            transform: translateX(-5px);
+        }
 
-/* Toast Bildirimleri İçin Font */
-.swal2-popup {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-}
+        50% {
+            transform: translateX(5px);
+        }
+
+        75% {
+            transform: translateX(-5px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .input-error {
+        border: 2px solid #e74c3c !important; /* Kırmızı çerçeve */
+        background-color: #fff6f6 !important; /* Hafif kırmızı zemin */
+        animation: shake 0.3s ease-in-out; /* Titreşim efekti */
+    }
+
+    /* Toast Bildirimleri İçin Font */
+    .swal2-popup {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
 
     .appointment-form-card {
         border: none;
@@ -228,7 +271,7 @@
                             </div>
 
                             <div class="col-12">
-                                <button  class="btn btn-primary w-100 py-3 btn-submit-custom" type="submit">
+                                <button class="btn btn-primary w-100 py-3 btn-submit-custom" type="submit">
                                     Randevu Oluştur
                                 </button>
                             </div>
@@ -242,6 +285,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -540,8 +584,20 @@
                             }
                         });
                     }
+                },
+                error: function (xhr, status, error) {
+                    Swal.close(); // Yükleniyor ekranını kapat
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kritik Sistem Hatası!',
+                        text: 'Sunucu ile iletişim kurulamadı. Hata: ' + error
+                    });
+                    console.log(xhr.responseText); // Hatayı F12 konsoluna yazdır
                 }
+
+
             });
+
         });
 
         $(".form-control, .form-select").on('input change', function () {
@@ -551,4 +607,3 @@
 </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

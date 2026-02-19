@@ -10,13 +10,13 @@
         <EntityTypeShape EntityType="MedinovaDBModel.Appointment" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MedinovaDBModel.Banner" Width="1.5" PointX="2.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MedinovaDBModel.Department" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MedinovaDBModel.Doctor" Width="1.5" PointX="4.625" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MedinovaDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="MedinovaDBModel.Role" Width="1.5" PointX="4.375" PointY="5.625" />
+        <EntityTypeShape EntityType="MedinovaDBModel.Doctor" Width="1.5" PointX="0.75" PointY="9.625" />
+        <EntityTypeShape EntityType="MedinovaDBModel.User" Width="1.5" PointX="7.25" PointY="3.75" />
         <AssociationConnector Association="MedinovaDBModel.FK_Appointments_Doctors" />
-        <AssociationConnector Association="MedinovaDBModel.FK_Doctors_Departments" />
-        <EntityTypeShape EntityType="MedinovaDBModel.User" Width="1.5" PointX="6.625" PointY="0.75" />
         <AssociationConnector Association="MedinovaDBModel.FK_Appointments_Users" />
-        <EntityTypeShape EntityType="MedinovaDBModel.Role" Width="1.5" PointX="8.375" PointY="5.875" />
+        <AssociationConnector Association="MedinovaDBModel.FK_Doctors_Departments" />
         <AssociationConnector Association="MedinovaDBModel.FK_Users_Roles" />
       </Diagram>
     </edmx:Diagrams>

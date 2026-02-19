@@ -25,6 +25,7 @@ namespace Medinova.Controllers
         {
 
             var user = _context.Users.Where(x => x.UserName == model.UserName && x.Password == model.Password).FirstOrDefault();
+            
 
             if(user is null)
             {
@@ -48,8 +49,11 @@ namespace Medinova.Controllers
             }else if(user.RoleId==1)
             {
                 return RedirectToAction("Index", "About", new { area = "User" });
+            }else if(user.RoleId==3)
+            {
+                return RedirectToAction("Index", "Appointment", new { area = "Doctor" });
+
             }
-            
             return View(model);
 
 
