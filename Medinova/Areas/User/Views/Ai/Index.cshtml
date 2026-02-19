@@ -1,0 +1,317 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Medinova AI Başhekim</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb",       // Daha modern bir mavi444
+                        "primary-dark": "#1d4ed8",
+                        "primary-light": "#eff6ff",
+                        "background-light": "#f8fafc",
+                        "text-main": "#0f172a",
+                        "text-muted": "#64748b",
+                        "border-color": "#e2e8f0",
+                    },
+                    fontFamily: {
+                        // Medikal/Premium hissiyat için daha modern bir font
+                        "display": ["'Plus Jakarta Sans'", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(37, 99, 235, 0.5)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Özel Kaydırma Çubuğu (Zarif Tasarım) */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Kayıt Animasyonu */
+        .recording-pulse {
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            color: #ef4444 !important;
+            background-color: #fee2e2 !important;
+        }
+        @@keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Arka Plan Deseni (Hafif Medikal Doku) */
+        .bg-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-main font-display antialiased h-screen flex overflow-hidden bg-pattern">
+
+    <aside class="w-80 bg-white/80 backdrop-blur-xl border-r border-border-color flex-shrink-0 flex flex-col h-full hidden md:flex shadow-soft z-20">
+        <div class="p-6 pb-4">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-blue-400 text-white shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">local_hospital</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800 leading-tight">Medinova AI</h1>
+                    <p class="text-xs text-primary font-semibold uppercase tracking-wider mt-0.5">Hasta Portalı</p>
+                </div>
+            </div>
+            <div class="p-4 bg-primary-light rounded-xl border border-blue-100">
+                <p class="text-sm text-slate-600 font-medium">Bu sistem <span class="text-primary font-bold">Gemini 2.5 Pro ,</span> <span class="text-primary font-bold">ChatGpt</span> altyapısı ile çalışmaktadır.</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full relative">
+        <header class="h-20 border-b border-border-color flex items-center justify-between px-6 bg-white/70 backdrop-blur-lg sticky top-0 z-10 shadow-sm">
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-primary border-2 border-primary-light shadow-soft">
+                        <span class="material-symbols-outlined text-[28px]">psychiatry</span>
+                    </div>
+                    <span class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 bg-emerald-400 border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 leading-tight">Dr. Nova (Başhekim)</h2>
+                    <p class="text-sm text-emerald-500 font-medium flex items-center gap-1.5 mt-0.5">
+                        <span class="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                        Çevrimiçi & Dinliyor
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-8 scroll-smooth" id="chat-container">
+            <div class="flex gap-4 max-w-3xl animate-fade-in">
+                <div class="w-10 h-10 rounded-full bg-white flex-shrink-0 flex items-center justify-center text-primary border border-slate-200 shadow-sm mt-1">
+                    <span class="material-symbols-outlined text-[22px]">psychiatry</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="text-xs font-semibold text-slate-400 ml-1">Dr. Nova</span>
+                    <div class="p-4 bg-white border border-slate-100 text-slate-700 rounded-2xl rounded-tl-none leading-relaxed shadow-soft">
+                        <p>Merhaba, ben Medinova Hastanesi yapay zeka asistanı Dr. Nova. Şu an sistemim test aşamasında olduğu için teşhislerim kesin tıbbi tavsiye yerine geçmez. Sizi dinliyorum, şikayetiniz nedir?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading-indicator" class="hidden px-8 pb-4">
+            <div class="flex gap-4 max-w-3xl">
+                <div class="w-10 h-10 rounded-full bg-white flex-shrink-0 flex items-center justify-center text-primary border border-slate-200 shadow-sm mt-1">
+                    <span class="material-symbols-outlined text-[22px]">psychiatry</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="px-5 py-4 bg-white border border-slate-100 rounded-2xl rounded-tl-none shadow-soft w-fit">
+                        <div class="flex gap-1.5">
+                            <span class="w-2.5 h-2.5 bg-primary/40 rounded-full animate-bounce"></span>
+                            <span class="w-2.5 h-2.5 bg-primary/40 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                            <span class="w-2.5 h-2.5 bg-primary/40 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 md:p-6 bg-gradient-to-t from-background-light via-background-light to-transparent">
+            <div class="max-w-4xl mx-auto">
+                <div class="relative flex items-center bg-white border border-slate-200 rounded-full shadow-soft focus-within:ring-4 focus-within:ring-primary/10 focus-within:border-primary transition-all duration-300">
+
+                    <button id="btn-record" class="p-3.5 ml-2 text-slate-400 hover:text-primary transition-colors rounded-full hover:bg-slate-50 flex items-center justify-center" title="Bas Konuş">
+                        <span class="material-symbols-outlined text-[26px]">mic</span>
+                    </button>
+
+                    <input id="txt-input" class="flex-1 bg-transparent border-none focus:ring-0 py-4 px-3 text-slate-700 placeholder-slate-400 text-[15px] outline-none" placeholder="Şikayetinizi yazın veya mikrofona basın..." type="text" autocomplete="off" />
+
+                    <button id="btn-send" class="mr-2 p-3 bg-primary hover:bg-primary-dark text-white rounded-full transition-all duration-300 shadow-md hover:shadow-glow flex items-center justify-center group">
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+                    </button>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-1.5 font-medium">
+                    <span class="material-symbols-outlined text-[14px]">security</span>
+                    Sohbetleriniz uçtan uca şifrelenmektedir. Acil durumlarda 112'yi arayın.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const btnRecord = document.getElementById('btn-record');
+        const btnSend = document.getElementById('btn-send');
+        const txtInput = document.getElementById('txt-input');
+        const chatContainer = document.getElementById('chat-container');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // --- SES KAYIT ---
+        btnRecord.addEventListener('click', async () => {
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        sendToBackend(null, audioBlob);
+                    };
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btnRecord.classList.add('recording-pulse');
+                    txtInput.placeholder = "Dinliyorum... (Bitirmek için tekrar dokunun)";
+                    txtInput.disabled = true; // Kayıt sırasında yazmayı engelle
+                } catch (err) { alert("Mikrofon erişimi sağlanamadı: " + err); }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                btnRecord.classList.remove('recording-pulse');
+                txtInput.placeholder = "Şikayetinizi yazın veya mikrofona basın...";
+                txtInput.disabled = false;
+            }
+        });
+
+        // --- METİN GÖNDERME ---
+        btnSend.addEventListener('click', () => {
+            const text = txtInput.value.trim();
+            if (!text) return;
+            appendUserMessage(text);
+            txtInput.value = "";
+            sendToBackend(text, null);
+        });
+
+        txtInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                btnSend.click();
+            }
+        });
+
+        // --- BACKEND İLETİŞİM ---
+        async function sendToBackend(text, audioBlob) {
+            showLoading(true);
+
+            const formData = new FormData();
+            if (audioBlob) formData.append("audioFile", audioBlob, "rec.wav");
+            if (text) formData.append("userText", text);
+
+            try {
+                // Controller yolunun doğru olduğundan emin ol (örn: /User/Ai/GetResponse)
+                const response = await fetch('/User/Ai/GetResponse', { method: 'POST', body: formData });
+                const data = await response.json();
+
+                showLoading(false);
+
+                if (data.success) {
+                    if (audioBlob) {
+                        appendUserMessage(data.userText);
+                    }
+
+                    setTimeout(() => {
+                        const msgId = appendAiMessage("");
+                        typeWriterEffect(msgId, data.aiResponse);
+
+                        if (data.audioData) {
+                            const audio = new Audio("data:audio/mp3;base64," + data.audioData);
+                            audio.play();
+                        }
+                    }, 400);
+
+                } else {
+                    appendAiMessage("Bir hata oluştu: " + data.message);
+                }
+            } catch (error) {
+                showLoading(false);
+                appendAiMessage("Sunucuya ulaşılamadı. Lütfen internet bağlantınızı kontrol edin.");
+                console.error(error);
+            }
+        }
+
+        // --- UI YARDIMCI FONKSİYONLARI ---
+
+        function appendAiMessage(initialText) {
+            const id = "msg-" + Date.now();
+            // Yapay Zeka Tasarımı: Beyaz Balon + Gölge
+            const html = `
+                <div class="flex gap-4 max-w-3xl">
+                    <div class="w-10 h-10 rounded-full bg-white flex-shrink-0 flex items-center justify-center text-primary border border-slate-200 shadow-sm mt-1">
+                        <span class="material-symbols-outlined text-[22px]">psychiatry</span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-xs font-semibold text-slate-400 ml-1">Dr. Nova</span>
+                        <div class="p-4 bg-white border border-slate-100 text-slate-700 rounded-2xl rounded-tl-none leading-relaxed shadow-soft">
+                            <p id="${id}" class="whitespace-pre-line text-[15px]">${initialText}</p>
+                        </div>
+                    </div>
+                </div>`;
+            chatContainer.insertAdjacentHTML('beforeend', html);
+            scrollToBottom();
+            return id;
+        }
+
+        function appendUserMessage(message) {
+            // Kullanıcı Tasarımı: Mavi/Lacivert Gradyan
+            const html = `
+                <div class="flex gap-4 max-w-3xl ml-auto flex-row-reverse">
+                    <div class="w-10 h-10 rounded-full bg-slate-200 flex-shrink-0 mt-1 overflow-hidden border-2 border-white shadow-sm">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex flex-col gap-1 items-end">
+                        <span class="text-xs font-semibold text-slate-400 mr-1">Siz</span>
+                        <div class="p-4 bg-gradient-to-br from-primary to-blue-600 text-white rounded-2xl rounded-tr-none leading-relaxed shadow-md">
+                            <p class="text-[15px]">${message}</p>
+                        </div>
+                    </div>
+                </div>`;
+            chatContainer.insertAdjacentHTML('beforeend', html);
+            scrollToBottom();
+        }
+
+        function typeWriterEffect(elementId, text) {
+            const element = document.getElementById(elementId);
+            let i = 0;
+            const speed = 20; // Hızlandırıldı (Daha doğal)
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    scrollToBottom();
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function showLoading(show) {
+            loadingIndicator.style.display = show ? "block" : "none";
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html>
