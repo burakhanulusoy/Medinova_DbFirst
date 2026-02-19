@@ -6,71 +6,125 @@
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-    /* Genel Ayarlar */
+    /* Kurumsal Renk Paleti ve Genel Ayarlar */
+    :root {
+        --medical-blue: #1e3a8a;
+        --medical-light: #eff6ff;
+        --text-main: #334155;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --bg-color: #f8fafc;
+        --status-pending: #f59e0b;
+        --status-approved: #059669;
+        --status-rejected: #dc2626;
+    }
+
     body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f8f9fc;
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: var(--bg-color);
     }
 
-    /* Modern Kart Tasarımı */
+    /* Üst Başlık */
+    .page-header {
+        background-color: #fff;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 6px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--medical-blue);
+        margin: 0;
+    }
+
+    /* Kart Tasarımı */
     .appointment-card {
-        background: #ffffff;
-        border: none;
-        border-radius: 16px;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
         position: relative;
-        overflow: hidden;
-        margin-bottom: 24px;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        margin-bottom: 1rem;
+        transition: box-shadow 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
-    .appointment-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-    }
+        .appointment-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
 
-    /* Sol Taraftaki Renkli Şerit */
+    /* Sol Durum Çizgisi */
     .status-strip {
         position: absolute;
         left: 0;
         top: 0;
         bottom: 0;
-        width: 6px;
-        background: #ccc;
+        width: 4px;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
     }
 
-    /* İçerik Düzeni */
+    .status-approved-bg {
+        background-color: var(--status-approved);
+    }
+
+    .status-waiting-bg {
+        background-color: var(--status-pending);
+    }
+
+    .status-rejected-bg {
+        background-color: var(--status-rejected);
+    }
+
     .card-body-custom {
-        padding: 25px;
+        padding: 1.25rem 1.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
+        gap: 1rem;
+        margin-left: 4px; /* Şerit payı */
     }
 
-    /* Tarih Kutusu */
+    /* Tarih Bloğu */
     .date-badge {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: #f1f5f9;
-        border-radius: 12px;
-        width: 70px;
-        height: 70px;
-        margin-right: 20px;
-        color: #64748b;
-        font-weight: 700;
-        line-height: 1.2;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        min-width: 65px;
+        padding: 0.5rem;
+        margin-right: 1.5rem;
     }
 
-    .date-day { font-size: 24px; color: #1e293b; }
-    .date-month { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .date-day {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--medical-blue);
+        line-height: 1;
+    }
 
-    /* Doktor Bilgileri */
+    .date-month {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+    }
+
+    /* Bilgi Alanı */
     .doctor-info-group {
         display: flex;
         align-items: center;
@@ -78,146 +132,169 @@
     }
 
     .info-text h5 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 4px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-main);
+        margin: 0.2rem 0;
     }
 
-    .info-text .dept-text {
-        font-size: 13px;
-        color: #007bff;
+    .dept-text {
+        font-size: 0.75rem;
         font-weight: 600;
+        color: var(--text-muted);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        background: rgba(0, 123, 255, 0.1);
-        padding: 2px 8px;
-        border-radius: 6px;
     }
 
     .time-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 6px;
-        color: #64748b;
-        font-size: 14px;
+        font-size: 0.85rem;
+        color: var(--text-main);
         font-weight: 500;
     }
 
-    /* Buton Grubu */
+    /* Kurumsal Butonlar */
     .action-group {
         display: flex;
-        gap: 12px;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
-    /* Soft Butonlar - İkonlar burada önemli */
-    .btn-soft-primary {
-        background-color: rgba(0, 123, 255, 0.08);
-        color: #007bff;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 14px;
-        transition: all 0.2s ease;
-        text-decoration: none; /* Link olursa altı çizili olmasın */
+    .btn-corporate {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: all 0.2s;
+        text-decoration: none;
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-    }
-    .btn-soft-primary:hover {
-        background-color: #007bff;
-        color: #fff;
-        transform: translateY(-2px);
-        text-decoration: none;
-    }
-
-    .btn-soft-danger {
-        background-color: rgba(220, 53, 69, 0.08);
-        color: #dc3545;
-        border: none;
-        width: 42px; /* Kare olması için */
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 16px;
-        transition: all 0.2s ease;
+        gap: 0.4rem;
+        border: 1px solid transparent;
         cursor: pointer;
     }
-    .btn-soft-danger:hover {
-        background-color: #dc3545;
+
+    .btn-corp-primary {
+        background-color: var(--medical-blue);
         color: #fff;
-        transform: translateY(-2px);
     }
 
-    /* Header Buton */
-    .btn-glow {
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-        color: white;
+        .btn-corp-primary:hover {
+            background-color: #1e40af;
+            color: #fff;
+        }
+
+    .btn-corp-success {
+        background-color: #ecfdf5;
+        color: var(--status-approved);
+        border-color: #a7f3d0;
+    }
+
+        .btn-corp-success:hover {
+            background-color: var(--status-approved);
+            color: #fff;
+        }
+
+    .btn-corp-whatsapp {
+        background-color: #25D366;
+        color: #fff;
+    }
+
+        .btn-corp-whatsapp:hover {
+            background-color: #128C7E;
+            color: #fff;
+        }
+
+    .btn-corp-outline {
+        background-color: #fff;
+        color: var(--text-main);
+        border-color: var(--border-color);
+    }
+
+        .btn-corp-outline:hover {
+            background-color: var(--bg-color);
+            color: var(--medical-blue);
+        }
+
+    .btn-corp-danger {
+        background-color: #fff;
+        color: var(--status-rejected);
+        border-color: #fecaca;
+        padding: 0.4rem 0.75rem;
+    }
+
+        .btn-corp-danger:hover {
+            background-color: #fef2f2;
+        }
+
+    /* Modal Kurumsal */
+    .modal-content-corporate {
+        border-radius: 6px;
         border: none;
-        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        transition: all 0.3s;
-    }
-    .btn-glow:hover {
-        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
-        transform: translateY(-2px);
-        color: white;
-        text-decoration: none;
     }
 
-    /* Modal Kapatma Butonu Özel Tasarımı */
-    .btn-close-custom {
-        background: transparent;
-        border: none;
-        color: white;
-        font-size: 20px;
-        opacity: 0.8;
-        transition: 0.2s;
-        cursor: pointer;
-        outline: none;
+    .modal-header-corporate {
+        background-color: var(--medical-blue);
+        color: #fff;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        padding: 1.25rem 1.5rem;
     }
-    .btn-close-custom:hover {
-        opacity: 1;
-        transform: rotate(90deg);
-    }
-
-    /* Durum Renkleri */
-    .status-approved-bg { background-color: #10b981; }
-    .status-waiting-bg { background-color: #f59e0b; }
 
     @@media (max-width: 768px) {
-        .card-body-custom { flex-direction: column; align-items: flex-start; }
-        .date-badge { margin-bottom: 15px; width: 100%; flex-direction: row; height: 50px; gap: 10px;}
-        .action-group { width: 100%; margin-top: 20px; justify-content: space-between; }
-        .btn-soft-primary, .btn-soft-danger { flex: 1; text-align: center; }
+        .card-body-custom {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .date-badge {
+            flex-direction: row;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+        }
+
+        .action-group {
+            width: 100%;
+            justify-content: flex-start;
+            margin-top: 1rem;
+        }
+
+        .btn-corporate {
+            flex: 1;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
     }
 </style>
 
-<div class="container py-5">
+<div class="container py-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="page-header">
         <div>
-            <h2 class="font-weight-bold text-dark" style="letter-spacing: -0.5px;">Randevularım</h2>
-            <p class="text-muted mb-0">Sağlık takviminizi buradan yönetin.</p>
+            <h1 class="page-title">Randevularım</h1>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">Sağlık takviminizi ve geçmiş işlemlerinizi görüntüleyin.</p>
         </div>
-        <a href="/Default/Index" class="btn btn-glow rounded-pill px-4 py-2">
-            <i class="fas fa-plus me-2"></i>Yeni Randevu
+        <a href="/Default/Index" class="btn-corporate btn-corp-primary px-4 py-2">
+            <i class="fas fa-plus"></i> Yeni Randevu Al
         </a>
     </div>
 
     @if (Model == null || Model.Count == 0)
     {
-        <div class="text-center py-5">
-            <div style="background: #eef2ff; width: 100px; height: 100px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                <i class="far fa-calendar-check" style="font-size: 40px; color: #4f46e5;"></i>
-            </div>
-            <h4 class="font-weight-bold text-dark">Henüz Randevunuz Yok</h4>
-            <p class="text-muted">Sağlığınız için ilk adımı atın ve hemen bir randevu oluşturun.</p>
-            <a href="/Default/Index" class="btn btn-link font-weight-bold">Randevu Al &rarr;</a>
+        <div class="text-center py-5" style="background: #fff; border: 1px solid var(--border-color); border-radius: 6px;">
+            <i class="fas fa-calendar-times mb-3" style="font-size: 3rem; color: #cbd5e1;"></i>
+            <h5 style="color: var(--medical-blue); font-weight: 600;">Kayıtlı Randevunuz Bulunmuyor</h5>
+            <p class="text-muted">Şu anda planlanmış veya geçmiş bir randevu kaydınız bulunmamaktadır.</p>
+            <a href="/Default/Index" class="btn-corporate btn-corp-primary mt-2">Randevu Oluştur</a>
         </div>
     }
     else
@@ -227,16 +304,15 @@
             string day = item.AppointmentDate.HasValue ? item.AppointmentDate.Value.ToString("dd") : "-";
             string month = item.AppointmentDate.HasValue ? item.AppointmentDate.Value.ToString("MMM") : "-";
 
-            string stripClass = (item.IsActive == true) ? "status-approved-bg" : "status-waiting-bg";
-            string statusText = (item.IsActive == true) ? "Onaylandı" : "Bekliyor";
-            string statusIcon = (item.IsActive == true) ? "fa-check-circle" : "fa-clock";
-            string statusColor = (item.IsActive == true) ? "#10b981" : "#f59e0b";
+            string statusText = item.IsActive == null ? "Onay Bekliyor" : (item.IsActive == true ? "Onaylandı" : "Onaylanmadı");
+            string stripClass = item.IsActive == null ? "status-waiting-bg" : (item.IsActive == true ? "status-approved-bg" : "status-rejected-bg");
+            string statusIcon = item.IsActive == null ? "fa-hourglass-half" : (item.IsActive == true ? "fa-check-circle" : "fa-times-circle");
+            string statusColor = item.IsActive == null ? "#f59e0b" : (item.IsActive == true ? "#059669" : "#dc2626");
 
             <div class="appointment-card">
                 <div class="status-strip @stripClass"></div>
 
                 <div class="card-body-custom">
-
                     <div class="doctor-info-group">
                         <div class="date-badge">
                             <span class="date-day">@day</span>
@@ -244,51 +320,58 @@
                         </div>
 
                         <div class="info-text">
-                            <span class="dept-text">
-                                @(item.Doctor?.Department?.Name ?? "GENEL")
-                            </span>
-                            <h5 class="mt-2">Dr. @(item.Doctor?.FullName ?? "Atanmadı")</h5>
+                            <div class="dept-text">
+                                @(item.Doctor?.Department?.Name ?? "BÖLÜM BİLGİSİ YOK")
+                            </div>
+                            <h5>Dr. @(item.Doctor?.FullName ?? "Atanmadı")</h5>
 
-                            <div class="d-flex align-items-center flex-wrap gap-3">
+                            <div class="d-flex align-items-center flex-wrap gap-3 mt-1">
                                 <span class="time-badge">
-                                    <i class="far fa-clock"></i> @item.AppointmentTime
+                                    <i class="far fa-clock text-muted mr-1"></i> @item.AppointmentTime
                                 </span>
-                                <span style="font-size: 12px; font-weight: 700; color: @statusColor; margin-left: 10px;">
-                                    <i class="fas @statusIcon me-1"></i> @statusText
+                                <span style="font-size: 0.8rem; font-weight: 600; color: @statusColor;">
+                                    <i class="fas @statusIcon mr-1"></i> @statusText
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="action-group">
-
+                        @* EĞER ONAYLANDIYSA *@
                         @if (item.IsActive == true)
                         {
-                            @* Url.Action kullanarak linki sistemin oluşturmasını sağlıyoruz *@
                             <a href="@Url.Action("GetQueueTicket", "Appointment", new { area = "User", id = item.AppointmentId })"
                                target="_blank"
-                               class="btn-soft-primary"
-                               style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;">
-                                <i class="fas fa-ticket-alt me-2"></i>Sıra Al
+                               class="btn-corporate btn-corp-success">
+                                <i class="fas fa-ticket-alt"></i> Sıra Al
                             </a>
                         }
 
-                    <a href="@Url.Action("WhatIsYourProblem", "Appointment", new { area = "User", id = item.AppointmentId })"
-                       class="btn btn-outline-info btn-sm rounded-pill shadow-sm">
-                        <i class="fas fa-notes-medical mr-1"></i> Şikayetinizi Belirtin
-                    </a>
+                        @* EĞER ONAYLANMADIYSA (FALSE İSE) WHATSAPP BUTONU *@
+                        @if (item.IsActive == false)
+                        {
+                            <a href="https://wa.me/905055553655?text=Merhabalar%2C%20randevumu%20onaylamam%C4%B1%C5%9Fs%C4%B1n%C4%B1z%20bilgi%20alabilir%20miyim%3F"
+                               target="_blank"
+                               class="btn-corporate btn-corp-whatsapp">
+                                <i class="fab fa-whatsapp"></i> İletişime Geçin
+                            </a>
+                        }
 
-                        <button type="button" class="btn-soft-primary"
-                                onclick="showDetails('@(item.Doctor?.FullName)', '@(item.Doctor?.Department?.Name)', '@item.AppointmentTime', '@item.Description')">
-                            Detaylar
+                        <a href="@Url.Action("WhatIsYourProblem", "Appointment", new { area = "User", id = item.AppointmentId })"
+                           class="btn-corporate btn-corp-outline">
+                            <i class="fas fa-notes-medical text-muted"></i> Şikayet
+                        </a>
+
+                        <button type="button" class="btn-corporate btn-corp-outline"
+                                onclick="showDetails('@(item.Doctor?.FullName)', '@(item.Doctor?.Department?.Name)', '@item.AppointmentTime', '@(string.IsNullOrEmpty(item.Description) ? "" : item.Description.Replace("'", "\\'"))')">
+                            Detay
                         </button>
 
-                        <button type="button" class="btn-soft-danger"
+                        <button type="button" class="btn-corporate btn-corp-danger" title="Randevuyu İptal Et/Sil"
                                 onclick="deleteAppointment(@item.AppointmentId)">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
-
                 </div>
             </div>
         }
@@ -297,78 +380,70 @@
 
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
-            <div class="modal-header border-0 bg-primary text-white p-4 d-flex justify-content-between align-items-start">
-                <div>
-                    <h5 class="modal-title font-weight-bold mb-1">Randevu Detayı</h5>
-                    <p class="mb-0 small opacity-75">Randevu bilgilerinizi aşağıda görebilirsiniz.</p>
-                </div>
-                <button type="button" class="btn-close-custom" data-dismiss="modal" aria-label="Close" onclick="$('#detailModal').modal('hide')">
-                    <i class="fas fa-times"></i>
+        <div class="modal-content modal-content-corporate shadow-sm">
+            <div class="modal-header modal-header-corporate d-flex justify-content-between align-items-center">
+                <h5 class="modal-title mb-0" style="font-weight: 500;">Randevu Detayları</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" onclick="$('#detailModal').modal('hide')" style="opacity: 1; text-shadow: none;">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body p-4">
-                <div class="d-flex align-items-center mb-4">
-                    <div style="width: 50px; height: 50px; background: #eef2ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                        <i class="fas fa-user-md text-primary h5 mb-0"></i>
+                <div class="row border-bottom pb-3 mb-3">
+                    <div class="col-sm-6 mb-2 mb-sm-0">
+                        <small class="text-muted font-weight-bold" style="font-size: 0.75rem;">DOKTOR BİLGİSİ</small>
+                        <div id="modalDoctorName" class="font-weight-bold text-dark mt-1" style="font-size: 1.1rem;"></div>
+                        <div id="modalDeptName" class="text-muted small"></div>
                     </div>
-                    <div>
-                        <small class="text-uppercase text-muted font-weight-bold" style="font-size: 11px;">DOKTOR</small>
-                        <h5 id="modalDoctorName" class="font-weight-bold text-dark mb-0">Dr. Adı</h5>
-                        <span id="modalDeptName" class="text-primary small font-weight-bold">Bölüm</span>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <small class="text-uppercase text-muted font-weight-bold" style="font-size: 11px;">SAAT</small>
-                        <p id="modalTime" class="h6 font-weight-bold text-dark">10:00</p>
+                    <div class="col-sm-6">
+                        <small class="text-muted font-weight-bold" style="font-size: 0.75rem;">RANDEVU SAATİ</small>
+                        <div id="modalTime" class="font-weight-bold text-dark mt-1" style="font-size: 1.1rem;"></div>
                     </div>
                 </div>
 
-                <div class="bg-light p-3 rounded-lg border-0">
-                    <small class="text-uppercase text-muted font-weight-bold mb-2 d-block" style="font-size: 11px;">HASTA NOTU</small>
-                    <p id="modalDesc" class="mb-0 text-dark small">...</p>
+                <div>
+                    <small class="text-muted font-weight-bold" style="font-size: 0.75rem;">HASTA ŞİKAYETİ / NOTU</small>
+                    <div id="modalDesc" class="mt-2 p-3 bg-light rounded" style="font-size: 0.9rem; color: var(--text-main); border: 1px solid var(--border-color);"></div>
                 </div>
             </div>
-            <div class="modal-footer border-0 p-4 bg-light">
-                <button type="button" class="btn btn-secondary rounded-pill px-4 btn-sm font-weight-bold" data-dismiss="modal" onclick="$('#detailModal').modal('hide')">Kapat</button>
+            <div class="modal-footer bg-light border-top-0">
+                <button type="button" class="btn-corporate btn-corp-outline" data-dismiss="modal" onclick="$('#detailModal').modal('hide')">Kapat</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function showDetails(doctorName, deptName, time, desc) {
-        $('#modalDoctorName').text(doctorName);
+        $('#modalDoctorName').text(doctorName ? 'Dr. ' + doctorName : 'Atanmadı');
         $('#modalDeptName').text(deptName);
         $('#modalTime').text(time);
 
-        if (desc && desc !== "") {
+        if (desc && desc.trim() !== "") {
             $('#modalDesc').text(desc);
-            $('#modalDesc').css('font-style', 'normal');
-            $('#modalDesc').css('color', '#333');
+            $('#modalDesc').css({ 'font-style': 'normal', 'color': '#334155' });
         } else {
-            $('#modalDesc').text("Herhangi bir not belirtilmemiş.");
-            $('#modalDesc').css('font-style', 'italic');
-            $('#modalDesc').css('color', '#999');
+            $('#modalDesc').text("Bu randevu için herhangi bir şikayet veya not belirtilmemiş.");
+            $('#modalDesc').css({ 'font-style': 'italic', 'color': '#94a3b8' });
         }
         $('#detailModal').modal('show');
     }
 
     function deleteAppointment(id) {
         Swal.fire({
-            title: 'Emin misiniz?',
-            text: "Bu randevuyu iptal etmek üzeresiniz.",
+            title: 'Randevuyu İptal Et',
+            text: "Bu randevuyu iptal etmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#e2e6ea',
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#64748b',
             confirmButtonText: 'Evet, İptal Et',
-            cancelButtonText: '<span style="color:#555">Vazgeç</span>',
+            cancelButtonText: 'Vazgeç',
             customClass: {
-                popup: 'rounded-4'
+                popup: 'rounded'
             }
         }).then((result) => {
             if (result.isConfirmed) {
@@ -377,6 +452,3 @@
         });
     }
 </script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>

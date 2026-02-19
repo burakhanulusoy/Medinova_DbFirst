@@ -120,7 +120,6 @@ namespace Medinova.Controllers
             appointment.UserId = user.UserId;
             appointment.FullName = user.FirstName + " " + user.LastName;
             appointment.Email = user.Email;
-            appointment.IsActive = false;
 
 
             // Kod doğruysa, kullanıcı kontrolünü tekrar yapmaya gerek yok ama garanti olsun diye bakabilirsin

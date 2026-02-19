@@ -20,7 +20,7 @@ namespace Medinova.Areas.User.Controllers
             int userId=(int)Session["userId"];
             ViewBag.userName =Session["fullName"];
 
-            var myAppointments=_context.Appointments.Where(x=>x.UserId==userId).ToList();
+            var myAppointments=_context.Appointments.Where(x=>x.UserId==userId).OrderBy(x=>x.AppointmentDate).ToList();
             return View(myAppointments);
         }
         public ActionResult GetQueueTicket(int id)

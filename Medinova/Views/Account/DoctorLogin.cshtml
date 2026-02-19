@@ -1,0 +1,149 @@
+﻿@model Medinova.DTOs.LoginDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Medinova - Doktor Portal Girişi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased h-screen w-full overflow-hidden">
+    <div class="flex h-full w-full flex-row">
+        <div class="hidden lg:flex lg:w-1/2 xl:w-5/12 relative flex-col justify-between bg-slate-900 text-white p-12 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img alt="Temiz ve modern hastane koridoru" class="w-full h-full object-cover opacity-40 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpNACouMMnEwzTkma0JIYcMEJwYzzejHPLGVyw5HTDfWcgvXxGhZqcG5LvpDyVmDO8m0IewM4qU2KCgf1MOmIT6BEwXuKYqtmlgsiEzwr4yHLyyixrDdo7crGw6zCtvSPPFS61GfQO7oigNZkuAHCuOfYy08LllEOCYW463cABCi1GRfkjSmdO8YLeuHkaLXP72_zdcP3ygXhAXg2LtWgckK64U0_lIIYAiaHYAY27_DVAZscr_MuRBo4KjT_fApzVfk6VKA-_rx1N" />
+                <div class="absolute inset-0 bg-primary/90 mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 flex items-center gap-3">
+                <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white">
+                    <span class="material-symbols-outlined text-2xl">local_hospital</span>
+                </div>
+                <h2 class="text-xl font-bold tracking-wide">Medinova Hastanesi</h2>
+            </div>
+
+            <div class="relative z-10 mb-8 max-w-lg">
+                <h1 class="text-4xl font-black leading-tight tracking-tight mb-6 text-white">
+                    Sağlıkta <br />Mükemmellik
+                </h1>
+                <p class="text-white/80 text-lg leading-relaxed font-light">
+                    Medinova doktor portalına hoş geldiniz. Hasta kayıtlarına erişin, randevularınızı yönetin ve hastane personeliyle her yerden güvenli bir şekilde iletişim kurun.
+                </p>
+            </div>
+
+            <div class="relative z-10 flex items-center gap-6 text-sm font-medium text-white/60">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">verified_user</span>
+                    <span>KVKK Uyumlu Altyapı</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">lock</span>
+                    <span>256-bit SSL Güvencesi</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-1 flex-col items-center justify-center p-4 sm:p-12 lg:p-24 bg-white dark:bg-slate-900 overflow-y-auto">
+            <div class="w-full max-w-md space-y-8">
+                <div class="lg:hidden flex items-center gap-2 mb-8 text-primary">
+                    <span class="material-symbols-outlined text-3xl">local_hospital</span>
+                    <span class="text-xl font-bold text-slate-900 dark:text-white">Medinova</span>
+                </div>
+
+                <div class="space-y-2">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Doktor Girişi</h2>
+                    <p class="text-slate-500 dark:text-slate-400">Sisteme erişmek için lütfen giriş bilgilerinizi giriniz.</p>
+                </div>
+
+                <form class="space-y-6" method="post">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none text-slate-700 dark:text-slate-300" for="username">
+                            Kullanıcı Adınız
+                        </label>
+                        <div class="relative">
+                            <input name="UserName" class="flex h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-primary/60" id="username" placeholder="Örn: Dr. Ersin" type="text" />
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                                <span class="material-symbols-outlined text-[20px]">person</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-sm font-medium leading-none text-slate-700 dark:text-slate-300" for="password">
+                                Şifreniz
+                            </label>
+                        </div>
+                        <div class="relative group">
+                            <input name="Password" class="flex h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-primary/60 pr-10" id="password" placeholder="••••••••" type="password" />
+                            <button class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none" type="button">
+                                <span class="material-symbols-outlined text-[20px]">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-red-500 text-sm font-medium">@Html.ValidationSummary()</span>
+                        </div>
+                    </div>
+
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-white hover:bg-primary/90 h-12 w-full shadow-lg shadow-primary/20" type="submit">
+                        Giriş Yap
+                    </button>
+                </form>
+
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <span class="w-full border-t border-slate-200 dark:border-slate-800"></span>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white px-2 text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+                            Yardım
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid gap-4">
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 h-11 px-8 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-slate-100 gap-2">
+                        <span class="material-symbols-outlined text-lg text-primary">contact_support</span>
+                        Bilgi İşlem Desteği Al
+                    </button>
+                </div>
+
+                <p class="px-8 text-center text-xs text-slate-500 dark:text-slate-400">
+                    Giriş yaparak hastanemizin
+                    <a class="underline underline-offset-4 hover:text-primary transition-colors" href="#">Hizmet Şartları</a>
+                    ve
+                    <a class="underline underline-offset-4 hover:text-primary transition-colors" href="#">Gizlilik Politikası</a>'nı kabul etmiş olursunuz.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

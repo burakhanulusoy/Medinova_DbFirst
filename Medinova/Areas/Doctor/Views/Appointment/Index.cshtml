@@ -1,8 +1,403 @@
-﻿
+﻿@model List<Medinova.Models.Appointment>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Randevular";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>i am a doctor @ViewBag.fullname</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+    /* Kurumsal Renk Paleti ve Temel Ayarlar */
+    :root {
+        --medical-blue: #1e3a8a; /* Kurumsal Lacivert */
+        --medical-light: #eff6ff;
+        --text-main: #334155;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --bg-color: #f8fafc;
+        --status-pending: #f59e0b;
+        --status-approved: #059669;
+        --status-rejected: #dc2626;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* Üst Başlık Alanı */
+    .page-header {
+        background-color: #fff;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .doctor-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--medical-blue);
+        margin: 0;
+    }
+
+    .date-badge {
+        background-color: var(--medical-light);
+        color: var(--medical-blue);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        border: 1px solid #bfdbfe;
+    }
+
+    /* Profesyonel Kart Tasarımı */
+    .appointment-card {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        transition: box-shadow 0.2s ease-in-out;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        position: relative;
+    }
+
+        .appointment-card:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        }
+
+    /* Sol Durum Çizgisi */
+    .card-border-pending {
+        border-left: 4px solid var(--status-pending);
+    }
+
+    .card-border-approved {
+        border-left: 4px solid var(--status-approved);
+    }
+
+    .card-border-rejected {
+        border-left: 4px solid var(--status-rejected);
+    }
+
+    /* Kart Ana Satırı */
+    .card-header-row {
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    /* Saat Alanı */
+    .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-right: 1.5rem;
+        border-right: 1px solid var(--border-color);
+        min-width: 100px;
+    }
+
+        .time-block .time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .time-block .date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+    /* Hasta Bilgisi */
+    .patient-info {
+        flex: 1;
+        padding-left: 0.5rem;
+    }
+
+        .patient-info .name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.2rem;
+        }
+
+        .patient-info .details {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+    /* Durum Rozetleri (Kurumsal) */
+    .status-badge {
+        padding: 0.35rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-pending {
+        background-color: #fffbeb;
+        color: #b45309;
+        border: 1px solid #fde68a;
+    }
+
+    .badge-approved {
+        background-color: #ecfdf5;
+        color: #047857;
+        border: 1px solid #a7f3d0;
+    }
+
+    .badge-rejected {
+        background-color: #fef2f2;
+        color: #b91c1c;
+        border: 1px solid #fecaca;
+    }
+
+    /* Aksiyon ve Detay Butonları */
+    .action-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .btn-details {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        padding: 0.4rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+    }
+
+        .btn-details:hover {
+            background: var(--bg-color);
+            color: var(--medical-blue);
+        }
+
+    /* Genişleyen Detay Alanı */
+    .card-collapse-area {
+        background-color: #fafbfc;
+        border-top: 1px solid var(--border-color);
+        padding: 1.5rem;
+    }
+
+    .detail-heading {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .complaint-text {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        min-height: 60px;
+    }
+
+    /* Kurumsal Butonlar */
+    .btn-corporate {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: all 0.2s;
+    }
+
+    .btn-corp-success {
+        background-color: var(--status-approved);
+        color: #fff;
+        border: 1px solid var(--status-approved);
+    }
+
+        .btn-corp-success:hover {
+            background-color: #047857;
+            color: #fff;
+        }
+
+    .btn-corp-danger {
+        background-color: var(--status-rejected);
+        color: #fff;
+        border: 1px solid var(--status-rejected);
+    }
+
+        .btn-corp-danger:hover {
+            background-color: #b91c1c;
+            color: #fff;
+        }
+
+    .btn-corp-outline {
+        background-color: #fff;
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+    }
+
+        .btn-corp-outline:hover {
+            background-color: var(--bg-color);
+        }
+
+    /* Boş Durum */
+    .empty-state {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 3rem;
+        text-align: center;
+    }
+</style>
+
+<div class="container mt-4 mb-5">
+
+    <div class="page-header">
+        <div>
+            <h1 class="doctor-title">Sayın Dr. @ViewBag.fullname</h1>
+            <div class="text-muted" style="font-size: 0.9rem; margin-top: 0.2rem;">Randevu ve Hasta Yönetim Paneli</div>
+        </div>
+        <div class="date-badge">
+            <i class="far fa-calendar-alt mr-2"></i> @DateTime.Now.ToString("dd MMMM yyyy, dddd")
+        </div>
+    </div>
+
+    <div class="appointment-list">
+        @foreach (var item in Model)
+        {
+            string borderClass = item.IsActive == null ? "card-border-pending" : (item.IsActive == true ? "card-border-approved" : "card-border-rejected");
+            string badgeClass = item.IsActive == null ? "badge-pending" : (item.IsActive == true ? "badge-approved" : "badge-rejected");
+            string statusIcon = item.IsActive == null ? "fa-hourglass-half" : (item.IsActive == true ? "fa-check-circle" : "fa-times-circle");
+            string statusText = item.IsActive == null ? "Onay Bekliyor" : (item.IsActive == true ? "Onaylandı" : "İptal Edildi");
+            string displayDate = item.AppointmentDate != null ? Convert.ToDateTime(item.AppointmentDate).ToString("dd.MM.yyyy") : "-";
+
+            <div class="appointment-card @borderClass">
+                <div class="card-header-row">
+
+                    <div class="time-block">
+                        <div class="time">@item.AppointmentTime</div>
+                        <div class="date">@displayDate</div>
+                    </div>
+
+                    <div class="patient-info">
+                        <div class="name">@item.User.FirstName @item.User.LastName</div>
+                        <div class="details">
+                            <span><i class="fas fa-phone-alt text-muted mr-1"></i> @item.PhoneNumber</span>
+                            <span><i class="fas fa-envelope text-muted mr-1"></i> @item.Email</span>
+                        </div>
+                    </div>
+
+                    <div class="action-group">
+                        <span class="status-badge @badgeClass">
+                            <i class="fas @statusIcon mr-1"></i> @statusText
+                        </span>
+
+                        <button class="btn btn-details" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@item.AppointmentId" data-toggle="collapse" data-target="#collapse_@item.AppointmentId">
+                            Detaylar <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="collapse_@item.AppointmentId" class="collapse">
+                    <div class="card-collapse-area">
+                        <div class="row">
+                            <div class="col-md-8 mb-3 mb-md-0">
+                                <div class="detail-heading">Hasta Şikayeti / Ek Notlar</div>
+                                <div class="complaint-text">
+                                    @(string.IsNullOrWhiteSpace(item.Description) ? "Hasta tarafından belirtilen ek bir not bulunmamaktadır." : item.Description)
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 d-flex flex-column justify-content-end align-items-md-end">
+                                <div class="detail-heading mb-2 w-100 text-md-right text-left">İşlemler</div>
+                                <div class="d-flex gap-2">
+                                    @if (item.IsActive is null)
+                                    {
+                                        <button onclick="confirmAction(event, '/Doctor/Appointment/ConfirmNo/@item.AppointmentId', 'reject')" class="btn btn-corporate btn-corp-danger mr-2">
+                                            <i class="fas fa-times"></i> Reddet
+                                        </button>
+                                        <button onclick="confirmAction(event, '/Doctor/Appointment/ConfirmYes/@item.AppointmentId', 'approve')" class="btn btn-corporate btn-corp-success">
+                                            <i class="fas fa-check"></i> Onayla
+                                        </button>
+                                    }
+                                    else if (item.IsActive == true)
+                                    {
+                                        <button onclick="confirmAction(event, '/Doctor/Appointment/ConfirmNo/@item.AppointmentId', 'reject')" class="btn btn-corporate btn-corp-outline">
+                                            <i class="fas fa-ban text-danger"></i> İptal Et
+                                        </button>
+                                    }
+                                    else if (item.IsActive == false)
+                                    {
+                                        <button onclick="confirmAction(event, '/Doctor/Appointment/ConfirmYes/@item.AppointmentId', 'approve')" class="btn btn-corporate btn-corp-outline">
+                                            <i class="fas fa-undo text-success"></i> Geri Al (Onayla)
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <i class="fas fa-clipboard-list mb-3" style="font-size: 3rem; color: #cbd5e1;"></i>
+                <h5 style="color: var(--medical-blue); font-weight: 600;">Kayıtlı Randevu Bulunamadı</h5>
+                <p class="text-muted mb-0">Seçili tarih aralığında sistemde bekleyen veya onaylanmış bir randevunuz bulunmamaktadır.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function confirmAction(e, url, actionType) {
+        e.preventDefault();
+
+        // Kurumsal renklere uygun SweetAlert ayarlamaları
+        let titleText = actionType === 'approve' ? 'Randevuyu Onayla' : 'Randevuyu Reddet/İptal Et';
+        let textMsg = actionType === 'approve' ? 'Bu randevuyu onaylamak istediğinize emin misiniz?' : 'Bu randevuyu iptal etmek istediğinize emin misiniz? Hastaya bilgi iletilecektir.';
+        let confirmBtnColor = actionType === 'approve' ? '#059669' : '#dc2626';
+
+        Swal.fire({
+            title: titleText,
+            text: textMsg,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: confirmBtnColor,
+            cancelButtonColor: '#64748b',
+            confirmButtonText: actionType === 'approve' ? 'Evet, Onayla' : 'Evet, İptal Et',
+            cancelButtonText: 'Vazgeç',
+            customClass: {
+                popup: 'rounded-lg'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'İşlem Uygulanıyor',
+                    text: 'Lütfen bekleyiniz...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                window.location.href = url;
+            }
+        });
+    }
+</script>

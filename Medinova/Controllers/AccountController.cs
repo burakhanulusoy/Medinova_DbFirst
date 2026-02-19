@@ -49,10 +49,6 @@ namespace Medinova.Controllers
             }else if(user.RoleId==1)
             {
                 return RedirectToAction("Index", "About", new { area = "User" });
-            }else if(user.RoleId==3)
-            {
-                return RedirectToAction("Index", "Appointment", new { area = "Doctor" });
-
             }
             return View(model);
 
@@ -134,9 +130,49 @@ namespace Medinova.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult DoctorLogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DoctorLogin(LoginDto model)
+        {
+
+            var doctor=_context.Doctors.Where(x=>x.UserName==model.UserName && x.Password==model.Password).FirstOrDefault();
+
+            if(doctor is null)
+            {
+                ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı.");
+                return View(model);
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+
+            }
+
+            FormsAuthentication.SetAuthCookie(doctor.UserName, false);
+            Session["fullName"] = doctor.FullName;
+            Session["DoctorId"] = doctor.DoctorId;
+            return RedirectToAction("Index", "Appointment", new { area="Doctor"});
 
 
 
+
+        }
+
+
+        public ActionResult DoctorLogout()
+        {
+
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index", "Default");
+
+
+        }
 
 
 

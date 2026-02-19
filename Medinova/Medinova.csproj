@@ -166,6 +166,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\DltController.cs" />
     <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\AboutController.cs" />
     <Compile Include="Areas\User\Controllers\AiController.cs" />
@@ -966,12 +967,14 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="secrets.config" />
+    <Content Include="Views\Account\DoctorLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Doctor\Data\" />
+    <Folder Include="Areas\Doctor\Views\Dlt\" />
     <Folder Include="Areas\Doctor\Views\Shared\" />
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Views\Shared\" />
