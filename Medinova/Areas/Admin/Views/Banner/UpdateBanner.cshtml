@@ -1,0 +1,77 @@
+﻿@model Medinova.Models.Banner
+@{
+    // Sayfa başlığını "Banner Güncelle" olarak değiştirdik
+    ViewBag.Title = "Banner Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Banner Güncelle</h6>
+    </div>
+    <div class="card-body">
+        <form id="updateBannerForm" method="post" action="/Admin/Banner/UpdateBanner">
+
+            <input type="hidden" name="BannerId" value="@Model.BannerId" />
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">Başlık Adı</label>
+                <input type="text" name="Title" class="form-control" value="@Model.Title" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">Açıklama</label>
+                <input type="text" name="Description" class="form-control" value="@Model.Description" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label class="font-weight-bold">Başlık Fotoğraf Url'i</label>
+                <input type="url" name="ImageUrl" class="form-control" value="@Model.ImageUrl" required />
+            </div>
+
+            <button id="btnUpdate" class="btn btn-primary" type="button">
+                Değişiklikleri Kaydet
+            </button>
+            <a href="/Admin/Banner" class="btn btn-secondary">
+                Vazgeç ve Listeye Dön
+            </a>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnUpdate = document.getElementById('btnUpdate');
+        const form = document.getElementById('updateBannerForm');
+
+        btnUpdate.addEventListener('click', function () {
+
+            // Eğer boş alan varsa tarayıcının uyarı vermesini sağla
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Boş alan yoksa SweetAlert güncelleme onayını çıkar
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Banner üzerindeki değişiklikleri kaydetmek istediğinize emin misiniz?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#4e73df', // Bootstrap Primary (Mavi)
+                cancelButtonColor: '#858796', // Bootstrap Secondary (Gri)
+                confirmButtonText: 'Evet, Güncelle!',
+                cancelButtonText: 'Vazgeç',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kullanıcı evet derse formu gönder
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

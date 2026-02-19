@@ -165,6 +165,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Doctor\Controllers\DltController.cs" />
     <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
@@ -280,6 +281,9 @@
     <Content Include="Areas\User\Views\Ai\Index.cshtml" />
     <Content Include="Areas\Doctor\Views\web.config" />
     <Content Include="Areas\Doctor\Views\Appointment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\CreateBanner.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\UpdateBanner.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
