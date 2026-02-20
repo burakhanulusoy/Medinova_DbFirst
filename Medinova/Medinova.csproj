@@ -208,7 +208,7 @@
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
-    <Compile Include="Areas\Doctor\Controllers\DltController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\PasswordController.cs" />
     <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\AboutController.cs" />
     <Compile Include="Areas\User\Controllers\AiController.cs" />
@@ -219,6 +219,7 @@
     <Compile Include="Areas\Admin\Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTOs\AppointmentAvailabilityDto.cs" />
+    <Compile Include="DTOs\ChangePassword.cs" />
     <Compile Include="DTOs\ComplainData.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\RegisterDto.cs" />
@@ -333,6 +334,7 @@
     <Content Include="Areas\Admin\Views\Doctor\CreateDoctor.cshtml" />
     <Content Include="Areas\Admin\Views\Doctor\UpdateDoctor.cshtml" />
     <Content Include="Areas\Admin\Views\Doctor\DoctorDetail.cshtml" />
+    <Content Include="Areas\Doctor\Views\Password\ChangePassword.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1027,7 +1029,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Doctor\Data\" />
-    <Folder Include="Areas\Doctor\Views\Dlt\" />
     <Folder Include="Areas\Doctor\Views\Shared\" />
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Views\Shared\" />

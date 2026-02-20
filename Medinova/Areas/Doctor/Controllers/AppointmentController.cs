@@ -6,13 +6,16 @@ namespace Medinova.Areas.Doctor.Controllers
 {
     public class AppointmentController : Controller
     {
+
+
+
         MedinovaContext _context = new MedinovaContext();
         // GET: Doctor/Appointment
         public ActionResult Index()
         {
             if (Session["DoctorId"] == null)
             {
-                
+
                 return RedirectToAction("DoctorLogin", "Account");
             }
 
@@ -20,8 +23,8 @@ namespace Medinova.Areas.Doctor.Controllers
             ViewBag.fullname = Session["fullName"];
             int doctorId = int.Parse(Session["DoctorId"].ToString());
             var appointmentsOfDoctor = _context.Appointments.Where(x => x.DoctorId == doctorId)
-                                                            .OrderBy(x=>x.AppointmentDate)
-                                                            .ThenBy(x=>x.AppointmentTime).ToList();
+                                                            .OrderBy(x => x.AppointmentDate)
+                                                            .ThenBy(x => x.AppointmentTime).ToList();
             return View(appointmentsOfDoctor);
         }
 
@@ -48,9 +51,6 @@ namespace Medinova.Areas.Doctor.Controllers
 
 
         }
-
-
-
 
 
 
