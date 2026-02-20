@@ -1,16 +1,98 @@
-﻿
+﻿@model List<Medinova.Models.About>
 
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h2>Admin About Kısımı</h2>
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Hakkımzda Yönetimi</h6>
+        <a href="/Admin/About/CreateAbout" class="btn btn-success btn-sm">
+            Yeni Hakkımızda Bilgisi Ekle
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="width: 50px">#</th>
+                        <th>Başlık</th>
+                        <th>Açıklama</th>
+                        <th>Fotoğraf</th>
+                        <th class="text-center" style="width: 200px">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr id="row-@item.AboutId">
+                                <td class="font-weight-bold">@count</td>
+                                <td>@item.Title</td>
+                                <td>@item.Description</td>
+                                <td>
+                                    <img src="@item.ImageUrl" class="rounded shadow-sm" style="width:100px; height:60px; object-fit: cover;" />
+                                </td>
+                                <td class="text-center">
+                                    <div style="display: flex; justify-content: center; gap: 8px;">
+                                        <a href="/Admin/About/UpdateAbout/@item.AboutId" class="btn btn-outline-primary btn-sm" style="min-width: 75px;">
+                                            Güncelle
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="@item.AboutId" data-title="@item.Title" style="min-width: 75px;">
+                                            Sil
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                Henüz hakkımzda bilgisi bulunmamaktadır.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<table class="table table-bordered table-hover">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
 
-</table>
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const title = this.getAttribute('data-title');
 
-
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    html: `<b>"${title}"</b> başlıklı banner silinecektir.<br/>Bu işlem geri alınamaz!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, Sil!',
+                    cancelButtonText: 'Vazgeç',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/Admin/About/DeleteAbout/" + id;
+                    }
+                });
+            });
+        });
+    });
+</script>

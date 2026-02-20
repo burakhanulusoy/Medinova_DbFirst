@@ -1,0 +1,74 @@
+﻿@model Medinova.Models.About
+@{
+    ViewBag.Title = "CreateAbout";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Yeni Hakkımzda Bilgisi Ekle</h6>
+    </div>
+    <div class="card-body">
+        <form id="createAboutForm" method="post">
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">Başlık Adı</label>
+                <input type="text" name="Title" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">Açıklama</label>
+                <textarea name="Description" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group mb-4">
+                <label class="font-weight-bold">Başlık Fotoğraf Url'i</label>
+                <input type="url" name="ImageUrl" class="form-control" placeholder="https://..." required />
+            </div>
+
+            <button id="btnSubmit" class="btn btn-success" type="button">
+                Kaydet
+            </button>
+            <a href="/Admin/About" class="btn btn-secondary">
+                Vazgeç ve Listeye Dön
+            </a>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnSubmit = document.getElementById('btnSubmit');
+        const form = document.getElementById('createAboutForm');
+
+        btnSubmit.addEventListener('click', function () {
+
+            // Eğer boş alan varsa (required) önce tarayıcının kendi uyarısını ver
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Boş alan yoksa SweetAlert onay penceresini çıkar
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Yeni hakkımzda kaydetmek istediğinize emin misiniz?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1cc88a', // Success yeşili
+                cancelButtonColor: '#858796', // Secondary grisi
+                confirmButtonText: 'Evet, Kaydet!',
+                cancelButtonText: 'Vazgeç',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kullanıcı evet derse formu gönder
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
