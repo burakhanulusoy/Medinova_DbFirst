@@ -1,0 +1,363 @@
+﻿@model List<Medinova.Models.Appointment>
+@{
+    ViewBag.Title = "Hekim Randevu Detayları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    // İstatistik Hesaplamaları
+    int totalAppointments = Model.Count();
+    int completed = ViewBag.CompAppointments != null ? (int)ViewBag.CompAppointments : 0;
+    int waiting = ViewBag.ApproveWaiting != null ? (int)ViewBag.ApproveWaiting : 0;
+    int cancelled = totalAppointments - (completed + waiting);
+
+    string doctorName = Model.FirstOrDefault()?.Doctor?.FullName ?? "Seçili Hekim";
+    string doctorImage = Model.FirstOrDefault()?.Doctor?.ImageUrl ?? "/Images/default-avatar.png";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<style>
+    /* Kurumsal Arka Plan */
+    body {
+        background-color: #f4f7fa;
+    }
+
+    /* Temel Kart Yapısı */
+    .clinic-card {
+        background: #ffffff;
+        border: 1px solid #e1e5eb;
+        border-radius: 4px; /* Keskin köşeler */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        margin-bottom: 20px;
+    }
+
+    /* Profil Başlık (Dosya Hissiyatı) */
+    .profile-header-card {
+        border-left: 5px solid #0f2c59; /* Hastane Laciverti Çizgi */
+    }
+
+    .doctor-avatar-formal {
+        width: 70px;
+        height: 85px;
+        object-fit: cover;
+        border-radius: 3px;
+        border: 1px solid #ced4da;
+        padding: 2px;
+        background-color: #fff;
+    }
+
+    .btn-return {
+        background-color: #f8f9fa;
+        color: #0f2c59;
+        font-weight: 600;
+        border: 1px solid #ced4da;
+        border-radius: 3px;
+        transition: all 0.2s;
+    }
+
+        .btn-return:hover {
+            background-color: #e2e6ea;
+        }
+
+    /* Resmi İstatistik Kutuları */
+    .stat-box {
+        background: #ffffff;
+        border: 1px solid #e1e5eb;
+        border-radius: 4px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        border-top: 3px solid #ced4da; /* Üst Çizgi Varsayılan */
+    }
+
+        .stat-box.border-total {
+            border-top-color: #007bff;
+        }
+
+        .stat-box.border-approved {
+            border-top-color: #198754;
+        }
+
+        .stat-box.border-waiting {
+            border-top-color: #ffc107;
+        }
+
+        .stat-box.border-cancelled {
+            border-top-color: #dc3545;
+        }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 0;
+    }
+
+    .stat-icon {
+        font-size: 2.2rem;
+        opacity: 0.15;
+    }
+
+    /* Tablo Üst Başlığı */
+    .clinic-header {
+        background-color: #0f2c59;
+        border-bottom: 3px solid #007bff;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 4px 4px 0 0;
+    }
+
+    /* Tablo Tasarımı */
+    .clinic-table {
+        width: 100%;
+        margin-bottom: 0;
+        color: #2c3e50;
+    }
+
+        .clinic-table thead th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #dee2e6;
+            padding: 12px 15px;
+        }
+
+        .clinic-table tbody td {
+            vertical-align: middle;
+            font-size: 0.9rem;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .clinic-table tbody tr:hover {
+            background-color: #f1f4f8;
+        }
+
+    /* Durum Rozetleri (Keskin ve Resmi) */
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        border: 1px solid transparent;
+    }
+
+    .badge-completed {
+        background-color: #e6f8f0;
+        color: #198754;
+        border-color: #c3e6cb;
+    }
+
+    .badge-waiting {
+        background-color: #fff8e5;
+        color: #856404;
+        border-color: #ffeeba;
+    }
+
+    .badge-cancelled {
+        background-color: #fceceb;
+        color: #dc3545;
+        border-color: #f5c6cb;
+    }
+
+    /* Zaman Etiketi (Klinik Takvim Görünümü) */
+    .time-slot {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 3px;
+        padding: 6px;
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .complaint-text {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+    }
+</style>
+
+<div class="container-fluid mt-4 mb-5">
+
+    <div class="clinic-card profile-header-card p-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <img src="@doctorImage" alt="@doctorName" class="doctor-avatar-formal me-4 shadow-sm" />
+            <div>
+                <h4 class="mb-1 fw-bold" style="color: #0f2c59;">@doctorName</h4>
+                <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                    <i class="fas fa-file-signature me-1"></i> Performans ve Randevu İstatistik Raporu
+                </p>
+            </div>
+        </div>
+        <div>
+            <a href="/Admin/Doctor/Index" class="btn btn-sm btn-return px-3 shadow-sm">
+                <i class="fas fa-arrow-left me-1"></i> Kadro Listesine Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-box border-total shadow-sm">
+                <div>
+                    <h3 class="stat-value" style="color: #007bff;">@totalAppointments</h3>
+                    <p class="stat-label">TOPLAM RANDEVU</p>
+                </div>
+                <i class="fas fa-users stat-icon" style="color: #007bff;"></i>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-box border-approved shadow-sm">
+                <div>
+                    <h3 class="stat-value" style="color: #198754;">@completed</h3>
+                    <p class="stat-label">ONAYLANAN KAYIT</p>
+                </div>
+                <i class="fas fa-check-square stat-icon" style="color: #198754;"></i>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-box border-waiting shadow-sm">
+                <div>
+                    <h3 class="stat-value" style="color: #ffc107;">@waiting</h3>
+                    <p class="stat-label">BEKLEYEN İŞLEM</p>
+                </div>
+                <i class="fas fa-clock stat-icon" style="color: #ffc107;"></i>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-box border-cancelled shadow-sm">
+                <div>
+                    <h3 class="stat-value" style="color: #dc3545;">@cancelled</h3>
+                    <p class="stat-label">İPTAL / RET</p>
+                </div>
+                <i class="fas fa-ban stat-icon" style="color: #dc3545;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="clinic-card">
+        <div class="clinic-header d-flex justify-content-between align-items-center">
+            <h6 class="m-0" style="font-weight: 600; font-size: 1rem;">
+                <i class="fas fa-list-alt me-2 opacity-75"></i>RANDEVU DÖKÜM LİSTESİ
+            </h6>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table clinic-table text-center mb-0">
+                <thead>
+                    <tr>
+                        <th width="5%">Sıra</th>
+                        <th width="18%" class="text-start">Hasta Adı Soyadı</th>
+                        <th width="15%">İletişim Bilgileri</th>
+                        <th width="15%">Planlanan Tarih/Saat</th>
+                        <th width="32%" class="text-start">Şikayet / Ön Tanı Açıklaması</th>
+                        <th width="15%">Mevcut Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int rowNum = 1;
+                        foreach (var item in Model.OrderByDescending(x => x.AppointmentDate))
+                        {
+                            <tr>
+                                <td class="fw-bold text-muted">@rowNum.ToString("D3")</td>
+
+                                <td class="text-start fw-bold" style="color: #0f2c59;">@item.FullName</td>
+
+                                <td>
+                                    <div style="font-size: 0.85rem;">
+                                        <div><i class="fas fa-phone-alt text-muted me-1"></i> @item.PhoneNumber</div>
+                                        <div class="text-muted mt-1"><i class="fas fa-envelope me-1"></i> @item.Email</div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="time-slot shadow-sm text-start">
+                                        <div><i class="far fa-calendar-alt text-primary me-1"></i> @Convert.ToDateTime(item.AppointmentDate).ToString("dd.MM.yyyy")</div>
+                                        <div class="mt-1 border-top pt-1"><i class="far fa-clock text-danger me-1"></i> @item.AppointmentTime</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-start text-muted">
+                                    @{
+                                        var urgencyDict = ViewBag.UrgencyDict as Dictionary<int, bool>;
+                                        bool isUrgent = urgencyDict != null && urgencyDict.ContainsKey(item.AppointmentId) && urgencyDict[item.AppointmentId];
+                                    }
+
+                                    @if (isUrgent)
+                                    {
+                                        <div class="mb-1">
+                                            <span class="badge" style="background-color: #dc3545; color: white; font-size: 0.70rem; padding: 4px 8px; border-radius: 3px;">
+                                                <i class="fas fa-exclamation-triangle me-1"></i> YAPAY ZEKA: ACİL VAKA
+                                            </span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mb-1">
+                                            <span class="badge" style="background-color: #f8f9fa; color: #198754; border: 1px solid #198754; font-size: 0.70rem; padding: 3px 8px; border-radius: 3px;">
+                                                <i class="fas fa-info-circle me-1"></i> YAPAY ZEKA: NORMAL
+                                            </span>
+                                        </div>
+                                    }
+
+                                    <div class="complaint-text" title="@item.Description">
+                                        <i class="fas fa-notes-medical text-secondary opacity-50 me-1"></i> @item.Description
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @if (item.IsActive == true)
+                                    {
+                                        <span class="status-badge badge-completed"><i class="fas fa-check me-1"></i> ONAYLANDI</span>
+                                    }
+                                    else if (item.IsActive == null)
+                                    {
+                                        <span class="status-badge badge-waiting"><i class="fas fa-circle-notch fa-spin me-1"></i> BEKLEMEDE</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge badge-cancelled"><i class="fas fa-times me-1"></i> İPTAL EDİLDİ</span>
+                                    }
+                                </td>
+                            </tr>
+                            rowNum++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <i class="fas fa-file-medical-alt fa-3x text-muted opacity-25 mb-3"></i>
+                                <h6 class="text-dark fw-bold">Bu Hekime Ait Randevu Kaydı Bulunmamaktadır.</h6>
+                                <p class="text-muted small">Kayıtlar sisteme işlendiğinde bu alanda raporlanacaktır.</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

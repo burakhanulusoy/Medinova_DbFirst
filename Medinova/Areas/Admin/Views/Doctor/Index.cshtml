@@ -1,0 +1,311 @@
+﻿@model List<Medinova.Models.Doctor>
+@{
+    ViewBag.Title = "Hekim Kadrosu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<style>
+    /* Genel Kart ve Animasyonlar */
+    .hospital-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        overflow: hidden; /* Köşelerin yuvarlak kalması için */
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gradient (Geçişli) Üst Başlık - Canlı ama Resmi */
+    .card-header-gradient {
+        background: linear-gradient(135deg, #1a365d 0%, #254b85 100%);
+        color: white;
+        border-bottom: none;
+    }
+
+    /* Tablo Güzelleştirmeleri */
+    .hospital-table thead th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.8px;
+        border-bottom: 2px solid #e2e8f0;
+        padding: 15px 10px;
+    }
+
+    .hospital-table tbody td {
+        vertical-align: middle;
+        font-size: 0.95rem;
+        color: #334155;
+        padding: 12px 10px;
+        transition: all 0.2s ease;
+    }
+
+    /* Satır Hover (Üzerine Gelme) Efekti - Hissiyatı artırır */
+    .doctor-row {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .doctor-row:hover {
+        background-color: #f8fafc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Avatar ve Etiketler */
+    .doctor-avatar {
+        width: 55px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #fff;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .doctor-row:hover .doctor-avatar {
+        transform: scale(1.05);
+    }
+
+    .badge-clinical {
+        background-color: #e0f2fe; /* Çok açık mavi */
+        color: #0369a1; /* Koyu profesyonel mavi */
+        border: 1px solid #bae6fd;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+
+    /* Arama Kutusu ve Butonlar */
+    .search-input {
+        border-radius: 0 6px 6px 0;
+        border: 1px solid #e2e8f0;
+        border-left: none;
+        box-shadow: none !important;
+    }
+    .search-input:focus {
+        border-color: #cbd5e1;
+    }
+    .search-icon-box {
+        border-radius: 6px 0 0 6px;
+        border: 1px solid #e2e8f0;
+        border-right: none;
+        background-color: #fff;
+    }
+
+    .btn-action {
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    .btn-action:hover {
+        transform: translateY(-1px);
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <div class="card hospital-card">
+
+        <div class="card-header card-header-gradient d-flex justify-content-between align-items-center py-3 px-4">
+            <h5 class="m-0 text-white" style="font-weight: 600;">
+                <i class="fas fa-user-md me-2 opacity-75"></i>Hekim Kadrosu Yönetimi
+            </h5>
+            <a href="/Admin/Doctor/CreateDoctor" class="btn btn-light btn-sm px-3 py-2 text-primary shadow-sm" style="font-weight: 600; border-radius: 6px;">
+                <i class="fas fa-plus me-1"></i> Yeni Hekim Kaydı
+            </a>
+        </div>
+
+        <div class="card-body bg-white border-bottom py-3 px-4">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text search-icon-box text-muted"><i class="fas fa-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Hekim adı, tıbbi birim veya kelime ara...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table hospital-table mb-0 text-center" id="doctorTable">
+                    <thead>
+                        <tr>
+                            <th width="5%">Sıra</th>
+                            <th width="10%">Fotoğraf</th>
+                            <th width="22%" class="text-left">Hekim Adı Soyadı</th>
+                            <th width="18%">Tıbbi Birim</th>
+                            <th width="20%" class="text-left">Özgeçmiş Özeti</th>
+                            <th width="25%">Yönetim İşlemleri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="doctor-row">
+                                <td class="font-weight-bold text-muted">@count</td>
+
+                                <td>
+                                    <img src="@item.ImageUrl" alt="@item.FullName" class="doctor-avatar" />
+                                </td>
+
+                                <td class="text-left doctor-name" style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">
+                                    @item.FullName
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-clinical shadow-sm">
+                                        <i class="fas fa-stethoscope me-1 opacity-50"></i> @item.Department.Name
+                                    </span>
+                                </td>
+
+                                <td class="text-left text-muted" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@item.Description">
+                                    @item.Description
+                                </td>
+
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="/Admin/Doctor/DoctorDetail/@item.DoctorId" class="btn btn-light border btn-sm btn-action text-secondary" title="Dosyayı İncele">
+                                            <i class="fas fa-folder-open"></i>
+                                        </a>
+                                        <a href="/Admin/Doctor/UpdateDoctor/@item.DoctorId" class="btn btn-light border btn-sm btn-action text-primary" title="Bilgileri Güncelle">
+                                            <i class="fas fa-pen"></i> Düzenle
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger btn-sm btn-action btn-delete" data-id="@item.DoctorId" data-title="@item.FullName" title="Sistemden Sil">
+                                            <i class="fas fa-trash-alt"></i> Sil
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-file-medical-alt fa-2x text-secondary opacity-50"></i>
+                        </div>
+                        <h6 class="text-dark" style="font-weight: 600;">Sistemde Kayıtlı Hekim Bulunmamaktadır.</h6>
+                        <p class="text-muted small">Yukarıdaki butonu kullanarak sisteme yeni hekim tanımı yapabilirsiniz.</p>
+                    </div>
+                }
+
+                <div id="noResultMessage" class="text-center py-5" style="display: none;">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-search fa-2x text-warning"></i>
+                    </div>
+                    <h6 class="text-dark" style="font-weight: 600;">Aradığınız kritere uygun hekim bulunamadı.</h6>
+                    <p class="text-muted small">Lütfen arama terimini değiştirerek tekrar deneyin.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+            Swal.fire({
+                icon: 'success',
+                title: 'İşlem Başarılı!',
+                text: '@TempData["SuccessMessage"]',
+                showConfirmButton: false, // Okeye basmaya gerek yok
+                timer: 5000, // 2 saniye ekranda kalır ve kaybolur
+                toast: true, // Ekranın ortasını kaplamak yerine sağ üstte zarifçe çıkar
+                position: 'top-end',
+                background: '#f0fdf4',
+                color: '#166534',
+                iconColor: '#22c55e',
+                customClass: {
+                    popup: 'colored-toast'
+                }
+            });
+            </text>
+        }
+
+
+
+
+        // 1. CANLI ARAMA SCRİPTİ
+        const searchInput = document.getElementById('searchInput');
+        const rows = document.querySelectorAll('.doctor-row');
+        const noResultMessage = document.getElementById('noResultMessage');
+
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function () {
+                let filter = this.value.toLowerCase();
+                let visibleRowCount = 0;
+
+                rows.forEach(row => {
+                    let rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(filter)) {
+                        row.style.display = '';
+                        // Arama yaparken animasyonu tetiklemek için ufak bir hile
+                        row.style.animation = 'fadeIn 0.3s ease-in-out';
+                        visibleRowCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                if (visibleRowCount === 0 && rows.length > 0) {
+                    noResultMessage.style.display = 'block';
+                } else {
+                    noResultMessage.style.display = 'none';
+                }
+            });
+        }
+
+        // 2. SİLME ONAY SCRİPTİ
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const title = this.getAttribute('data-title');
+
+                Swal.fire({
+                    title: 'Silme İşlemi Onayı',
+                    html: `Sayın <b>${title}</b> isimli hekimin sistem kayıtları tamamen silinecektir.<br/><br/><span style="font-size: 0.85em; color: #64748b; background: #f8fafc; padding: 8px; border-radius: 4px; display: block;">Bu işlem geri alınamaz ve randevu/hasta geçmişi etkilenebilir. Onaylıyor musunuz?</span>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444', // Daha canlı kırmızı
+                    cancelButtonColor: '#1e293b', // Koyu kurumsal gri/lacivert
+                    confirmButtonText: '<i class="fas fa-check me-1"></i> Kayıtları Sil',
+                    cancelButtonText: '<i class="fas fa-times me-1"></i> İptal Et',
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-3 shadow-lg',
+                        confirmButton: 'rounded-2 px-4',
+                        cancelButton: 'rounded-2 px-4'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/Admin/Doctor/DeleteDoctor/" + id;
+                    }
+                });
+            });
+        });
+    });
+</script>
