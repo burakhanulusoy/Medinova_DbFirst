@@ -208,6 +208,7 @@
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestimonialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Doctor\Controllers\PasswordController.cs" />
     <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
@@ -345,6 +346,9 @@
     <Content Include="Areas\User\Views\Testimonial\CreateTestimonial.cshtml" />
     <Content Include="Areas\Admin\Views\Testimonial\Index.cshtml" />
     <Content Include="Areas\User\Views\PasswordSettings\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Testimonial\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

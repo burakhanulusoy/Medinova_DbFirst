@@ -1,0 +1,80 @@
+﻿@model List<Medinova.Models.Testimonial>
+
+@{
+    ViewBag.Title = "Hasta Geri Bildirimleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="card shadow-sm mb-4 border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom-0">
+        <h5 class="m-0 font-weight-bold" style="color: #2c3e50;">
+            <i class="fas fa-notes-medical me-2"></i> Hasta Geri Bildirimleri ve Şikayetler
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead style="background-color: #f8f9fa; color: #495057;">
+                    <tr>
+                        <th scope="col" class="px-4">#</th>
+                        <th scope="col">Hasta Adı Soyadı</th>
+                        <th scope="col">Mesaj / Şikayet</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">İletişim No</th>
+                        <th scope="col" class="text-center">Durum</th>
+                        <th scope="col" class="text-center">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td class="px-4 font-weight-bold text-muted">@count</td>
+                                <td>@item.User.FirstName @item.User.LastName</td>
+                                <td style="max-width: 250px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="@item.Comment">
+                                    @item.Comment
+                                </td>
+                                <td>@item.CommentDate</td>
+                                <td>@item.User.PhoneNumber</td>
+                                <td class="text-center">
+                                    @if (item.IsRead == false)
+                                    {
+                                        <span class="badge bg-warning text-dark px-2 py-1">Bekliyor</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success px-2 py-1">Okundu</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (item.IsRead == false)
+                                    {
+                                        <a href="/Admin/Testimonial/Read/@item.TestimonialId" class="btn btn-sm btn-outline-primary">
+                                            Okundu İşaretle
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-sm btn-light text-muted" disabled>Tamamlandı</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted">
+                                <i>Henüz bir geri bildirim bulunmamaktadır.</i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

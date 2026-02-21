@@ -18,5 +18,24 @@ namespace Medinova.Areas.Admin.Controllers
      
             return View(doctors);
         }
+
+        public ActionResult Detail(int id)
+        {
+            var testimonialOfDoctorById=_context.Testimonials.Where(x=>x.DoctorId == id).ToList();
+            return View(testimonialOfDoctorById);
+        }
+
+        public ActionResult Read(int id)
+        {
+            var testimonial = _context.Testimonials.Find(id);
+            testimonial.IsRead = true;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+
+
+
     }
 }
