@@ -49,7 +49,7 @@ namespace Medinova.Areas.Doctor.Controllers
             if (docrorId == null)
             {
                 // Session düşmüş, adamı login sayfasına geri gönderelim
-                return RedirectToAction("Login", "Kullanici");
+                return RedirectToAction("DoctorLogin", "Account", new { area = "" });
             }
             var doctor = _context.Doctors.Find(docrorId);
 

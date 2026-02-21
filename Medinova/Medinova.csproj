@@ -207,12 +207,15 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TestimonialController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Doctor\Controllers\PasswordController.cs" />
     <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\AboutController.cs" />
     <Compile Include="Areas\User\Controllers\AiController.cs" />
     <Compile Include="Areas\User\Controllers\AppointmentController.cs" />
+    <Compile Include="Areas\User\Controllers\PasswordSettingsController.cs" />
+    <Compile Include="Areas\User\Controllers\TestimonialController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -265,6 +268,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Testimonial.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -335,6 +341,10 @@
     <Content Include="Areas\Admin\Views\Doctor\UpdateDoctor.cshtml" />
     <Content Include="Areas\Admin\Views\Doctor\DoctorDetail.cshtml" />
     <Content Include="Areas\Doctor\Views\Password\ChangePassword.cshtml" />
+    <Content Include="Areas\User\Views\Testimonial\Index.cshtml" />
+    <Content Include="Areas\User\Views\Testimonial\CreateTestimonial.cshtml" />
+    <Content Include="Areas\Admin\Views\Testimonial\Index.cshtml" />
+    <Content Include="Areas\User\Views\PasswordSettings\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1023,6 +1033,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="secrets.config" />
     <Content Include="Views\Account\DoctorLogin.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
+    <Content Include="Views\Shared\_DoctorLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

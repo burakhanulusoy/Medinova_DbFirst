@@ -1,14 +1,13 @@
-﻿using Medinova.Models;
+﻿using Medinova.DTOs; // Senin DTO'ların olduğu namespace
+using Medinova.Models;
+using Microsoft.ML;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.ML;
-using Medinova.DTOs; // Senin DTO'ların olduğu namespace
-using System.IO;
-using System.Collections.Generic;
 
 
 

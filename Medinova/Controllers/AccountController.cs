@@ -42,6 +42,7 @@ namespace Medinova.Controllers
             Session["userName"] = user.UserName;
             Session["fullName"] =string.Join(" ", user.FirstName, user.LastName);
             Session["userId"] = user.UserId;
+            Session["mail"] = user.Email;
 
             if (user.RoleId == 2)
             {

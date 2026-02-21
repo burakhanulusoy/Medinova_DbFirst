@@ -1,10 +1,8 @@
-﻿@model  Medinova.DTOs.ChangePassword
+﻿@model Medinova.DTOs.ChangePassword
 @{
-    ViewBag.Title = "ddd";
-    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
-
+    ViewBag.Title = "Settings - Change Password";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
 
 <div class="main-content-container overflow-hidden">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 mt-1">
@@ -27,11 +25,9 @@
 
     <div class="card bg-white border border-white rounded-10 p-20 mb-4">
         <ul class="ps-0 mb-4 list-unstyled d-flex flex-wrap gap-2 gap-lg-3">
-
             <li>
                 <a href="change-password.html" class="btn btn-primary border-primary bg-primary text-white fs-16 fw-normal px-3 px-lg-4">Change Password</a>
             </li>
-
         </ul>
 
         <form id="password-show-hide" method="post">
@@ -41,29 +37,19 @@
                         <label class="label fs-16 mb-2">Eski Şifre</label>
                         <div class="form-group">
                             <div class="password-wrapper position-relative password-container">
-                                <input name="OldPassword" type="password" class="form-control text-secondary password" placeholder="Enter old password">
+                                <input name="OldPassword" type="password" class="form-control text-secondary password" placeholder="Eski şifrenizi girin" required>
                                 <i style="color: #A9A9C8; font-size: 22px; right: 15px;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 position-absolute cursor text-secondary" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="mb-20">
-                        <label class="label fs-16 mb-2">New Password</label>
+                        <label class="label fs-16 mb-2">Yeni Şifre</label>
                         <div class="form-group">
                             <div class="password-wrapper position-relative password-container">
-                                <input name="NewPassword" type="password" class="form-control text-secondary password" placeholder="Enter new password">
-                                <i style="color: #A9A9C8; font-size: 22px; right: 15px;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 position-absolute cursor text-secondary" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="mb-20">
-                        <label class="label fs-16 mb-2">Confirm</label>
-                        <div class="form-group">
-                            <div class="password-wrapper position-relative password-container">
-                                <input name="ConfirmPassword" type="password" class="form-control text-secondary password" placeholder="Enter confirm password">
+                                <input name="NewPassword" type="password" class="form-control text-secondary password" placeholder="Yeni şifrenizi girin" required>
                                 <i style="color: #A9A9C8; font-size: 22px; right: 15px;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 position-absolute cursor text-secondary" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -72,25 +58,71 @@
 
                 <div class="col-lg-12">
                     <div class="mb-20">
-                        <label class="label fs-16 mb-2">username</label>
+                        <label class="label fs-16 mb-2">Şifre Tekrar</label>
                         <div class="form-group">
                             <div class="password-wrapper position-relative password-container">
-                                <input name="UserName" type="text" class="form-control text-secondary " placeholder="Enter confirm usernAME">
+                                <input name="ConfirmPassword" type="password" class="form-control text-secondary password" placeholder="Yeni şifrenizi tekrar girin" required>
+                                <i style="color: #A9A9C8; font-size: 22px; right: 15px;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 position-absolute cursor text-secondary" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="mb-20">
+                        <label class="label fs-16 mb-2">Kullanıcı Adı</label>
+                        <div class="form-group">
+                            <div class="password-wrapper position-relative password-container">
+                                <input name="UserName" type="text" class="form-control text-secondary" placeholder="Kullanıcı adınızı girin" required>
                             </div>
                         </div>
                     </div>
 
-                    <span class="text-bg-danger">@Html.ValidationSummary()</span>
-
+                    <span class="text-danger d-block mb-3">@Html.ValidationSummary()</span>
                 </div>
-
 
                 <div class="col-lg-12">
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary fw-normal text-white">Updated Profile</button>
+                        <button type="submit" id="btnSubmit" class="btn btn-primary fw-normal text-white">Bilgileri Güncelle</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('password-show-hide');
+
+        form.addEventListener('submit', function (e) {
+            // Formun varsayılan olarak hemen gönderilmesini engelliyoruz
+            e.preventDefault();
+
+            // Alanlar boş mu diye kontrol et (HTML5 required)
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // SweetAlert Onay Penceresi
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Şifrenizi ve bilgilerinizi güncellemek istediğinize emin misiniz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, Güncelle',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kullanıcı evet derse formu gönder
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

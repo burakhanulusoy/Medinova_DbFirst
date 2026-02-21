@@ -82,6 +82,17 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Testimonials">
+          <Key>
+            <PropertyRef Name="TestimonialId" />
+          </Key>
+          <Property Name="TestimonialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="1500" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CommentDate" Type="datetime" />
+          <Property Name="DoctorId" Type="int" />
+          <Property Name="IsRead" Type="bit" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -131,6 +142,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Testimonials_Doctors">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Testimonials" Type="Self.Testimonials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="Testimonials">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Testimonials_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Testimonials" Type="Self.Testimonials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Testimonials">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Roles">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -152,6 +187,7 @@
           <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Testimonials" EntityType="Self.Testimonials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Appointments_Doctors" Association="Self.FK_Appointments_Doctors">
             <End Role="Doctors" EntitySet="Doctors" />
@@ -164,6 +200,14 @@
           <AssociationSet Name="FK_Doctors_Departments" Association="Self.FK_Doctors_Departments">
             <End Role="Departments" EntitySet="Departments" />
             <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Testimonials_Doctors" Association="Self.FK_Testimonials_Doctors">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Testimonials" EntitySet="Testimonials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Testimonials_Users" Association="Self.FK_Testimonials_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Testimonials" EntitySet="Testimonials" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -251,6 +295,15 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Testimonials" EntityType="MedinovaDBModel.Testimonial" />
+          <AssociationSet Name="FK_Testimonials_Users" Association="MedinovaDBModel.FK_Testimonials_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Testimonial" EntitySet="Testimonials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Testimonials_Doctors" Association="MedinovaDBModel.FK_Testimonials_Doctors">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Testimonial" EntitySet="Testimonials" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -283,6 +336,7 @@
           <NavigationProperty Name="Department" Relationship="MedinovaDBModel.FK_Doctors_Departments" FromRole="Doctor" ToRole="Department" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Testimonials" Relationship="MedinovaDBModel.FK_Testimonials_Doctors" FromRole="Doctor" ToRole="Testimonial" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -298,6 +352,7 @@
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Appointments" Relationship="MedinovaDBModel.FK_Appointments_Users" FromRole="User" ToRole="Appointment" />
           <NavigationProperty Name="Role" Relationship="MedinovaDBModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Testimonials" Relationship="MedinovaDBModel.FK_Testimonials_Users" FromRole="User" ToRole="Testimonial" />
         </EntityType>
         <Association Name="FK_Appointments_Doctors">
           <End Type="MedinovaDBModel.Doctor" Role="Doctor" Multiplicity="0..1" />
@@ -344,6 +399,43 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Testimonial">
+          <Key>
+            <PropertyRef Name="TestimonialId" />
+          </Key>
+          <Property Name="TestimonialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="MedinovaDBModel.FK_Testimonials_Users" FromRole="Testimonial" ToRole="User" />
+          <Property Name="CommentDate" Type="DateTime" Precision="3" />
+          <Property Name="DoctorId" Type="Int32" />
+          <NavigationProperty Name="Doctor" Relationship="MedinovaDBModel.FK_Testimonials_Doctors" FromRole="Testimonial" ToRole="Doctor" />
+          <Property Name="IsRead" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Testimonials_Users">
+          <End Type="MedinovaDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MedinovaDBModel.Testimonial" Role="Testimonial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Testimonial">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Testimonials_Doctors">
+          <End Type="MedinovaDBModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="MedinovaDBModel.Testimonial" Role="Testimonial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="Testimonial">
+              <PropertyRef Name="DoctorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -449,6 +541,18 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Testimonials">
+            <EntityTypeMapping TypeName="MedinovaDBModel.Testimonial">
+              <MappingFragment StoreEntitySet="Testimonials">
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

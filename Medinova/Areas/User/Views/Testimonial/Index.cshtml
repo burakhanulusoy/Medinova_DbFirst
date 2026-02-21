@@ -1,0 +1,240 @@
+﻿@model List<Medinova.Models.Testimonial>
+
+@{
+    ViewBag.Title = "Şikayet ve Yorumlarım";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+
+    // Doktor fotoğrafı yoksa gösterilecek varsayılan görsel (Placeholder)
+    string defaultDoctorImage = "data:image/png;base64,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";
+}
+
+<style>
+    /* Sayfa Arka Planı ve Genel Fontlar */
+    .testimonial-container {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Yeni Ekle Butonu */
+    .btn-modern-add {
+        background: linear-gradient(45deg, #11998e, #38ef7d);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+        transition: all 0.3s ease;
+    }
+
+        .btn-modern-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Yorum Kartları */
+    .testimonial-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        border: 1px solid #edf2f9;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: #d8e2ef;
+        }
+
+    /* Kart İçindeki Sütun Ayırıcıları */
+    .card-divider {
+        border-right: 2px dashed #edf2f9;
+    }
+
+    /* Doktor Profil Kutusu (Avatar) */
+    .doc-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #e3f2fd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        overflow: hidden;
+        border: 2px solid #fff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+        .doc-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* İsim ve Bölüm Yazıları */
+    .doc-name {
+        color: #2b3445;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .doc-dept {
+        color: #1976d2;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Yorum Metni */
+    .comment-text {
+        color: #5e6e82;
+        font-size: 15px;
+        font-style: italic;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* Tarih Rozeti */
+    .date-badge {
+        background-color: #f8f9fa;
+        color: #748194;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 15px;
+        border-radius: 20px;
+        border: 1px solid #edf2f9;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    /* Modern Silme Butonu */
+    .btn-modern-delete {
+        background-color: #fff0f0;
+        color: #e63757;
+        border: none;
+        border-radius: 10px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+        .btn-modern-delete:hover {
+            background-color: #e63757;
+            color: #ffffff;
+            cursor: pointer;
+        }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<div class="testimonial-container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2" style="border-bottom: 2px solid #edf2f9;">
+        <h4 class="m-0" style="color: #2b3445; font-weight: 700;">
+            <i class="fas fa-stethoscope text-primary mr-2"></i> Şikayet ve Yorum Geçmişiniz
+        </h4>
+        <a href="/User/Testimonial/CreateTestimonial" class="btn btn-modern-add">
+            <i class="fas fa-plus mr-1"></i> Yeni Şikayet Ekle
+        </a>
+    </div>
+
+    <div>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="testimonial-card mb-3 p-3">
+                    <div class="row align-items-center text-center text-md-left">
+
+                        <div class="col-12 col-md-3 mb-3 mb-md-0 card-divider d-flex align-items-center justify-content-center justify-content-md-start">
+                            <div class="doc-avatar">
+                                @if (!string.IsNullOrEmpty(item.Doctor.ImageUrl))
+                                {
+                                    <img src="@item.Doctor.ImageUrl" alt="Dr. @item.Doctor.FullName" onerror="this.onerror=null;this.src='@defaultDoctorImage';" />
+                                }
+                                else
+                                {
+                                    <img src="@defaultDoctorImage" alt="Varsayılan Doktor Profili" />
+                                }
+                            </div>
+                            <div class="text-left">
+                                <p class="doc-name">Dr. @item.Doctor.FullName</p>
+                                <span class="doc-dept">@item.Doctor.Department.Name</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4 mb-3 mb-md-0 card-divider px-md-3">
+                            <p class="comment-text">
+                                <i class="fas fa-quote-left text-light mr-2"></i>
+                                @item.Comment
+                                <i class="fas fa-quote-right text-light ml-2"></i>
+                            </p>
+                        </div>
+
+                        <div class="col-12 col-md-2 mb-3 mb-md-0 card-divider d-flex justify-content-center">
+                            <div class="date-badge">
+                                <i class="far fa-calendar-alt mr-1"></i>
+                                @(item.CommentDate.HasValue ? item.CommentDate.Value.ToString("dd MMM yyyy") : "-")
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-2 mb-3 mb-md-0 card-divider d-flex justify-content-center">
+                            @if (item.IsRead == true)
+                            {
+                                <div class="date-badge" style="background-color: #e6fdf4; color: #00a65a; border-color: #00a65a40;">
+                                    <i class="fas fa-check-circle mr-1"></i> İncelendi
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="date-badge" style="background-color: #fff8e5; color: #f39c12; border-color: #f39c1240;">
+                                    <i class="fas fa-clock mr-1"></i> Bekliyor
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-12 col-md-1 d-flex justify-content-center justify-content-md-end pr-md-2">
+                            <button onclick="confirmDelete(@item.TestimonialId)" class="btn-modern-delete shadow-sm">
+                                <i class="fas fa-trash-alt mr-1"></i> Sil
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center p-5" style="background-color: #fff; border-radius: 15px; border: 1px dashed #d8e2ef;">
+                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486831.png" style="width: 120px; opacity: 0.5;" class="mb-3" />
+                <h5 style="color: #5e6e82;">Henüz Hiç Şikayet veya Yorumunuz Yok</h5>
+                <p class="text-muted">Aldığınız sağlık hizmetleriyle ilgili değerlendirmelerinizi buradan ekleyebilirsiniz.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(testimonialId) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Bu şikayeti sistemden kalıcı olarak silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e63757',
+            cancelButtonColor: '#748194',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/User/Testimonial/DeleteTestimonial/" + testimonialId;
+            }
+        })
+    }
+</script>

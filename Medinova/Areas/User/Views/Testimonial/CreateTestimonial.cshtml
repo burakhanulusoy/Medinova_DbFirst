@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Yeni Şikayet Ekle";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+
+<style>
+    /* Form Kapsayıcısı: Ekranı tamamen kaplamaması için genişliği kısıtladık ve ortaladık */
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Ana Kart Tasarımı */
+    .modern-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        border: 1px solid #edf2f9;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .modern-card-header {
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        border-bottom: 2px solid #edf2f9;
+        padding: 20px 25px;
+    }
+
+    .modern-card-title {
+        color: #2b3445;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .modern-card-body {
+        padding: 30px 25px;
+    }
+
+    /* Input (Kutu) ve Label (Başlık) Tasarımları */
+    .form-label {
+        font-weight: 600;
+        color: #5e6e82;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .modern-input {
+        border: 2px solid #edf2f9;
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 15px;
+        color: #2b3445;
+        transition: all 0.3s ease;
+        background-color: #fcfcfd;
+    }
+
+        /* Kutuya tıklayınca oluşan yeşil parlama efekti */
+        .modern-input:focus {
+            border-color: #11998e;
+            box-shadow: 0 0 0 4px rgba(17, 153, 142, 0.1);
+            outline: none;
+            background-color: #ffffff;
+        }
+
+    /* Gönder Butonu (Liste sayfasıyla aynı tonlar) */
+    .btn-modern-submit {
+        background: linear-gradient(45deg, #11998e, #38ef7d);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+        transition: all 0.3s ease;
+        width: 100%;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-modern-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
+            color: white;
+        }
+
+    /* Hata Mesajı (Validation) Kutusu */
+    .validation-alert {
+        background-color: #fff0f0;
+        border-left: 4px solid #e63757;
+        color: #e63757;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+        .validation-alert ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+    /* Geri Dön Linki */
+    .back-link {
+        color: #748194;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+        .back-link:hover {
+            color: #2b3445;
+            text-decoration: none;
+        }
+</style>
+
+<div class="form-container mt-4 mb-5">
+
+    <div class="mb-3 pl-2">
+        <a href="/User/Testimonial/Index" class="back-link">
+            <i class="fas fa-arrow-left mr-1"></i> Şikayet Listesine Dön
+        </a>
+    </div>
+
+    <div class="modern-card">
+        <div class="modern-card-header d-flex align-items-center">
+            <i class="fas fa-edit mr-3" style="font-size: 24px; color: #11998e;"></i>
+            <h4 class="modern-card-title">Yeni Şikayet veya Yorum Ekle</h4>
+        </div>
+
+        <div class="modern-card-body">
+            <form method="post">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="validation-alert shadow-sm">
+                        <i class="fas fa-exclamation-circle mr-2"></i> Lütfen dikkat edin:
+                        @Html.ValidationSummary(true, "", new { @class = "mt-2" })
+                    </div>
+                }
+
+                <div class="form-group mb-4">
+                    <label class="form-label"><i class="fas fa-user-md text-info mr-2"></i> İlgili Doktorunuz</label>
+                    <select name="DoctorId" class="form-control modern-input" required>
+                        <option value="" disabled selected>-- Lütfen Listeden Doktor Seçiniz --</option>
+                        @foreach (var item in (List<SelectListItem>)ViewBag.doctorList)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label"><i class="fas fa-comment-medical text-info mr-2"></i> Şikayetiniz / Yorumunuz</label>
+                    <textarea name="Comment" rows="6" class="form-control modern-input" required placeholder="Doktorunuz veya aldığınız hizmet hakkındaki düşüncelerinizi buraya detaylıca yazabilirsiniz..."></textarea>
+                </div>
+
+                <div class="mt-5">
+                    <button type="submit" class="btn-modern-submit">
+                        <i class="fas fa-paper-plane mr-2"></i> Şikayeti Sisteme İlet
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
