@@ -1,35 +1,33 @@
 ﻿@model List<Medinova.Models.Appointment>
 
-
-
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Detaylar";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
-
 
 <div class="main-content-container overflow-hidden">
     <div class="row">
         <div class="col-xxl-6 col-xxxl-12">
             <div class="card bg-white p-20 pb-0 rounded-10 border border-white mb-4">
-                <h3 class="mb-20">Projects Overview</h3>
+                <h3 class="mb-20">Genel Bakış</h3>
                 <div class="row" style="--bs-gutter-x: 20px;">
+
                     <div class="col-md-6">
                         <div class="card bg-body-bg p-20 rounded-10 border border-white mb-20">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <h3 class="mb-10">Hastanemizdeki toplam randevu sayısı</h3>
+                                    <h3 class="mb-10">Toplam Randevu Sayısı</h3>
                                     <h2 class="fs-26 fw-medium mb-0 lh-1">@ViewBag.TotalAppointments</h2>
                                 </div>
                                 <div class="flex-shrink-0 ms-sm-3">
                                     <div class="bg-primary text-center rounded-circle d-block for-mobile-width" style="width: 75px; height: 75px; line-height: 75px;">
-                                        <img src="~/Templates/adminThema/fila/assets/images/total-projects.svg" alt="total-projects">
+                                        <img src="~/Templates/adminThema/fila/assets/images/total-projects.svg" alt="total-appointments">
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="margin-top: 23px;">
-                                <p class="mb-0 fs-14">Projects this month</p>
+                                <p class="mb-0 fs-14">Geçen aya göre</p>
                                 <span class="d-flex align-content-center gap-1 bg-success bg-opacity-10 border border-success" style="padding: 3px 5px;">
                                     <i class="material-symbols-outlined fs-14 text-success">trending_up</i>
                                     <span class="lh-1 fs-14 text-success">0.75%</span>
@@ -37,21 +35,22 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="card bg-body-bg p-20 rounded-10 border border-white mb-20">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <h3 class="mb-10">Gelecek Tarihli Randevu Sayısı</h3>
+                                    <h3 class="mb-10">Gelecek Randevu Sayısı</h3>
                                     <h2 class="fs-26 fw-medium mb-0 lh-1">@ViewBag.FutureAppointments</h2>
                                 </div>
                                 <div class="flex-shrink-0 ms-sm-3">
                                     <div class="bg-warning text-center rounded-circle d-block for-mobile-width" style="width: 75px; height: 75px; line-height: 75px;">
-                                        <img src="~/Templates/adminThema/fila/assets/images/active-projects.svg" alt="active-projects">
+                                        <img src="~/Templates/adminThema/fila/assets/images/active-projects.svg" alt="active-appointments">
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="margin-top: 23px;">
-                                <p class="mb-0 fs-14">Projects this month</p>
+                                <p class="mb-0 fs-14">Geçen aya göre</p>
                                 <span class="d-flex align-content-center gap-1 bg-danger bg-opacity-10 border border-danger" style="padding: 3px 5px;">
                                     <i class="material-symbols-outlined fs-14 text-danger">trending_down</i>
                                     <span class="lh-1 fs-14 text-danger">1.25%</span>
@@ -59,21 +58,22 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="card bg-body-bg p-20 rounded-10 border border-white mb-20">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <h3 class="mb-10">Toplam Şikayet Sayısı</h3>
+                                    <h3 class="mb-10">Toplam Yorum Sayısı</h3>
                                     <h2 class="fs-26 fw-medium mb-0 lh-1">@ViewBag.TotalTestimonials</h2>
                                 </div>
                                 <div class="flex-shrink-0 ms-sm-3">
                                     <div class="bg-info text-center rounded-circle d-block for-mobile-width" style="width: 75px; height: 75px; line-height: 75px;">
-                                        <img src="~/Templates/adminThema/fila/assets/images/completed-projects.svg" alt="completed-projects">
+                                        <img src="~/Templates/adminThema/fila/assets/images/completed-projects.svg" alt="completed-appointments">
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="margin-top: 23px;">
-                                <p class="mb-0 fs-14">Projects this month</p>
+                                <p class="mb-0 fs-14">Geçen aya göre</p>
                                 <span class="d-flex align-content-center gap-1 bg-success bg-opacity-10 border border-success" style="padding: 3px 5px;">
                                     <i class="material-symbols-outlined fs-14 text-success">trending_up</i>
                                     <span class="lh-1 fs-14 text-success">4.75%</span>
@@ -81,30 +81,20 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="card bg-body-bg p-20 rounded-10 border border-white mb-20">
                             <div class="d-sm-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h3 class="mb-10">Favori Doktoru</h3>
+                                    <h3 class="mb-10">En Çok Tercih Edilen Doktor</h3>
                                     <h2 class="fs-26 fw-medium mb-0 lh-1">@ViewBag.TopDoctor</h2>
                                 </div>
                                 <div class="flex-shrink-0 ms-0 mt-3 mt-sm-0">
                                     <ul class="p-0 mb-0 list-unstyled d-flex last-child-none-right global-right-list">
-                                        <li style="margin-right: -15px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user12">
-                                        </li>
-                                        <li style="margin-right: -15px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user13">
-                                        </li>
-                                        <li style="margin-right: -15px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/user14.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user14">
-                                        </li>
-                                        <li style="margin-right: -15px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/user15.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user15">
-                                        </li>
-                                        <li style="margin-right: -15px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/user16.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user16">
-                                        </li>
+                                        <li style="margin-right: -15px;"><img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user"></li>
+                                        <li style="margin-right: -15px;"><img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user"></li>
+                                        <li style="margin-right: -15px;"><img src="~/Templates/adminThema/fila/assets/images/user14.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user"></li>
+                                        <li style="margin-right: -15px;"><img src="~/Templates/adminThema/fila/assets/images/user15.jpg" class="border border-2 border-white rounded-circle" style="width: 37px; height: 37px;" alt="user"></li>
                                         <li class="border border-2 border-white rounded-circle bg-primary-50 text-center" style="margin-right: -15px; width: 37px; height: 37px; line-height: 34px;">
                                             <span class="text-white fs-13 fw-medium">+50</span>
                                         </li>
@@ -112,7 +102,7 @@
                                 </div>
                             </div>
                             <div style="margin-top: 45px;">
-                                <p class="mb-0 fs-14">Projects engagement 50%</p>
+                                <p class="mb-0 fs-14">Genel Hasta Memnuniyeti %50</p>
                             </div>
                         </div>
                     </div>
@@ -125,18 +115,16 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-0">
                     <h3 style="color: #2c3e50;">Bölümlere Göre Randevu Dağılımı</h3>
                 </div>
-
                 <div id="department_roadmap_chart2" style="margin-bottom: -13px;"></div>
             </div>
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-xxl-12 col-lg-12">
             <div class="card bg-white rounded-10 border border-white mb-4">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 p-20">
-                    <h3>Tüm Randevuları</h3>
+                    <h3>Tüm Randevular</h3>
                 </div>
 
                 <div class="default-table-area mx-minus-1 table-all-projects">
@@ -148,74 +136,56 @@
                                     <th scope="col" class="fw-medium">Doktor Adı</th>
                                     <th scope="col" class="fw-medium">Departman</th>
                                     <th scope="col" class="fw-medium">Randevu Tarihi</th>
-                                    <th scope="col" class="fw-medium">Onaylandı mı?</th>
+                                    <th scope="col" class="fw-medium">Durum</th>
                                     <th scope="col" class="fw-medium">Telefon Numarası</th>
                                     <th scope="col" class="fw-medium">Email</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach (var item in Model)
-                                        {
-                                            count++;
-
+                                {
+                                    count++;
                                     <tr>
                                         <td class="text-body">@count</td>
                                         <td class="text-body">@item.Doctor.FullName</td>
                                         <td class="text-secondary">@item.Doctor.Department.Name</td>
-                                        <td class="text-body">@item.AppointmentDate</td>
+                                        <td class="text-body">@item.AppointmentDate.Value.ToString("dd MMM yyyy HH:mm")</td>
                                         <td class="text-body">
-                                            @if(item.IsActive==true)
-                {
-                    <span>Onaylandı</span>
-                                            }else if(item.IsActive==false)
-                {
-
-
-<span>Onaylanmadı</span>
-}
-else
-                {
-                    <span>beklemede</span>
-                }
-
-
-
+                                            @if (item.IsActive == true)
+                                            {
+                                                <span class="text-success bg-success bg-opacity-10 fs-14 fw-normal d-inline-block px-2 py-1 rounded">Onaylandı</span>
+                                            }
+                                            else if (item.IsActive == false)
+                                            {
+                                                <span class="text-danger bg-danger bg-opacity-10 fs-14 fw-normal d-inline-block px-2 py-1 rounded">Onaylanmadı</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-warning bg-warning bg-opacity-10 fs-14 fw-normal d-inline-block px-2 py-1 rounded">Beklemede</span>
+                                            }
                                         </td>
                                         <td class="text-body">@item.User.PhoneNumber</td>
                                         <td class="text-body">@item.User.Email</td>
-                                        
-                                        
                                     </tr>
                                 }
-
-
-
                             </tbody>
                         </table>
                     </div>
 
                     <div class="d-flex justify-content-center justify-content-sm-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
-                        <span class="fs-15">Showing 1 to 5 of 50 entries</span>
-
-                        <nav class="custom-pagination" aria-label="Page navigation example">
+                        <span class="fs-15">Sayfa 1 (Toplam listelenen kayıtlar gösteriliyor)</span>
+                        <nav class="custom-pagination" aria-label="Page navigation">
                             <ul class="pagination mb-0 justify-content-center">
                                 <li class="page-item">
-                                    <button class="page-link icon" aria-label="Previous">
+                                    <button class="page-link icon" aria-label="Önceki">
                                         <i class="material-symbols-outlined">west</i>
                                     </button>
                                 </li>
+                                <li class="page-item"><button class="page-link active">1</button></li>
+                                <li class="page-item"><button class="page-link">2</button></li>
+                                <li class="page-item"><button class="page-link">3</button></li>
                                 <li class="page-item">
-                                    <button class="page-link active">1</button>
-                                </li>
-                                <li class="page-item">
-                                    <button class="page-link">2</button>
-                                </li>
-                                <li class="page-item">
-                                    <button class="page-link">3</button>
-                                </li>
-                                <li class="page-item">
-                                    <button class="page-link icon" aria-label="Next">
+                                    <button class="page-link icon" aria-label="Sonraki">
                                         <i class="material-symbols-outlined">east</i>
                                     </button>
                                 </li>
@@ -225,31 +195,21 @@ else
                 </div>
             </div>
         </div>
-        
     </div>
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     <div class="row">
         <div class="col-lg-4">
             <div class="card bg-white rounded-10 border border-white p-20 mb-4">
-                <h3 class="mb-20">Working Schedule</h3>
+                <h3 class="mb-20">Çalışma Takvimi</h3>
 
                 <div class="calendar-container style-two mb-20">
                     <div class="calendar-header mb-3">
                         <button id="prevMonth" class="change-btn">
                             <i class="ri-arrow-left-s-line"></i>
                         </button>
-                        <div class="">
-                            <select id="monthSelect" class="month-year"></select>
-                            <select id="yearSelect" class="month-year"></select>
+                        <div>
+                            <select id="monthSelect" class="month-year border-0 bg-transparent fw-bold"></select>
+                            <select id="yearSelect" class="month-year border-0 bg-transparent fw-bold"></select>
                         </div>
                         <button id="nextMonth" class="change-btn">
                             <i class="ri-arrow-right-s-line"></i>
@@ -264,805 +224,98 @@ else
                                 <th>Per</th>
                                 <th>Cum</th>
                                 <th>Cmt</th>
-                                <th>Pz</th>
+                                <th>Paz</th>
                             </tr>
                         </thead>
                         <tbody id="calendarBody2">
-                            <!-- Calendar days will be dynamically generated here -->
                         </tbody>
                     </table>
                 </div>
 
-                <h3 class="mb-20">EVENTS</h3>
-
-                <ul class="p-0 mb-0 list-unstyled last-child-none working-schedule-list">
-                    <li class="border-border-color" style="border-bottom: 1px dashed; margin-bottom: 20.6px; padding-bottom: 20.6px;">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <span class="d-block bg-primary rounded-circle position-relative top-9" style="width: 10px; height: 10px;"></span>
-                            </div>
-                            <div class="flex-grow-1 ms-10">
-                                <p class="fs-16 mb-10 lh-1-8">Project Fila milestone 1 due next week.</p>
-                                <span class="fs-16"><span class="text-primary">November 21</span> (10:00 - 11:00 AM)</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-border-color" style="border-bottom: 1px dashed; margin-bottom: 20.6px; padding-bottom: 20.6px;">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <span class="d-block bg-info rounded-circle position-relative top-9" style="width: 10px; height: 10px;"></span>
-                            </div>
-                            <div class="flex-grow-1 ms-10">
-                                <p class="fs-16 mb-10 lh-1-8">David Doe is assigned to lead the development phase starting on 02 Dec. Please coordinate with other team members.</p>
-                                <span class="fs-16"><span class="text-primary">December 06</span> (02:00 PM)</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-border-color" style="border-bottom: 1px dashed; margin-bottom: 20.6px; padding-bottom: 20.6px;">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <span class="d-block bg-warning rounded-circle position-relative top-9" style="width: 10px; height: 10px;"></span>
-                            </div>
-                            <div class="flex-grow-1 ms-10">
-                                <p class="fs-16 mb-10 lh-1-8">Client meeting scheduled for 13Dec. Prepare project update presentation and gather any client-specific requirements.</p>
-                                <span class="fs-16"><span class="text-primary">December 13</span> (03:00 PM)</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-border-color" style="border-bottom: 1px dashed; margin-bottom: 20.6px; padding-bottom: 20.6px;">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <span class="d-block bg-primary rounded-circle position-relative top-9" style="width: 10px; height: 10px;"></span>
-                            </div>
-                            <div class="flex-grow-1 ms-10">
-                                <p class="fs-16 mb-10 lh-1-8">Team training session scheduled for 20Dec to introduce new tools. Ensure all team members attend.</p>
-                                <span class="fs-16"><span class="text-primary">December 20</span> (12:00 AM)</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-border-color" style="border-bottom: 1px dashed; margin-bottom: 20.6px; padding-bottom: 20.6px;">
-                        <div class="text-end">
-                            <button class="bg-transparent text-primary fs-16 border-0 p-0" data-bs-toggle="modal" data-bs-target="#exampleModal2">+ Add New Event</button>
-                        </div>
-                    </li>
-                </ul>
-
-                <!-- Modal Add New Event -->
-                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered rounded-10" style="max-width: 550px;">
-                        <form class="modal-content bg-white">
-                            <div class="modal-header border-border-color-40 p-20">
-                                <h1 class="modal-title fs-18 fw-medium mb-0" id="exampleModal2Label">Add New Event</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-20 pb-0">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="mb-20">
-                                            <label class="label">Event Name</label>
-                                            <div class="form-floating">
-                                                <input type="email" class="form-control" id="floatingInput" placeholder="Event Name">
-                                                <label for="floatingInput">Event Name</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-20">
-                                            <label class="label">Event Date</label>
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-20">
-                                            <label class="label">Event Time</label>
-                                            <input type="time" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-0 p-20 pt-0">
-                                <button type="button" class="btn btn-danger fw-normal text-white" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary fw-normal text-white">Create</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <h3 class="mb-20">Etkinlikler</h3>
             </div>
         </div>
-  
-        
-        
-        
+
         <div class="col-lg-8">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card bg-white rounded-10 border border-white p-20 mb-4">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-20">
-                            <h3>Projects Analysis</h3>
-
-                            <div class="dropdown select-dropdown without-border">
-                                <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
-                                    This Week
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
-                                    <li>
-                                        <button class="dropdown-item text-secondary">This Day</button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item text-secondary">This Week</button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item text-secondary">This Month</button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item text-secondary">This Year</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div id="projects_analysis_chart" style="margin-bottom: -16px;"></div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card bg-white rounded-10 border border-white mb-4">
-                        <div class="p-20 pb-0">
-                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-12">
-                                <h3>Chat Projects User</h3>
-
-                                <div class="dropdown select-dropdown without-border">
-                                    <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Russell Colon
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
-                                        <li>
-                                            <button class="dropdown-item text-secondary">Marks Stjohn</button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item text-secondary">Juana Thatcher</button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item text-secondary">Raymond Nguyen</button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item text-secondary">Frank Mele</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <span class="fs-14 text-body d-block mb-3">2025-11-10 09:15 AM</span>
-                        </div>
-
-                        <div class="chat-body scroll-bar" style="max-height: 307px; padding: 0 !important;">
-                            <div class="p-20 pb-0">
-                                <ul class="p-0 mb-0 list-unstyled chat-reverse">
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user12">
-                                            </div>
-                                            <div class="flex-grow-1 ms-10">
-                                                <div>
-                                                    <p class="lh-1-8 bg-light fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 0 10px 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra ligula non varius curabitur etiam malesuada. Congue eget luctus aliquet consectetur.</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:31 AM</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex text-end">
-                                            <div class="flex-grow-1">
-                                                <div>
-                                                    <p class="lh-1-8 bg-primary text-white fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 10px 0 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:30 AM</span>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-10">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user13">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user12">
-                                            </div>
-                                            <div class="flex-grow-1 ms-10">
-                                                <div>
-                                                    <p class="lh-1-8 bg-light fs-15 d-inline-block bg-for-dark bg-for-dark" style="padding: 10px 15px; border-radius: 0 10px 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra ligula non varius.</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:25 AM</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex text-end">
-                                            <div class="flex-grow-1">
-                                                <div>
-                                                    <p class="lh-1-8 bg-primary text-white fs-15 d-inline-block" style="padding: 10px 15px; border-radius: 10px 0 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit.</p>
-                                                    <p class="lh-1-8 bg-primary text-white fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 10px 0 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:22 AM</span>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-10">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user13">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user12">
-                                            </div>
-                                            <div class="flex-grow-1 ms-10">
-                                                <div>
-                                                    <p class="lh-1-8 bg-light fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 0 10px 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra ligula non varius curabitur etiam malesuada.</p>
-                                                </div>
-                                                <div>
-                                                    <p class="lh-1-8 bg-light fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 0 10px 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet. 🔥</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:21 AM</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="mb-20 ps-0">
-                                        <div class="d-flex text-end">
-                                            <div class="flex-grow-1">
-                                                <div>
-                                                    <p class="lh-1-8 bg-primary text-white fs-15 d-inline-block bg-for-dark" style="padding: 10px 15px; border-radius: 10px 0 10px 10px; margin-bottom: 6px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                                </div>
-                                                <span class="fs-13 d-block">09:20 AM</span>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-10">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="rounded-circle" style="width: 35px; height: 35px;" alt="user13">
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="p-20 pt-0">
-                            <form class="position-relative z-1">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control bg-light border-light" style="height: 42px; min-height: 42px; padding: 10px 15px;" id="floatingInput2" placeholder="Type your message....">
-                                    <label for="floatingInput2" style="height: 42px; min-height: 42px; padding: 7px 15px;">Type your message....</label>
-                                </div>
-                                <button class="border-0 btn btn-primary p-0 position-absolute top-0 end-0" style="width: 42px; height: 42px;">
-                                    <i class="material-symbols-outlined text-white" style="line-height: 42px;">send</i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card bg-white rounded-10 border border-white mb-4">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 p-20">
-                            <h3>To Do List</h3>
-
-                            <form class="table-src-form position-relative ms-0">
-                                <input type="text" class="form-control" placeholder="Search here...">
-                                <div class="src-btn position-absolute top-50 start-0 translate-middle-y bg-transparent p-0 border-0">
-                                    <span class="material-symbols-outlined">search</span>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="default-table-area mx-minus-1 table-to-do-list pm-to-do-list">
-                            <div class="table-responsive">
-                                <table class="table align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="fw-medium pe-0">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault7">
-                                                </div>
-                                            </th>
-                                            <th scope="col" class="fw-medium ps-0">Task ID</th>
-                                            <th scope="col" class="fw-medium">Task Description</th>
-                                            <th scope="col" class="fw-medium">Assigned To</th>
-                                            <th scope="col" class="fw-medium">Due Date</th>
-                                            <th scope="col" class="fw-medium">Priority</th>
-                                            <th scope="col" class="fw-medium">Status</th>
-                                            <th scope="col" class="fw-medium">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-body pe-0" style="width: 62px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault8">
-                                                </div>
-                                            </td>
-                                            <td class="text-body ps-0">#951</td>
-                                            <td class="text-body">Hotel management system</td>
-                                            <td class="text-secondary">Shawn Kennedy</td>
-                                            <td class="text-body">15 Nov, 2025</td>
-                                            <td class="text-body">High</td>
-                                            <td>
-                                                <span class="text-warning bg-warning bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">In Progress</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-end" style="gap: 12px;">
-                                                    <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">edit</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-body pe-0" style="width: 62px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault9">
-                                                </div>
-                                            </td>
-                                            <td class="text-body ps-0">#587</td>
-                                            <td class="text-body">Send proposal to APR Ltd</td>
-                                            <td class="text-secondary">Roberto Cruz</td>
-                                            <td class="text-body">14 Nov, 2025</td>
-                                            <td class="text-body">Medium</td>
-                                            <td>
-                                                <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pending</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-end" style="gap: 12px;">
-                                                    <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">edit</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-body pe-0" style="width: 62px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault10">
-                                                </div>
-                                            </td>
-                                            <td class="text-body ps-0">#618</td>
-                                            <td class="text-body">Python upgrade</td>
-                                            <td class="text-secondary">Juli Johnson</td>
-                                            <td class="text-body">13 Nov, 2025</td>
-                                            <td class="text-body">High</td>
-                                            <td>
-                                                <span class="text-primary bg-primary bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Completed</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-end" style="gap: 12px;">
-                                                    <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">edit</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-body pe-0" style="width: 62px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault11">
-                                                </div>
-                                            </td>
-                                            <td class="text-body ps-0">#367</td>
-                                            <td class="text-body">Schedule meeting with Fila</td>
-                                            <td class="text-secondary">Catalina Engles</td>
-                                            <td class="text-body">12 Nov, 2025</td>
-                                            <td class="text-body">Low</td>
-                                            <td>
-                                                <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Not Started</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-end" style="gap: 12px;">
-                                                    <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">edit</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-body pe-0" style="width: 62px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault12">
-                                                </div>
-                                            </td>
-                                            <td class="text-body ps-0">#761</td>
-                                            <td class="text-body">Engineering lite touch</td>
-                                            <td class="text-secondary">Louis Nagle</td>
-                                            <td class="text-body">11 Nov, 2025</td>
-                                            <td class="text-body">Medium</td>
-                                            <td>
-                                                <span class="text-warning bg-warning bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">In Progress</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-end" style="gap: 12px;">
-                                                    <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">edit</i>
-                                                    </button>
-                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="text-end p-20">
-                                <button class="bg-transparent text-primary fs-16 border-0 p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add New Task</button>
-                            </div>
-                        </div>
-
-                        <!-- Modal Add New Task -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered rounded-10" style="max-width: 550px;">
-                                <form class="modal-content bg-white">
-                                    <div class="modal-header border-border-color-40 p-20">
-                                        <h1 class="modal-title fs-18 fw-medium mb-0" id="exampleModalLabel">Add New Task</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body p-20 pb-0">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-20">
-                                                    <label class="label">Task Name</label>
-                                                    <div class="form-floating">
-                                                        <input type="email" class="form-control" id="floatingInput3" placeholder="Task Name">
-                                                        <label for="floatingInput3">Task Name</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-20">
-                                                    <label class="label">Assigned To</label>
-                                                    <div class="form-floating">
-                                                        <select class="form-select form-control" id="floatingSelect2" aria-label="Floating label select example">
-                                                            <option selected>Select</option>
-                                                            <option value="1">Juli Johnson</option>
-                                                            <option value="2">Catalina Engles</option>
-                                                            <option value="3">Louis Nagle</option>
-                                                            <option value="4">Michael Marquez</option>
-                                                            <option value="4">Roberto Cruz</option>
-                                                        </select>
-                                                        <label for="floatingSelect2">Select</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-20">
-                                                    <label class="label">Due Date</label>
-                                                    <input type="date" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-20">
-                                                    <label class="label">Priority</label>
-                                                    <div class="form-floating">
-                                                        <select class="form-select form-control" id="floatingSelect3" aria-label="Floating label select example">
-                                                            <option selected>Select</option>
-                                                            <option value="1">Medium</option>
-                                                            <option value="2">Low</option>
-                                                            <option value="3">High</option>
-                                                        </select>
-                                                        <label for="floatingSelect3">Select</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-20">
-                                                    <label class="label">Status</label>
-                                                    <div class="form-floating">
-                                                        <select class="form-select form-control" id="floatingSelect4" aria-label="Floating label select example">
-                                                            <option selected>Select</option>
-                                                            <option value="1">Pending</option>
-                                                            <option value="2">Completed</option>
-                                                            <option value="3">Not Started</option>
-                                                            <option value="4">In Progress</option>
-                                                        </select>
-                                                        <label for="floatingSelect4">Select</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer border-0 p-20 pt-0">
-                                        <button type="button" class="btn btn-danger fw-normal text-white" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary fw-normal text-white">Create</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card bg-white rounded-10 border border-white p-20 mb-4">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-20">
-                    <h3>Active Project</h3>
-
-                    <div class="dropdown select-dropdown without-border">
-                        <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
-                            Project 01
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
-                            <li>
-                                <button class="dropdown-item text-secondary">Project 02</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">Project 03</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">Project 04</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">Project 05</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="mb-20">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="d-flex align-items-center mb-4 mb-sm-0">
-                                <div class="flex-shrink-0">
-                                    <div class="bg-light rounded-circle text-center" style="width: 80px; height: 80px; line-height: 80px;">
-                                        <img src="~/Templates/adminThema/fila/assets/images/project1.svg" alt="project1">
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h4 class="fs-16 mb-0 fw-medium mb-1">Project Alpho</h4>
-                                    <span class="fs-14"><span class="text-secondary">Client:</span> Shawn Kennedy</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <div class="bg-light rounded-circle text-center" style="width: 80px; height: 80px; line-height: 80px;">
-                                            <img src="~/Templates/adminThema/fila/assets/images/project2.svg" alt="project2">
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h4 class="fs-16 mb-0 fw-medium mb-1">Assigned To</h4>
-                                        <span class="fs-14">Vaxo Corporation</span>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown action-opt text-center">
-                                    <button class="btn bg-transparent p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined">more_horiz</i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow">
-                                        <li>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <i class="ri-eye-line"></i>
-                                                View
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <i class="ri-edit-line"></i>
-                                                Edit
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <i class="ri-delete-bin-6-line"></i>
-                                                Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rounded-10 active-project" style="background: linear-gradient(180deg, #5c4edb, #796df6); margin-bottom: 16px;">
-                    <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center before-border mb-4">
-                        <div>
-                            <span class="fs-16 fw-medium text-white border-color-white d-inline-block text-center rounded-circle bg-primary-60" style="border: 1px dashed; width: 55px; height: 55px; line-height: 55px;">01</span>
-                            <span class="fs-16 fw-medium text-white d-block lh-1" style="margin-top: 18px;">Planning</span>
-                        </div>
-                        <div>
-                            <span class="fs-16 fw-medium text-white border-color-white d-inline-block text-center rounded-circle bg-primary-60" style="border: 1px dashed; width: 55px; height: 55px; line-height: 55px;">02</span>
-                            <span class="fs-16 fw-medium text-white d-block lh-1" style="margin-top: 18px;">Design</span>
-                        </div>
-                        <div>
-                            <span class="fs-16 fw-medium text-white border-color-white d-inline-block text-center rounded-circle bg-primary-60 active" style="border: 1px dashed; width: 55px; height: 55px; line-height: 55px;">03</span>
-                            <span class="fs-16 fw-medium text-white d-block lh-1" style="margin-top: 18px;">Development</span>
-                        </div>
-                        <div>
-                            <span class="fs-16 fw-medium text-white border-color-white d-inline-block text-center rounded-circle bg-primary-60" style="border: 1px dashed; width: 55px; height: 55px; line-height: 55px;">04</span>
-                            <span class="fs-16 fw-medium text-white d-block lh-1" style="margin-top: 18px;">Testing</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-10">
-                        <span class="fs-16 text-white d-block">0%</span>
-                        <span class="fs-16 text-white d-block">50%</span>
-                        <span class="fs-16 text-white d-block">100%</span>
-                    </div>
-                    <div class="progress rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 5px; background-color: rgba(255, 255, 255, .15);">
-                        <div class="progress-bar bg-info rounded-0" style="width: 75%; height: 5px;"></div>
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap gap-2 justify-content-between">
-                    <span class="fs-16 text-secondary">Project Total Hours: 384 hrs</span>
-                    <span class="fs-16 text-secondary">Project Hours Left: 144 hrs</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
             <div class="card bg-white rounded-10 border border-white mb-4">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 p-20">
-                    <h3>Team Members</h3>
+                    <h3>Hasta Yorumları</h3>
 
-                    <a href="team-members.html" class="text-decoration-none fs-15 hover-text">View All</a>
+                    <form class="table-src-form position-relative ms-0">
+                        <input type="text" class="form-control" placeholder="Ara...">
+                        <div class="src-btn position-absolute top-50 start-0 translate-middle-y bg-transparent p-0 border-0">
+                            <span class="material-symbols-outlined">search</span>
+                        </div>
+                    </form>
                 </div>
-                <div class="default-table-area mx-minus-1 table-team-members">
+
+                <div class="default-table-area mx-minus-1 table-to-do-list pm-to-do-list">
                     <div class="table-responsive">
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="fw-medium">Member</th>
-                                    <th scope="col" class="fw-medium">Hours</th>
-                                    <th scope="col" class="fw-medium text-start">Status</th>
+                                    <th scope="col" class="fw-medium pe-0">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="fw-medium ps-0">Doktor Adı</th>
+                                    <th scope="col" class="fw-medium">Yorum Tarihi</th>
+                                    <th scope="col" class="fw-medium">Yorum</th>
+                                    <th scope="col" class="fw-medium">Durum</th>
+                                    <th scope="col" class="fw-medium">İşlem</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="border-0">
-                                        <div class="d-flex align-items-center text-decoration-none">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user12.jpg" class="rounded-circle" style="width: 45px; height: 45px;" alt="user12">
-                                            </div>
-                                            <div class="flex-grow-1 ms-12">
-                                                <h3 class="fw-medium fs-16">Mark Stjohn</h3>
-                                                <span class="fs-14 text-body fw-normal">Product Manager</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-body border-0">120 hrs</td>
-                                    <td class="border-0">
-                                        <span class="fs-14 text-body text-start d-block" style="margin-bottom: 4px;">75%</span>
-                                        <div class="progress bg-light rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
-                                            <div class="progress-bar bg-info rounded-0" style="width: 75%; height: 5px;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">
-                                        <div class="d-flex align-items-center text-decoration-none">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user13.jpg" class="rounded-circle" style="width: 45px; height: 45px;" alt="user13">
-                                            </div>
-                                            <div class="flex-grow-1 ms-12">
-                                                <h3 class="fw-medium fs-16">Russell Colon</h3>
-                                                <span class="fs-14 text-body fw-normal">Web Designer</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-body border-0">89 hrs</td>
-                                    <td class="border-0">
-                                        <span class="fs-14 text-body text-start d-block" style="margin-bottom: 4px;">55%</span>
-                                        <div class="progress bg-light rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
-                                            <div class="progress-bar bg-primary rounded-0" style="width: 55%; height: 5px;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">
-                                        <div class="d-flex align-items-center text-decoration-none">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user14.jpg" class="rounded-circle" style="width: 45px; height: 45px;" alt="user14">
-                                            </div>
-                                            <div class="flex-grow-1 ms-12">
-                                                <h3 class="fw-medium fs-16">Juana Thatcher</h3>
-                                                <span class="fs-14 text-body fw-normal">UI/UX Designer</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-body border-0">57 hrs</td>
-                                    <td class="border-0">
-                                        <span class="fs-14 text-body text-start d-block" style="margin-bottom: 4px;">65%</span>
-                                        <div class="progress bg-light rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
-                                            <div class="progress-bar bg-warning rounded-0" style="width: 65%; height: 5px;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">
-                                        <div class="d-flex align-items-center text-decoration-none">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user15.jpg" class="rounded-circle" style="width: 45px; height: 45px;" alt="user15">
-                                            </div>
-                                            <div class="flex-grow-1 ms-12">
-                                                <h3 class="fw-medium fs-16">Raymond Nguyen</h3>
-                                                <span class="fs-14 text-body fw-normal">Lead Developer</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-body border-0">76 hrs</td>
-                                    <td class="border-0">
-                                        <span class="fs-14 text-body text-start d-block" style="margin-bottom: 4px;">85%</span>
-                                        <div class="progress bg-light rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
-                                            <div class="progress-bar bg-primary-50 rounded-0" style="width: 85%; height: 5px;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">
-                                        <div class="d-flex align-items-center text-decoration-none">
-                                            <div class="flex-shrink-0">
-                                                <img src="~/Templates/adminThema/fila/assets/images/user16.jpg" class="rounded-circle" style="width: 45px; height: 45px;" alt="user16">
-                                            </div>
-                                            <div class="flex-grow-1 ms-12">
-                                                <h3 class="fw-medium fs-16">Frank Mele</h3>
-                                                <span class="fs-14 text-body fw-normal">Angular Developer</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-body border-0">95 hrs</td>
-                                    <td class="border-0">
-                                        <span class="fs-14 text-body text-start d-block" style="margin-bottom: 4px;">60%</span>
-                                        <div class="progress bg-light rounded-0" role="progressbar" aria-label="Basic example" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
-                                            <div class="progress-bar bg-success rounded-0" style="width: 60%; height: 5px;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @if (ViewBag.TestimonialList != null)
+                                {
+                                    foreach (var item in ViewBag.TestimonialList)
+                                    {
+                                        <tr>
+                                            <td class="text-body pe-0" style="width: 62px;">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="@item.TestimonialId">
+                                                </div>
+                                            </td>
+                                            <td class="text-body ps-0">@item.Doctor.FullName</td>
+                                            <td class="text-secondary">@item.CommentDate.ToString("dd MMM yyyy")</td>
+                                            <td class="text-body">
+                                                @(item.Comment.Length > 50 ? item.Comment.Substring(0, 50) + "..." : item.Comment)
+                                            </td>
+                                            <td class="text-body">
+                                                @if (item.IsRead)
+                                                {
+                                                    <span class="text-success bg-success bg-opacity-10 fs-14 fw-normal d-inline-block px-2 py-1 rounded">Okundu</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-warning bg-warning bg-opacity-10 fs-14 fw-normal d-inline-block px-2 py-1 rounded">Okunmadı</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-end" style="gap: 12px;">
+                                                    <button type="button" class="bg-transparent p-0 border-0 view-comment-btn"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#commentModal"
+                                                            data-comment="@item.Comment"
+                                                            data-doctor="@item.Doctor.FullName"
+                                                            data-bs-placement="top" data-bs-title="Görüntüle">
+                                                        <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
+                                                    </button>
+                                                    <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sil">
+                                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-3">Gösterilecek yorum bulunamadı.</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -1072,116 +325,216 @@ else
     </div>
 </div>
 
-
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered rounded-10">
+        <div class="modal-content bg-white">
+            <div class="modal-header border-border-color-40 p-20">
+                <h1 class="modal-title fs-18 fw-medium mb-0" id="modalDoctorName">Yorum Detayı</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-20">
+                <p id="modalCommentText" class="text-body text-wrap text-break mb-0"></p>
+            </div>
+            <div class="modal-footer border-0 p-20 pt-0">
+                <button type="button" class="btn btn-secondary fw-normal text-white" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 <script>
+    // Modal İçin Script
     document.addEventListener("DOMContentLoaded", function () {
+        const viewButtons = document.querySelectorAll('.view-comment-btn');
+        const modalCommentText = document.getElementById('modalCommentText');
+        const modalDoctorName = document.getElementById('modalDoctorName');
 
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const comment = this.getAttribute('data-comment');
+                const doctor = this.getAttribute('data-doctor');
+                modalDoctorName.textContent = doctor + " - Hasta Yorumu";
+                modalCommentText.textContent = comment;
+            });
+        });
+    });
+
+    // Grafik İçin Script
+    document.addEventListener("DOMContentLoaded", function () {
         const chartElement = document.querySelector('#department_roadmap_chart2');
-
         if (chartElement) {
-            // C# ViewBag'den gelen listeleri JavaScript dizilerine (Array) dönüştürüyoruz
             var categoriesData = @Html.Raw(Json.Encode(ViewBag.ChartLabels ?? new List<string>()));
             var seriesData = @Html.Raw(Json.Encode(ViewBag.ChartData ?? new List<int>()));
 
             var options = {
-                series: [
-                    {
-                        name: "Randevu Sayısı", // Tooltip'te görünecek isim
-                        data: seriesData        // C#'tan gelen randevu sayıları
-                    }
-                ],
-                chart: {
-                    type: "bar",
-                    height: 360,
-                    toolbar: {
-                        show: false
-                    }
-                },
-                colors: [
-                    "#2193b0" // Hastane temasına uygun güzel bir mavi tonu
-                ],
-                plotOptions: {
-                    bar: {
-                        horizontal: true,
-                        borderRadius: 4, // Çubukların uçlarını hafif yumuşattık
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    style: {
-                        fontSize: '14px',
-                        fontFamily: 'Outfit, sans-serif',
-                    }
-                },
+                series: [{ name: "Randevu Sayısı", data: seriesData }],
+                chart: { type: "bar", height: 360, toolbar: { show: false } },
+                colors: ["#2193b0"],
+                plotOptions: { bar: { horizontal: true, borderRadius: 4 } },
+                dataLabels: { enabled: true, style: { fontSize: '14px', fontFamily: 'Outfit, sans-serif' } },
                 xaxis: {
-                    categories: categoriesData, // C#'tan gelen bölüm isimleri
-                    axisBorder: {
-                        show: true,
-                        color: '#e0e0e0'
-                    },
-                    axisTicks: {
-                        show: true,
-                        color: '#e0e0e0'
-                    },
-                    labels: {
-                        show: true,
-                        style: {
-                            colors: "#64748b",
-                            fontSize: "14px",
-                            fontFamily: 'Outfit, sans-serif',
-                        }
-                    }
+                    categories: categoriesData,
+                    axisBorder: { show: true, color: '#e0e0e0' },
+                    axisTicks: { show: true, color: '#e0e0e0' },
+                    labels: { show: true, style: { colors: "#64748b", fontSize: "14px", fontFamily: 'Outfit, sans-serif' } }
                 },
                 yaxis: {
-                    labels: {
-                        show: true,
-                        style: {
-                            colors: "#2c3e50", // Bölüm isimlerinin rengini koyulaştırdık ki okunsun
-                            fontSize: "14px",
-                            fontFamily: 'Outfit, sans-serif',
-                            fontWeight: 500
-                        }
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#e0e0e0'
-                    },
-                    axisTicks: {
-                        show: false,
-                    }
+                    labels: { show: true, style: { colors: "#2c3e50", fontSize: "14px", fontFamily: 'Outfit, sans-serif', fontWeight: 500 } },
+                    axisBorder: { show: true, color: '#e0e0e0' },
+                    axisTicks: { show: false }
                 },
                 grid: {
                     strokeDashArray: 5,
                     borderColor: "#f4f6fc",
-                    row: {
-                        colors: ["#f4f6fc", "transparent"],
-                        opacity: 0.5
-                    }
+                    row: { colors: ["#f4f6fc", "transparent"], opacity: 0.5 }
                 },
                 noData: {
-                    text: 'Bu hastanın henüz randevu kaydı bulunmuyor.',
+                    text: 'Kayıt bulunamadı.',
                     align: 'center',
                     verticalAlign: 'middle',
-                    style: {
-                      color: '#64748b',
-                      fontSize: '16px'
-                    }
+                    style: { color: '#64748b', fontSize: '16px' }
                 }
             };
-
             const chart = new ApexCharts(chartElement, options);
             chart.render();
         }
     });
+
+    // Takvim İçin Script
+    const getCalendarBodyId = document.getElementById('calendarBody2');
+    if (getCalendarBodyId) {
+        const appointmentDates = @Html.Raw(Json.Encode(ViewBag.AppointmentDates ?? new List<string>()));
+        const calendarBody = document.getElementById('calendarBody2');
+        const monthSelect = document.getElementById('monthSelect');
+        const yearSelect = document.getElementById('yearSelect');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+
+        const currentDate = new Date();
+        let selectedMonth = currentDate.getMonth();
+        let selectedYear = currentDate.getFullYear();
+
+        // Türkçe aylar eklendi
+        const monthNames = [
+            "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+        ];
+
+        function populateMonthAndYearSelectors() {
+            monthNames.forEach((month, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = month;
+                monthSelect.appendChild(option);
+            });
+            for (let i = currentDate.getFullYear() - 20; i <= currentDate.getFullYear() + 20; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        function generateCalendar(month, year) {
+            calendarBody.innerHTML = '';
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            let adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+            let date = 1;
+            let prevMonthDate = daysInPrevMonth - adjustedFirstDay + 1;
+            let nextMonthDate = 1;
+            const today = new Date();
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+
+                    if (i === 0 && j < adjustedFirstDay) {
+                        cell.textContent = prevMonthDate++;
+                        cell.classList.add('prev-month', 'text-muted');
+                    } else if (date > daysInMonth) {
+                        cell.textContent = nextMonthDate++;
+                        cell.classList.add('next-month', 'text-muted');
+                    } else {
+                        cell.textContent = date;
+                        let cellMonthStr = String(month + 1).padStart(2, '0');
+                        let cellDateStr = String(date).padStart(2, '0');
+                        let fullDateString = `${year}-${cellMonthStr}-${cellDateStr}`;
+
+                        if (appointmentDates.includes(fullDateString)) {
+                            let cellDateObj = new Date(year, month, date);
+                            let todayObj = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+                            if (cellDateObj < todayObj) {
+                                cell.classList.add('past-appointment');
+                                cell.title = "Geçmiş Randevu";
+                            } else {
+                                cell.classList.add('future-appointment');
+                                cell.title = "Gelecek Randevu";
+                            }
+                        }
+
+                        if (year === today.getFullYear() && month === today.getMonth() && date === today.getDate()) {
+                            cell.classList.add('current-day');
+                            cell.style.backgroundColor = "#796df6";
+                            cell.style.color = "white";
+                        }
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+                if (date > daysInMonth && nextMonthDate > 7) break;
+            }
+        }
+
+        function updateCalendar() {
+            generateCalendar(selectedMonth, selectedYear);
+            monthSelect.value = selectedMonth;
+            yearSelect.value = selectedYear;
+        }
+
+        monthSelect.addEventListener('change', (e) => {
+            selectedMonth = parseInt(e.target.value);
+            updateCalendar();
+        });
+
+        yearSelect.addEventListener('change', (e) => {
+            selectedYear = parseInt(e.target.value);
+            updateCalendar();
+        });
+
+        prevMonthBtn.addEventListener('click', () => {
+            if (selectedMonth === 0) {
+                selectedMonth = 11;
+                selectedYear--;
+            } else selectedMonth--;
+            updateCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            if (selectedMonth === 11) {
+                selectedMonth = 0;
+                selectedYear++;
+            } else selectedMonth++;
+            updateCalendar();
+        });
+
+        populateMonthAndYearSelectors();
+        updateCalendar();
+    }
 </script>
 
 <style>
     /* GEÇMİŞ RANDEVULAR İÇİN (KIRMIZI) */
     .past-appointment {
-        background-color: #fee2e2 !important; /* Açık Kırmızı */
-        color: #b91c1c !important; /* Koyu Kırmızı Metin */
+        background-color: #fee2e2 !important;
+        color: #b91c1c !important;
         border: 1px solid #fca5a5 !important;
         border-radius: 8px;
         font-weight: bold;
@@ -1197,14 +550,14 @@ else
             transform: translateX(-50%);
             width: 5px;
             height: 5px;
-            background-color: #b91c1c; /* Kırmızı Nokta */
+            background-color: #b91c1c;
             border-radius: 50%;
         }
 
     /* GELECEK RANDEVULAR İÇİN (YEŞİL) */
     .future-appointment {
-        background-color: #dcfce7 !important; /* Açık Yeşil */
-        color: #15803d !important; /* Koyu Yeşil Metin */
+        background-color: #dcfce7 !important;
+        color: #15803d !important;
         border: 1px solid #86efac !important;
         border-radius: 8px;
         font-weight: bold;
@@ -1220,166 +573,7 @@ else
             transform: translateX(-50%);
             width: 5px;
             height: 5px;
-            background-color: #15803d; /* Yeşil Nokta */
+            background-color: #15803d;
             border-radius: 50%;
         }
 </style>
-
-<script>
-
- // Simple Calendar JS
-const getCalendarBodyId = document.getElementById('calendarBody2'); // 1. DEĞİŞİKLİK BURADA
-if (getCalendarBodyId) {
-
-    // C#'tan gelen randevu tarihlerini JavaScript dizisine alıyoruz!
-    const appointmentDates = @Html.Raw(Json.Encode(ViewBag.AppointmentDates ?? new List<string>()));
-
-    const calendarBody = document.getElementById('calendarBody2'); // 2. DEĞİŞİKLİK BURADA
-    const monthSelect = document.getElementById('monthSelect');
-
-    const yearSelect = document.getElementById('yearSelect');
-    const prevMonthBtn = document.getElementById('prevMonth');
-    const nextMonthBtn = document.getElementById('nextMonth');
-
-    const currentDate = new Date();
-    let selectedMonth = currentDate.getMonth();
-    let selectedYear = currentDate.getFullYear();
-
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-
-    function populateMonthAndYearSelectors() {
-        monthNames.forEach((month, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.textContent = month;
-            monthSelect.appendChild(option);
-        });
-
-        for (let i = currentDate.getFullYear() - 20; i <= currentDate.getFullYear() + 20; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i;
-            yearSelect.appendChild(option);
-        }
-    }
-
-    function generateCalendar(month, year) {
-        calendarBody.innerHTML = '';
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-        // Pazartesiden başlaması için JS'in 0(Pazar) indeksini ayarlıyoruz
-        let adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-        let date = 1;
-        let prevMonthDate = daysInPrevMonth - adjustedFirstDay + 1;
-        let nextMonthDate = 1;
-        const today = new Date();
-
-        for (let i = 0; i < 6; i++) {
-            const row = document.createElement('tr');
-
-            for (let j = 0; j < 7; j++) {
-                const cell = document.createElement('td');
-
-                if (i === 0 && j < adjustedFirstDay) {
-                    cell.textContent = prevMonthDate++;
-                    cell.classList.add('prev-month', 'text-muted');
-                } else if (date > daysInMonth) {
-                    cell.textContent = nextMonthDate++;
-                    cell.classList.add('next-month', 'text-muted');
-                } else {
-                    cell.textContent = date;
-
-                    // --- GÜNCELLENEN KISIM: GEÇMİŞ/GELECEK KONTROLÜ ---
-                    let cellMonthStr = String(month + 1).padStart(2, '0');
-                    let cellDateStr = String(date).padStart(2, '0');
-                    let fullDateString = `${year}-${cellMonthStr}-${cellDateStr}`;
-
-                    // Eğer bu tarih randevu listemizde varsa
-                    if (appointmentDates.includes(fullDateString)) {
-
-                        // Takvimdeki hücrenin tarihini ve bugünün tarihini (saatleri sıfırlayarak) alıyoruz
-                        let cellDateObj = new Date(year, month, date);
-                        let todayObj = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
-                        // Geçmiş mi, gelecek mi kontrolü
-                        if (cellDateObj < todayObj) {
-                            // Geçmiş tarihliyse KIRMIZI yap
-                            cell.classList.add('past-appointment');
-                            cell.title = "Geçmiş Randevu";
-                        } else {
-                            // Bugün veya gelecek tarihliyse YEŞİL yap
-                            cell.classList.add('future-appointment');
-                            cell.title = "Gelecek Randevu";
-                        }
-                    }
-
-                    // Bugünün tarihi vurgusu (Mevcut kodun)
-                    if (year === today.getFullYear() && month === today.getMonth() && date === today.getDate()) {
-                        cell.classList.add('current-day');
-                        cell.style.backgroundColor = "#796df6"; // Bugünün rengi mor kalmaya devam eder
-                        cell.style.color = "white";
-                    }
-                    // --------------------------------------------------
-                    date++;
-                }
-                row.appendChild(cell);
-            }
-            calendarBody.appendChild(row);
-            if (date > daysInMonth && nextMonthDate > 7) {
-                break;
-            }
-        }
-    }
-
-    function updateCalendar() {
-        generateCalendar(selectedMonth, selectedYear);
-        monthSelect.value = selectedMonth;
-        yearSelect.value = selectedYear;
-    }
-
-    monthSelect.addEventListener('change', (e) => {
-        selectedMonth = parseInt(e.target.value);
-        updateCalendar();
-    });
-
-    yearSelect.addEventListener('change', (e) => {
-        selectedYear = parseInt(e.target.value);
-        updateCalendar();
-    });
-
-    prevMonthBtn.addEventListener('click', () => {
-        if (selectedMonth === 0) {
-            selectedMonth = 11;
-            selectedYear--;
-        } else {
-            selectedMonth--;
-        }
-        updateCalendar();
-    });
-
-    nextMonthBtn.addEventListener('click', () => {
-        if (selectedMonth === 11) {
-            selectedMonth = 0;
-            selectedYear++;
-        } else {
-            selectedMonth++;
-        }
-        updateCalendar();
-    });
-
-    populateMonthAndYearSelectors();
-    updateCalendar();
-}
-
-
-</script>
-
-
-
-

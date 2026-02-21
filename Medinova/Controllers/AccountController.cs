@@ -46,7 +46,7 @@ namespace Medinova.Controllers
 
             if (user.RoleId == 2)
             {
-                return RedirectToAction("Index", "About", new { area = "Admin" });
+                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
             }else if(user.RoleId==1)
             {
                 return RedirectToAction("Index", "About", new { area = "User" });

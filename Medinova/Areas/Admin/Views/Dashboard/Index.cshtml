@@ -1,0 +1,443 @@
+﻿@model List<Medinova.Models.Doctor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var schedules = ViewBag.Schedules as List<Medinova.DTOs.DailyScheduleDto>;
+}
+
+<div class="main-content-container overflow-hidden">
+    <div class="row">
+        <div class="col-xxl-6 col-xxxl-12">
+            <div class="card rounded-10 border-0 mb-4 bg-img zinnia-card" style="background-image: url('/Templates/adminThema/fila/assets/images/welcome-bg.png'); padding: 54px 50px;">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 col-lg-7">
+                        <h2 class="fs-26 fw-normal text-white mb-10">Merhaba <span class="fw-900">@ViewBag.adminName !</span></h2>
+                        <p class="fs-20 hospital-content" style="color: #CCE1FF; margin-bottom: 60px;">Sanal Hastanenize Hoş Geldiniz!</p>
+                        <span class="fs-16 fw-semibold d-block" style="color: #CCE1FF; margin-bottom: 18px;">Bugünün Programına Göz Atın:</span>
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="bg-white d-flex rounded-1" style="padding: 9px 12px; width: 140px;">
+                                <i class="ri-shield-user-fill fs-18 text-center rounded-circle" style="background-color: #C5CBFF; color: #382C83; width: 36px; height: 36px; line-height: 36px;"></i>
+                                <div class="ms-10">
+                                    <span class="fs-15">Hastalar</span>
+                                    <h2 class="fs-20 mb-0 lh-1" style="color: #475569;">146</h2>
+                                </div>
+                            </div>
+                            <div class="bg-white d-flex rounded-1" style="padding: 9px 12px; width: 140px;">
+                                <i class="ri-scissors-2-fill fs-18 text-center rounded-circle" style="background-color: #C5CBFF; color: #382C83; width: 36px; height: 36px; line-height: 36px;"></i>
+                                <div class="ms-10">
+                                    <span class="fs-15">Ameliyatlar</span>
+                                    <h2 class="fs-20 mb-0 lh-1" style="color: #475569;">12</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-5">
+                        <div class="text-center text-sm-end mt-4 mt-sm-0" style="margin-right: -20px;">
+                            <img src="~/Templates/adminThema/fila/assets/images/medibox.png" alt="medibox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-6 col-xxxl-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card bg-white p-20 py-30 rounded-10 border border-white mb-4 position-relative z-1">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-10 lh-1 fs-14 text-body">Gelecek Tarihli Randevular</h3>
+                                <h2 class="fs-26 fw-bold mb-10 lh-1">@ViewBag.FutureAppointments</h2>
+                                <div class="d-inline-block" style="margin-bottom: 1px;">
+                                    <span class="d-flex align-content-center gap-1 bg-success-70 border-white rounded-1" style="padding: 3px 5px;">
+                                        <i class="material-symbols-outlined fs-14 text-white">trending_up</i>
+                                        <span class="lh-1 fs-14 text-white">4.11%</span>
+                                    </span>
+                                </div>
+                                <p class="mb-0 fs-14">Bu hafta artış</p>
+                            </div>
+                            <div class="flex-shrink-0 ms-3 position-relative" style="width: 64px;">
+                                <div class="w-100 position-absolute top-50 translate-middle-y">
+                                    <img src="~/Templates/adminThema/fila/assets/images/calendar-3d.png" alt="calendar-3d">
+                                    <span class="position-absolute bottom-0 start-0 rounded-circle z-n1 d-inline-block" style="background-color: #EFF3F9; width: 54px; height: 54px; bottom: -19px !important; left: -19px !important;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-white p-20 py-30 rounded-10 border border-white mb-4 position-relative z-1">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-10 lh-1 fs-14 text-body">Kayıtlı Hasta Sayısı</h3>
+                                <h2 class="fs-26 fw-bold mb-10 lh-1">@ViewBag.userCount</h2>
+                                <div class="d-inline-block" style="margin-bottom: 1px;">
+                                    <span class="d-flex align-content-center gap-1 bg-danger border-white rounded-1" style="padding: 3px 5px;">
+                                        <i class="material-symbols-outlined fs-14 text-white">trending_down</i>
+                                        <span class="lh-1 fs-14 text-white">1.25%</span>
+                                    </span>
+                                </div>
+                                <p class="mb-0 fs-14">Bu hafta düşüş</p>
+                            </div>
+                            <div class="flex-shrink-0 ms-3 position-relative" style="width: 64px;">
+                                <div class="w-100 position-absolute top-50 translate-middle-y">
+                                    <img src="~/Templates/adminThema/fila/assets/images/patient.png" alt="patient">
+                                    <span class="position-absolute bottom-0 start-0 rounded-circle z-n1 d-inline-block" style="background-color: #EFF3F9; width: 54px; height: 54px; bottom: -19px !important; left: -19px !important;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-white p-20 py-30 rounded-10 border border-white mb-4 position-relative z-1">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-10 lh-1 fs-14 text-body">Doktor Sayısı</h3>
+                                <h2 class="fs-26 fw-bold mb-10 lh-1">@ViewBag.DoctorCount</h2>
+                                <div class="d-inline-block" style="margin-bottom: 1px;">
+                                    <span class="d-flex align-content-center gap-1 bg-danger border-white rounded-1" style="padding: 3px 5px;">
+                                        <i class="material-symbols-outlined fs-14 text-white">trending_down</i>
+                                        <span class="lh-1 fs-14 text-white">0.31%</span>
+                                    </span>
+                                </div>
+                                <p class="mb-0 fs-14">Bu hafta düşüş</p>
+                            </div>
+                            <div class="flex-shrink-0 ms-3 position-relative" style="width: 64px;">
+                                <div class="w-100 position-absolute top-50 translate-middle-y">
+                                    <img src="~/Templates/adminThema/fila/assets/images/consultation.png" alt="consultation">
+                                    <span class="position-absolute bottom-0 start-0 rounded-circle z-n1 d-inline-block" style="background-color: #EFF3F9; width: 54px; height: 54px; bottom: -19px !important; left: -19px !important;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-white p-20 py-30 rounded-10 border border-white mb-4 position-relative z-1">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-10 lh-1 fs-14 text-body">Departman Sayısı</h3>
+                                <h2 class="fs-26 fw-bold mb-10 lh-1">@ViewBag.departmenCount</h2>
+                                <div class="d-inline-block" style="margin-bottom: 1px;">
+                                    <span class="d-flex align-content-center gap-1 bg-success-70 border-white rounded-1" style="padding: 3px 5px;">
+                                        <i class="material-symbols-outlined fs-14 text-white">trending_up</i>
+                                        <span class="lh-1 fs-14 text-white">3.11%</span>
+                                    </span>
+                                </div>
+                                <p class="mb-0 fs-14">Bu hafta artış</p>
+                            </div>
+                            <div class="flex-shrink-0 ms-3 position-relative" style="width: 64px;">
+                                <div class="w-100 position-absolute top-50 translate-middle-y">
+                                    <img src="~/Templates/adminThema/fila/assets/images/burn.png" alt="burn">
+                                    <span class="position-absolute bottom-0 start-0 rounded-circle z-n1 d-inline-block" style="background-color: #EFF3F9; width: 54px; height: 54px; bottom: -19px !important; left: -19px !important;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-4 col-xxxl-12">
+            <div class="card bg-white rounded-10 border border-white mb-4 p-20">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-20">
+                    <h3>Tüm Program</h3>
+
+                    <div class="dropdown select-dropdown without-border ms-1">
+                        <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tümünü Göster
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
+                            <li><button class="dropdown-item text-secondary">Randevular</button></li>
+                            <li><button class="dropdown-item text-secondary">Ameliyatlar</button></li>
+                            <li><button class="dropdown-item text-secondary">Tümünü Göster</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs schedule-tabs justify-content-sm-between border-border-color-60 gap-1" style="border-bottom: 1px dashed;" id="myTab" role="tablist">
+                    @if (schedules != null && schedules.Any())
+                    {
+                        for (int i = 0; i < schedules.Count; i++)
+                        {
+                            var schedule = schedules[i];
+                            bool isActive = (i == 0);
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link @(isActive ? "active" : "")" id="day-@i-tab" data-bs-toggle="tab" data-bs-target="#day-@i-tab-pane" type="button" role="tab" aria-controls="day-@i-tab-pane" aria-selected="@isActive.ToString().ToLower()">
+                                    <span class="d-block fs-14 fw-medium text-body-color-50">@schedule.Date.ToString("ddd")</span>
+                                    <span class="d-block fs-14 fw-medium text-secondary">@schedule.Date.ToString("dd")</span>
+                                </button>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                <div class="tab-content schedule-card-for-dark" id="myTabContent">
+                    @if (schedules != null && schedules.Any())
+                    {
+                        for (int i = 0; i < schedules.Count; i++)
+                        {
+                            var schedule = schedules[i];
+                            bool isActive = (i == 0);
+
+                            <div class="tab-pane fade @(isActive ? "show active" : "")" id="day-@i-tab-pane" role="tabpanel" aria-labelledby="day-@i-tab" tabindex="0">
+                                <h3 class="mb-2">@(isActive ? "Bugünün Programı" : schedule.Date.ToString("dd MMM yyyy") + " Programı")</h3>
+
+                                <ul class="p-0 mb-20 list-unstyled d-flex flex-wrap gap-4">
+                                    <li class="d-flex align-items-center gap-1">
+                                        <span class="d-block bg-primary-50 rounded-circle" style="width: 10px; height: 10px;"></span>
+                                        <p class="fw-medium fs-14"><span class="fw-bold text-secondary">@schedule.Appointments.Count</span> Randevu</p>
+                                    </li>
+                                </ul>
+
+                                <div style="max-height: 617.42px;" data-simplebar>
+                                    @if (schedule.Appointments == null || !schedule.Appointments.Any())
+                                    {
+                                        <div class="p-20 text-center">
+                                            <p class="text-body-color-60">Bu gün için planlanmış randevu bulunmuyor.</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        foreach (var app in schedule.Appointments)
+                                        {
+                                            string modalId = $"modal-{app.AppointmentId}";
+                                            string timeString = app.AppointmentDate.HasValue ? app.AppointmentDate.Value.ToString("hh:mm") : "00:00";
+                                            string amPmString = app.AppointmentDate.HasValue ? app.AppointmentDate.Value.ToString("tt") : "AM";
+                                            string docName = app.Doctor != null ? app.Doctor.FullName : "Atanmadı";
+
+                                            <div class="p-20 border-primary-50 mb-10" style="background-color: #F2F1F9; border-left: 4px solid; padding-top: 19.6px; padding-bottom: 19.6px;">
+                                                <div class="row align-items-center">
+                                                    <div class="col-lg-6">
+                                                        <div class="d-flex align-items-center mb-1">
+                                                            <span class="fs-18 text-secondary-50">@timeString</span>
+                                                            <span class="fs-12 fw-medium ms-1 text-body-color-60">@amPmString</span>
+                                                            <i class="ri-notification-2-line ms-12 bg-primary-50 rounded-circle text-white text-center fs-16" style="width: 28px; height: 28px; line-height: 28px;"></i>
+                                                        </div>
+                                                        <h3 class="fs-16 fw-normal text-secondary mb-1">Hasta Randevusu</h3>
+                                                        <div class="text-body-color-60 fw-medium">Doktor: <span class="text-primary-50">@docName</span></div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="text-end me-md-4">
+                                                            <button class="btn fs-14 fw-medium bg-white hover-bg" style="padding: 9px 10px;" data-bs-toggle="modal" data-bs-target="#@modalId">Detayları Gör</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@modalId-Label" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered rounded-10" style="max-width: 900px;">
+                                                    <form class="modal-content bg-white">
+                                                        <div class="modal-header border-border-color-40 p-20">
+                                                            <h1 class="modal-title fs-18 fw-medium mb-0" id="@modalId-Label">Randevu Detayları</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body p-20 pb-0">
+                                                            <div class="mb-30">
+                                                                <span class="fs-18 text-secondary d-block d-flex align-items-center gap-1">@timeString <span class="fs-12 fw-medium">@amPmString</span></span>
+                                                                <span class="fs-16 text-secondary d-block mb-1">Hasta Randevusu</span>
+                                                                <span class="fs-12 fw-medium d-block">Doktor: <span class="text-primary">@docName</span></span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="card p-20 bg-body-bg border-0 rounded-10 mb-4">
+                                                                        <h3 class="mb-3">Randevu Bilgileri</h3>
+                                                                        <ul class="p-0 mb-0 list-unstyled last-child-none">
+                                                                            <li class="mb-10"><span class="fs-16">Randevu ID: <span class="text-secondary">#@app.AppointmentId</span></span></li>
+                                                                            <li class="mb-10"><span class="fs-16">Hasta Bilgisi: <span class="text-secondary">Veritabanından Gelecek İsim</span></span></li>
+                                                                            <li class="mb-10"><span class="fs-16">Tarih: <span class="text-secondary">@(app.AppointmentDate.HasValue ? app.AppointmentDate.Value.ToString("dd MMMM, yyyy") : "-")</span></span></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="card p-20 bg-body-bg border-0 rounded-10 mb-4">
+                                                                        <h3 class="mb-3">Randevu Linki:</h3>
+                                                                        <a href="#" class="fs-16 text-primary text-decoration-none d-block" style="margin-bottom: 120px;">Link varsa buraya eklenebilir</a>
+                                                                        <a href="#" class="btn btn-primary text-white fs-16 fw-normal" style="padding: 16px 10px;">Online Randevuyu Başlat</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-end border-0 gap-3 p-20 pt-0">
+                                                            <button type="button" class="bg-transparent p-0 border-0 text-danger fw-normal fs-16" data-bs-dismiss="modal">Kapat</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-8 col-xxx-12">
+            <div class="card bg-white p-20 rounded-10 border border-white mb-4">
+                <h3 class="mb-20">Departman İstatistikleri</h3>
+
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <span class="d-block fs-16">Toplam Departman</span>
+                            <h2 class="fs-26 fw-medium mb-0" style="margin-top: 5px;">@ViewBag.TotalDepts</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <span class="d-block fs-16">Toplam Doktor</span>
+                            <h2 class="fs-26 fw-medium mb-0" style="margin-top: 5px;">@ViewBag.TotalDocs</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <span class="d-block fs-16">Toplam Randevu</span>
+                            <h2 class="fs-26 fw-medium mb-0" style="margin-top: 5px;">@ViewBag.TotalApps</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="department_stats_chart2" style="margin-bottom: -2px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card rounded-10 border-0 available-bg p-20 pb-0" style="background-color: transparent !important;">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-20">
+            <h3 class="text-white">En Çok Tercih Edilen Doktorlarımız</h3>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xxl-2 col-sm-6 col-md-4 col-xxxl-4">
+                    <div class="card bg-white rounded-10 border border-white mb-4 p-20 text-center">
+                        <div class="rounded-circle mb-3">
+                            <img src="@item.ImageUrl" class="rounded-circle" style="border: 3px solid #AFD4FF; padding: 6px;" alt="doctor1">
+                        </div>
+                        <h3 class="fs-18 text-secondary" style="margin-bottom: 6px;">@item.FullName</h3>
+                        <span class="fs-14 fw-medium d-block mb-10">@item.Department.Name</span>
+                        <div>
+                            <a href="/Admin/Doctor/DoctorDetail/@item.DoctorId" class="btn btn-primary text-white fs-14 fw-medium" style="padding: 9px 20px;">İncele</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const getDeptChartId = document.getElementById('department_stats_chart2');
+
+        if (getDeptChartId) {
+            var deptCategories = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DeptNames));
+            var doctorData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DeptDoctorCounts));
+            var appointmentData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DeptAppointmentCounts));
+
+            var options = {
+                series: [
+                    {
+                        name: "Doktorlar",
+                        type: "column",
+                        data: doctorData
+                    },
+                    {
+                        name: "Randevular",
+                        type: "area",
+                        data: appointmentData
+                    }
+                ],
+                chart: {
+                    height: 460,
+                    type: "line",
+                    stacked: false,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                stroke: {
+                    width: [0, 4],
+                    curve: "smooth"
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: "40%",
+                        borderRadius: 4
+                    }
+                },
+                colors: ['#00cae3', '#796df6'],
+                fill: {
+                    opacity: [0.85, 0.25],
+                    gradient: {
+                        inverseColors: false,
+                        shade: "light",
+                        type: "vertical",
+                        opacityFrom: 0.85,
+                        opacityTo: 0.25,
+                    }
+                },
+                legend: {
+                    show: true,
+                    offsetY: 6,
+                    fontSize: '14px',
+                    fontFamily: 'Outfit',
+                    labels: {
+                        colors: "#919aa3"
+                    },
+                    itemMargin: {
+                        horizontal: 10,
+                        vertical: 0
+                    }
+                },
+                markers: {
+                    size: 0
+                },
+                xaxis: {
+                    categories: deptCategories,
+                    axisBorder: {
+                        show: false,
+                        color: '#e0e0e0'
+                    },
+                    axisTicks: {
+                        show: true,
+                        color: '#e0e0e0'
+                    },
+                    labels: {
+                        show: true,
+                        style: {
+                            colors: "#919aa3",
+                            fontSize: "13px",
+                            fontFamily: 'Outfit',
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        show: true,
+                        style: {
+                            colors: "#919aa3",
+                            fontSize: "14px",
+                            fontFamily: 'Outfit',
+                        }
+                    }
+                },
+                grid: {
+                    strokeDashArray: 5,
+                    borderColor: "#e0e0e0"
+                }
+            };
+
+            const chart = new ApexCharts(getDeptChartId, options);
+            chart.render();
+        }
+    });
+</script>

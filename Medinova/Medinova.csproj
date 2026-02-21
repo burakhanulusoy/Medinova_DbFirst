@@ -207,6 +207,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AboutController.cs" />
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestimonialController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="DTOs\AppointmentAvailabilityDto.cs" />
     <Compile Include="DTOs\ChangePassword.cs" />
     <Compile Include="DTOs\ComplainData.cs" />
+    <Compile Include="DTOs\DailyScheduleDto.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\RegisterDto.cs" />
     <Compile Include="Enums\Times.cs" />
@@ -349,6 +351,7 @@
     <Content Include="Areas\Admin\Views\Testimonial\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

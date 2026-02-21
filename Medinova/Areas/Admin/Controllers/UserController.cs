@@ -72,7 +72,10 @@ namespace Medinova.Areas.Admin.Controllers
             ViewBag.AppointmentDates = appointmentDates;
 
 
-
+            ViewBag.TestimonialList = _context.Testimonials
+                .Include(x => x.Doctor) 
+                .Where(x => x.UserId == id)
+                .ToList();
 
 
 
