@@ -1,7 +1,11 @@
-﻿
+﻿@model List<Medinova.Models.Appointment>
+
+
+
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
 
@@ -129,31 +133,10 @@
 
 
     <div class="row">
-        <div class="col-xxl-9 col-lg-8">
+        <div class="col-xxl-12 col-lg-12">
             <div class="card bg-white rounded-10 border border-white mb-4">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 p-20">
-                    <h3>All Projects</h3>
-
-                    <div class="dropdown select-dropdown without-border">
-                        <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
-                            This Month
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Day</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Week</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Month</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Year</button>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3>Tüm Randevuları</h3>
                 </div>
 
                 <div class="default-table-area mx-minus-1 table-all-projects">
@@ -161,122 +144,53 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="fw-medium">ID</th>
-                                    <th scope="col" class="fw-medium">Project Name</th>
-                                    <th scope="col" class="fw-medium">Client</th>
-                                    <th scope="col" class="fw-medium">Start Date</th>
-                                    <th scope="col" class="fw-medium">End Date</th>
-                                    <th scope="col" class="fw-medium">Budget</th>
-                                    <th scope="col" class="fw-medium">Status</th>
-                                    <th scope="col" class="fw-medium">Action</th>
+                                    <th scope="col" class="fw-medium">#</th>
+                                    <th scope="col" class="fw-medium">Doktor Adı</th>
+                                    <th scope="col" class="fw-medium">Departman</th>
+                                    <th scope="col" class="fw-medium">Randevu Tarihi</th>
+                                    <th scope="col" class="fw-medium">Onaylandı mı?</th>
+                                    <th scope="col" class="fw-medium">Telefon Numarası</th>
+                                    <th scope="col" class="fw-medium">Email</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-body">#951</td>
-                                    <td class="text-body">Hotel management system</td>
-                                    <td class="text-secondary">Vaxo Corporation</td>
-                                    <td class="text-body">15 Nov, 2025</td>
-                                    <td class="text-body">15 Dec, 2025</td>
-                                    <td class="text-body">$5,250</td>
-                                    <td>
-                                        <span class="text-warning bg-warning bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">In Progress</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-end" style="gap: 12px;">
-                                            <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                            </button>
-                                            <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-body">#547</td>
-                                    <td class="text-body">Product development</td>
-                                    <td class="text-secondary">Beja Ltd</td>
-                                    <td class="text-body">14 Nov, 2025</td>
-                                    <td class="text-body">14 Dec, 2025</td>
-                                    <td class="text-body">$4,870</td>
-                                    <td>
-                                        <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pending</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-end" style="gap: 12px;">
-                                            <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                            </button>
-                                            <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-body">#658</td>
-                                    <td class="text-body">Python upgrade</td>
-                                    <td class="text-secondary">Aegis Industries</td>
-                                    <td class="text-body">13 Nov, 2025</td>
-                                    <td class="text-body">13 Dec, 2025</td>
-                                    <td class="text-body">$3,500</td>
-                                    <td>
-                                        <span class="text-primary bg-primary bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Completed</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-end" style="gap: 12px;">
-                                            <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                            </button>
-                                            <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-body">#367</td>
-                                    <td class="text-body">Project monitoring</td>
-                                    <td class="text-secondary">Affort Solutions</td>
-                                    <td class="text-body">12 Nov, 2025</td>
-                                    <td class="text-body">12 Dec, 2025</td>
-                                    <td class="text-body">$7,550</td>
-                                    <td>
-                                        <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Not Started</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-end" style="gap: 12px;">
-                                            <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                            </button>
-                                            <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-body">#469</td>
-                                    <td class="text-body">Project alpho</td>
-                                    <td class="text-secondary">Shawn Kennedy</td>
-                                    <td class="text-body">11 Nov, 2025</td>
-                                    <td class="text-body">11 Dec, 2025</td>
-                                    <td class="text-body">$2,500</td>
-                                    <td>
-                                        <span class="text-warning bg-warning bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">In Progress</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-end" style="gap: 12px;">
-                                            <button class="bg-transparent p-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
-                                            </button>
-                                            <button class="bg-transparent p-0 border-0 hover-text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+
+                                @foreach (var item in Model)
+                                        {
+                                            count++;
+
+                                    <tr>
+                                        <td class="text-body">@count</td>
+                                        <td class="text-body">@item.Doctor.FullName</td>
+                                        <td class="text-secondary">@item.Doctor.Department.Name</td>
+                                        <td class="text-body">@item.AppointmentDate</td>
+                                        <td class="text-body">
+                                            @if(item.IsActive==true)
+                {
+                    <span>Onaylandı</span>
+                                            }else if(item.IsActive==false)
+                {
+
+
+<span>Onaylanmadı</span>
+}
+else
+                {
+                    <span>beklemede</span>
+                }
+
+
+
+                                        </td>
+                                        <td class="text-body">@item.User.PhoneNumber</td>
+                                        <td class="text-body">@item.User.Email</td>
+                                        
+                                        
+                                    </tr>
+                                }
+
+
+
                             </tbody>
                         </table>
                     </div>
@@ -311,39 +225,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-xxl-3 col-lg-4">
-            <div class="card bg-white rounded-10 border border-white p-20 mb-4">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3" style="margin-bottom: 36.5px;">
-                    <h3>Projects Progress</h3>
-
-                    <div class="dropdown select-dropdown without-border">
-                        <button class="dropdown-toggle bg-transparent text-secondary fs-15" data-bs-toggle="dropdown" aria-expanded="false">
-                            This Week
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end bg-white border-0 box-shadow rounded-10" data-simplebar>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Day</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Week</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Month</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-secondary">This Year</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <div id="projects_progress_chart" style="margin-bottom: 18px;"></div>
-                </div>
-            </div>
-        </div>
+        
     </div>
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="row">
         <div class="col-lg-4">
             <div class="card bg-white rounded-10 border border-white p-20 mb-4">
@@ -365,16 +258,16 @@
                     <table class="calendar-table">
                         <thead>
                             <tr>
-                                <th>S</th>
-                                <th>M</th>
-                                <th>T</th>
-                                <th>W</th>
-                                <th>T</th>
-                                <th>F</th>
-                                <th>S</th>
+                                <th>Pzt</th>
+                                <th>Sal</th>
+                                <th>Çar</th>
+                                <th>Per</th>
+                                <th>Cum</th>
+                                <th>Cmt</th>
+                                <th>Pz</th>
                             </tr>
                         </thead>
-                        <tbody id="calendarBody">
+                        <tbody id="calendarBody2">
                             <!-- Calendar days will be dynamically generated here -->
                         </tbody>
                     </table>
@@ -476,6 +369,10 @@
                 </div>
             </div>
         </div>
+  
+        
+        
+        
         <div class="col-lg-8">
             <div class="row">
                 <div class="col-lg-6">
@@ -905,6 +802,27 @@
             </div>
         </div>
     </div>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="row">
         <div class="col-lg-8">
             <div class="card bg-white rounded-10 border border-white p-20 mb-4">
@@ -1258,3 +1176,210 @@
         }
     });
 </script>
+
+<style>
+    /* GEÇMİŞ RANDEVULAR İÇİN (KIRMIZI) */
+    .past-appointment {
+        background-color: #fee2e2 !important; /* Açık Kırmızı */
+        color: #b91c1c !important; /* Koyu Kırmızı Metin */
+        border: 1px solid #fca5a5 !important;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .past-appointment::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: #b91c1c; /* Kırmızı Nokta */
+            border-radius: 50%;
+        }
+
+    /* GELECEK RANDEVULAR İÇİN (YEŞİL) */
+    .future-appointment {
+        background-color: #dcfce7 !important; /* Açık Yeşil */
+        color: #15803d !important; /* Koyu Yeşil Metin */
+        border: 1px solid #86efac !important;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .future-appointment::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: #15803d; /* Yeşil Nokta */
+            border-radius: 50%;
+        }
+</style>
+
+<script>
+
+ // Simple Calendar JS
+const getCalendarBodyId = document.getElementById('calendarBody2'); // 1. DEĞİŞİKLİK BURADA
+if (getCalendarBodyId) {
+
+    // C#'tan gelen randevu tarihlerini JavaScript dizisine alıyoruz!
+    const appointmentDates = @Html.Raw(Json.Encode(ViewBag.AppointmentDates ?? new List<string>()));
+
+    const calendarBody = document.getElementById('calendarBody2'); // 2. DEĞİŞİKLİK BURADA
+    const monthSelect = document.getElementById('monthSelect');
+
+    const yearSelect = document.getElementById('yearSelect');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+
+    const currentDate = new Date();
+    let selectedMonth = currentDate.getMonth();
+    let selectedYear = currentDate.getFullYear();
+
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    function populateMonthAndYearSelectors() {
+        monthNames.forEach((month, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = month;
+            monthSelect.appendChild(option);
+        });
+
+        for (let i = currentDate.getFullYear() - 20; i <= currentDate.getFullYear() + 20; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearSelect.appendChild(option);
+        }
+    }
+
+    function generateCalendar(month, year) {
+        calendarBody.innerHTML = '';
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+        // Pazartesiden başlaması için JS'in 0(Pazar) indeksini ayarlıyoruz
+        let adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
+        let date = 1;
+        let prevMonthDate = daysInPrevMonth - adjustedFirstDay + 1;
+        let nextMonthDate = 1;
+        const today = new Date();
+
+        for (let i = 0; i < 6; i++) {
+            const row = document.createElement('tr');
+
+            for (let j = 0; j < 7; j++) {
+                const cell = document.createElement('td');
+
+                if (i === 0 && j < adjustedFirstDay) {
+                    cell.textContent = prevMonthDate++;
+                    cell.classList.add('prev-month', 'text-muted');
+                } else if (date > daysInMonth) {
+                    cell.textContent = nextMonthDate++;
+                    cell.classList.add('next-month', 'text-muted');
+                } else {
+                    cell.textContent = date;
+
+                    // --- GÜNCELLENEN KISIM: GEÇMİŞ/GELECEK KONTROLÜ ---
+                    let cellMonthStr = String(month + 1).padStart(2, '0');
+                    let cellDateStr = String(date).padStart(2, '0');
+                    let fullDateString = `${year}-${cellMonthStr}-${cellDateStr}`;
+
+                    // Eğer bu tarih randevu listemizde varsa
+                    if (appointmentDates.includes(fullDateString)) {
+
+                        // Takvimdeki hücrenin tarihini ve bugünün tarihini (saatleri sıfırlayarak) alıyoruz
+                        let cellDateObj = new Date(year, month, date);
+                        let todayObj = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+                        // Geçmiş mi, gelecek mi kontrolü
+                        if (cellDateObj < todayObj) {
+                            // Geçmiş tarihliyse KIRMIZI yap
+                            cell.classList.add('past-appointment');
+                            cell.title = "Geçmiş Randevu";
+                        } else {
+                            // Bugün veya gelecek tarihliyse YEŞİL yap
+                            cell.classList.add('future-appointment');
+                            cell.title = "Gelecek Randevu";
+                        }
+                    }
+
+                    // Bugünün tarihi vurgusu (Mevcut kodun)
+                    if (year === today.getFullYear() && month === today.getMonth() && date === today.getDate()) {
+                        cell.classList.add('current-day');
+                        cell.style.backgroundColor = "#796df6"; // Bugünün rengi mor kalmaya devam eder
+                        cell.style.color = "white";
+                    }
+                    // --------------------------------------------------
+                    date++;
+                }
+                row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+            if (date > daysInMonth && nextMonthDate > 7) {
+                break;
+            }
+        }
+    }
+
+    function updateCalendar() {
+        generateCalendar(selectedMonth, selectedYear);
+        monthSelect.value = selectedMonth;
+        yearSelect.value = selectedYear;
+    }
+
+    monthSelect.addEventListener('change', (e) => {
+        selectedMonth = parseInt(e.target.value);
+        updateCalendar();
+    });
+
+    yearSelect.addEventListener('change', (e) => {
+        selectedYear = parseInt(e.target.value);
+        updateCalendar();
+    });
+
+    prevMonthBtn.addEventListener('click', () => {
+        if (selectedMonth === 0) {
+            selectedMonth = 11;
+            selectedYear--;
+        } else {
+            selectedMonth--;
+        }
+        updateCalendar();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+        if (selectedMonth === 11) {
+            selectedMonth = 0;
+            selectedYear++;
+        } else {
+            selectedMonth++;
+        }
+        updateCalendar();
+    });
+
+    populateMonthAndYearSelectors();
+    updateCalendar();
+}
+
+
+</script>
+
+
+
+

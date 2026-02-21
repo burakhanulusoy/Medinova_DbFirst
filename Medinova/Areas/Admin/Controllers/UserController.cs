@@ -61,7 +61,32 @@ namespace Medinova.Areas.Admin.Controllers
 
 
 
-            return View();
+
+            var appointmentDates = _context.Appointments
+         .Where(x => x.UserId == id && x.AppointmentDate.HasValue) // Sadece tarihi dolu olan randevuları al
+         .Select(x => x.AppointmentDate.Value) // Nullable (DateTime?) formatından normal DateTime formatına çıkar
+         .ToList() // Önce veritabanından listeye çekelim
+         .Select(d => d.ToString("yyyy-MM-dd")) // Artık normal DateTime olduğu için ToString hata VERMEZ!
+         .ToList();
+
+            ViewBag.AppointmentDates = appointmentDates;
+
+
+
+
+
+
+            var appointmentsOfUser=_context.Appointments.Where(x => x.UserId == id).
+                                                        Include(x=>x.Doctor)
+                                                        .Include(x=>x.User).Take(5).ToList();
+
+
+
+
+
+
+
+            return View(appointmentsOfUser);
         }
 
 
