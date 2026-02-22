@@ -210,13 +210,50 @@ namespace Medinova.Controllers
             return Json(dtoList,JsonRequestBehavior.AllowGet);
 
 
+        }
 
 
 
+        public PartialViewResult Header()
+        {
+            var banner=_context.Banners.OrderByDescending(x=>x.BannerId).FirstOrDefault();
+            return PartialView(banner);
+        }
+
+        public PartialViewResult AboutUs()
+        {
+            var about=_context.Abouts.OrderByDescending(x=>x.AboutId).FirstOrDefault();
+            return PartialView(about);
 
 
         }
 
+
+        public PartialViewResult Services()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult MedicalPackets()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult OurTeams()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult Testimonils()
+        {
+            return PartialView();
+        }
+
+
+        public PartialViewResult AskYouAi()
+        {
+            return PartialView();
+        }
 
 
 

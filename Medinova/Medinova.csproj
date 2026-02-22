@@ -866,6 +866,7 @@
     <Content Include="Templates\Medinova-1.0.0\img\blog-2.jpg" />
     <Content Include="Templates\Medinova-1.0.0\img\blog-3.jpg" />
     <Content Include="Templates\Medinova-1.0.0\img\hero.jpg" />
+    <Content Include="Templates\Medinova-1.0.0\img\medinova.ico" />
     <Content Include="Templates\Medinova-1.0.0\img\price-1.jpg" />
     <Content Include="Templates\Medinova-1.0.0\img\price-2.jpg" />
     <Content Include="Templates\Medinova-1.0.0\img\price-3.jpg" />
@@ -1042,6 +1043,13 @@
     <Content Include="Views\Account\DoctorLogin.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
+    <Content Include="Views\Default\Header.cshtml" />
+    <Content Include="Views\Default\AboutUs.cshtml" />
+    <Content Include="Views\Default\Services.cshtml" />
+    <Content Include="Views\Default\MedicalPackets.cshtml" />
+    <Content Include="Views\Default\OurTeams.cshtml" />
+    <Content Include="Views\Default\Testimonils.cshtml" />
+    <Content Include="Views\Default\AskYouAi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
