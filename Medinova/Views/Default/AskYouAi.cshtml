@@ -1,26 +1,85 @@
-﻿
+﻿<div class="container my-5 py-5 text-center">
+    <div class="mx-auto mb-5" style="max-width: 600px;">
+        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Yapay Zeka Asistanı</h5>
+        <h2 class="display-6 mb-4">Kan Tahlilinizi Yükleyin</h2>
+        <p class="text-muted">PDF veya görsel formatındaki tahlil sonucunuzu yükleyerek anında ön analiz alabilirsiniz.</p>
+    </div>
 
-<div id="ai" class="container-fluid bg-primary my-5 py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Find A Doctor</h5>
-            <h1 class="display-4 mb-4">Find A Healthcare Professionals</h1>
-            <h5 class="text-white fw-normal">
-                Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos
-                sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo
-            </h5>
+    <div class="mx-auto" style="width: 100%; max-width: 500px;">
+        <form id="tahlilForm">
+            <div class="input-group mb-3 shadow-sm rounded">
+                <input type="file" class="form-control py-3" id="fileInput" accept=".pdf, image/png, image/jpeg" required>
+                <button class="btn btn-primary px-4" type="submit" id="btnAnalyze">
+                    <i class="fa fa-magic me-2"></i> Analiz Et
+                </button>
+            </div>
+        </form>
+
+        <div id="loading" class="d-none mt-4">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Yükleniyor...</span>
+            </div>
+            <h5 class="mt-3 text-primary">Yapay Zeka tahlilinizi inceliyor...</h5>
+            <p class="text-muted">Bu işlem belgenin boyutuna göre birkaç dakika sürebilir.</p>
         </div>
-        <div class="mx-auto" style="width: 100%; max-width: 600px;">
-            <div class="input-group">
-                <select class="form-select border-primary w-25" style="height: 60px;">
-                    <option selected>Department</option>
-                    <option value="1">Department 1</option>
-                    <option value="2">Department 2</option>
-                    <option value="3">Department 3</option>
-                </select>
-                <input type="text" class="form-control border-primary w-50" placeholder="Keyword">
-                <button class="btn btn-dark border-0 w-25">Search</button>
+    </div>
+
+    <div class="mx-auto mt-5" style="width: 100%; max-width: 900px;">
+        <div id="resultArea" class="card shadow border-0 d-none text-start rounded-3">
+            <div class="card-body p-5" id="resultContent">
             </div>
         </div>
     </div>
 </div>
+
+<script src="[https://code.jquery.com/jquery-3.6.0.min.js](https://code.jquery.com/jquery-3.6.0.min.js)"></script>
+<script>
+    $('#tahlilForm').on('submit', function (e) {
+        e.preventDefault();
+
+        var fileInput = document.getElementById('fileInput');
+        if (fileInput.files.length === 0) { alert("Lütfen bir dosya seçin."); return; }
+
+        var formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+
+        // Arayüzü hazırla: Butonu kapat, animasyonu aç, eski sonucu gizle
+        $('#btnAnalyze').prop('disabled', true);
+        $('#loading').removeClass('d-none');
+        $('#resultArea').addClass('d-none');
+
+        $.ajax({
+            url: '@Url.Action("AnalyzeDocument", "Default")',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // İşlem bitti: Animasyonu gizle, butonu aç
+                $('#loading').addClass('d-none');
+                $('#btnAnalyze').prop('disabled', false);
+
+                if (response.error) {
+                    // Hata durumunda kırmızı kutu bas
+                    $('#resultContent').html('<div class="alert alert-danger border-0 shadow-sm"><h5 class="alert-heading">İşlem Başarısız</h5><p class="mb-0">' + response.error + '</p></div>');
+                    $('#resultArea').removeClass('d-none');
+                } else if (response.result) {
+                    // Başarılı durumda yapay zekanın yolladığı HTML'i direkt kartın içine koy
+                    // Artık .replace(\n) yapmıyoruz çünkü yapay zeka hazır HTML veriyor!
+                    $('#resultContent').html(response.result);
+                    $('#resultArea').removeClass('d-none');
+
+                    // Sonucun olduğu yere hafifçe kaydır (Kullanıcı deneyimi için)
+                    $('html, body').animate({
+                        scrollTop: $("#resultArea").offset().top - 50
+                    }, 500);
+                }
+            },
+            error: function () {
+                $('#loading').addClass('d-none');
+                $('#btnAnalyze').prop('disabled', false);
+                alert("Sunucuya bağlanırken kritik bir hata oluştu.");
+            }
+        });
+    });
+</script>

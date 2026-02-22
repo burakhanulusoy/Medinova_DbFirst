@@ -2,9 +2,17 @@
 using Medinova.Enums;
 using Medinova.MailService;
 using Medinova.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Medinova.Controllers
@@ -13,6 +21,7 @@ namespace Medinova.Controllers
     public class DefaultController : Controller
     {
        MedinovaContext _context=new MedinovaContext();
+        private readonly string GeminiApiKey = ConfigurationManager.AppSettings["GeminiApiKey"];
 
 
         // GET: Default
@@ -249,12 +258,87 @@ namespace Medinova.Controllers
             return PartialView();
         }
 
-
         public PartialViewResult AskYouAi()
         {
             return PartialView();
         }
+       
+        
+        
+        [HttpPost]
+        public async Task<JsonResult> AnalyzeDocument(HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+                return Json(new { error = "Dosya bulunamadı." });
 
+            try
+            {
+                // 1. Dosyayı Base64'e çevir
+                byte[] fileBytes;
+                using (var binaryReader = new BinaryReader(file.InputStream))
+                {
+                    fileBytes = binaryReader.ReadBytes(file.ContentLength);
+                }
+                string base64File = Convert.ToBase64String(fileBytes);
+                string mimeType = file.ContentType;
+
+                // 2. Gemini API İsteğini Hazırla
+
+                // 2. Gemini API İsteğini Hazırla
+                string prompt = @"Sen uzman bir tıbbi asistansın. Görevin YALNIZCA kan tahlili sonuçlarını analiz etmektir. 
+Gönderilen belge bir kan tahlili raporu DEĞİLSE analizi reddet ve sadece '<div class=""alert alert-danger"">Sadece kan tahlili analizi yapabilirim.</div>' yaz.
+Eğer tahlil ise, sonuçları Medinova temasına uygun, Bootstrap 5 HTML formatında, şık ve okunabilir bir şekilde hazırla. Markdown (**, ## vb.) KESİNLİKLE KULLANMA.
+Sadece HTML kodunu döndür (başına veya sonuna ```html yazma).
+Şu yapıyı kullan:
+1. <h4 class=""text-primary mb-3 border-bottom pb-2"">Analiz Özeti</h4> (Genel durumun kısa özeti)
+2. Eğer varsa <h5 class=""text-danger mt-4""> Yüksek Çıkan Değerler</h5> (Değerleri, ne anlama geldiğini listele)
+3. Eğer varsa <h5 class=""text-info mt-4""> Düşük Çıkan Değerler</h5> (Değerleri, ne anlama geldiğini listele)
+4. <h5 class=""text-success mt-4""> Ne Yapmalısınız? (Tavsiyeler)</h5> (Bu değerleri düzeltmek için beslenme, su tüketimi, uyku gibi günlük yaşam önerilerini listele)
+5. En alta <div class=""alert alert-warning mt-4""><strong>Doktor Uyarısı:</strong> Bu analiz yapay zeka tarafından bir ön bilgilendirme amacıyla üretilmiştir. Kesin teşhis ve tedavi planı için lütfen sonuçlarınızı uzman bir hekime gösteriniz.</div> ekle.";
+
+                var requestBody = new
+                {
+                    contents = new[]
+                    {
+                new
+                {
+                    parts = new object[]
+                    {
+                        new { text = prompt },
+                        new { inline_data = new { mime_type = mimeType, data = base64File } }
+                    }
+                }
+            }
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(requestBody);
+
+                // 3. HttpClient ile Gemini'ye İstek At
+                using (HttpClient client = new HttpClient())
+                {
+                    string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent?key={GeminiApiKey}";
+                    var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync(apiUrl, content);
+                    string responseString = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        JObject parsedJson = JObject.Parse(responseString);
+                        string aiText = parsedJson["candidates"][0]["content"]["parts"][0]["text"].ToString();
+
+                        return Json(new { result = aiText });
+                    }
+                    else
+                    {
+                        return Json(new { error = $"Google API Hatası ({response.StatusCode}): {responseString}" });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
 
 
     }

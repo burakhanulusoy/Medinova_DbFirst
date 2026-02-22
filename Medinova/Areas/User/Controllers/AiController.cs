@@ -162,11 +162,10 @@ namespace Medinova.Areas.User.Controllers
                                   .GetProperty("parts")[0]
                                   .GetProperty("text").GetString();
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // Hata durumunda ne döndüğünü görmek için (Opsiyonel)
-                        // return result; 
-                        return "Gemini bağlantısında bir sorun oluştu veya dil işleme hatası.";
+                        // API'nin döndürdüğü gerçek json hatasını da mesaja ekleyelim
+                        return $"Bir hata oluştu. API Yanıtı: {result} | Sistem Hatası: {ex.Message}";
                     }
                 }
             }
