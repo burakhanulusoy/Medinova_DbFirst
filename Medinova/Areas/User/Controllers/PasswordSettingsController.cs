@@ -44,7 +44,7 @@ namespace Medinova.Areas.User.Controllers
             user.UserName = model.UserName;
             user.Password = model.NewPassword;
             _context.SaveChanges();
-            return RedirectToAction("Index", "About");
+            return RedirectToAction("Login", "Account",new {area=""});
 
         }
 

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/Templates/adminThema/fila/assets/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="~/Templates/adminThema/fila/assets/css/jsvectormap.min.css">
     <link rel="stylesheet" href="~/Templates/adminThema/fila/assets/css/style.css">
-
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="~/Templates/adminThema/fila/assets/images/favicon.png">
 
@@ -62,51 +62,35 @@
             </button>
         </div>
 
-
         <aside id="layout-menu" class="layout-menu menu-vertical menu active" data-simplebar>
             <ul class="menu-inner py-1">
 
                 <li class="menu-item active open">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                        <div>Kullanıcı Paneli</div>
+                        <div>Doktor Paneli</div>
                     </a>
 
                     <ul class="menu-sub">
 
                         <li class="menu-item">
-                            <a href="/User/Ai/Index" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-bot"></i> <div>Yapay Zeka Asistanı</div>
+                            <a href="/Doctor/Appointment/Index" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-list-check"></i>
+                                <div>Randevu Taleplerim</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a href="/User/Appointment/Index" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-calendar"></i> <div>Randevularınız</div>
+                            <a href="/Doctor/Password/ChangePassword" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-key"></i>
+                                <div>Şifre Ayarlarım</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a href="/User/Testimonial/Index" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-message-error"></i> <div>Şikayette Bulun</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="/User/PasswordSettings/Index" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-lock-alt"></i> <div>Şifre Değiştir</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="/User/About/Index" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-user"></i> <div>Profilim</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="/Account/Logout" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-power-off"></i> <div>Çıkış Yap</div>
+                            <a href="/Account/DoctorLogout" class="menu-link text-danger">
+                                <i class="menu-icon tf-icons bx bx-power-off"></i>
+                                <div>Çıkış Yap</div>
                             </a>
                         </li>
 

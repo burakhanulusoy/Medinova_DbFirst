@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Medinova.Controllers
 {
-    [AllowAnonymous]//bu controllerdaki actionlara herkes erişebilir demek
+    [AllowAnonymous]//bu controllerdaki actionlara herkes erişebilir demek yessss sir
     public class DefaultController : Controller
     {
        MedinovaContext _context=new MedinovaContext();
@@ -68,7 +68,7 @@ namespace Medinova.Controllers
 
 
         [HttpPost]
-        public JsonResult SendVerificationCode(string phoneNumber)
+        public JsonResult SendVerificationCode(string phoneNumber,int doctorId,DateTime appointmentDate)
         {
             var user = _context.Users.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
 
@@ -77,6 +77,17 @@ namespace Medinova.Controllers
             {
                 return Json(new { success = false, message = "UserNotFound" });
             }
+
+            bool hasExistingAppointment = _context.Appointments.Any(x =>
+        x.UserId == user.UserId &&
+        x.DoctorId == doctorId &&
+        x.AppointmentDate == appointmentDate);
+
+            if (hasExistingAppointment)
+            {
+                return Json(new { success = false, message = "AlreadyBooked" });
+            }
+
 
             // 2. Rastgele 6 Haneli Kod Üret
             Random rnd = new Random();
@@ -116,6 +127,19 @@ namespace Medinova.Controllers
             {
                 return Json(new { success = false, message = "UserNotFound" });
             }
+
+            bool hasExistingAppointment = _context.Appointments.Any(x =>
+        x.UserId == user.UserId &&
+        x.DoctorId == appointment.DoctorId &&
+        x.AppointmentDate == appointment.AppointmentDate);
+
+            if (hasExistingAppointment)
+            {
+                // Kullanıcı aynı anda iki sekmeden işlem yapmaya çalışırsa diye
+                return Json(new { success = false, message = "AlreadyBooked" });
+            }
+
+
 
             appointment.UserId = user.UserId;
             appointment.FullName = user.FirstName + " " + user.LastName;

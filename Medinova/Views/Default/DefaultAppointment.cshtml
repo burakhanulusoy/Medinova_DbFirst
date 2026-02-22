@@ -387,16 +387,38 @@
                         didOpen: () => { Swal.showLoading(); }
                     });
 
-                    // --- 4. AJAX İLE KOD GÖNDERME İSTEĞİ ---
+                    /// --- 4. AJAX İLE KOD GÖNDERME İSTEĞİ ---
+                    var selectedDoctorId = $("#DoctorId").val();
+                    var selectedDate = $("#AppointmentDate").val();
+
                     $.ajax({
                         url: '/Default/SendVerificationCode',
                         type: 'POST',
-                        data: { phoneNumber: phoneNumber },
+                        // Artık tarih ve doktor ID'sini de gönderiyoruz
+                        data: {
+                            phoneNumber: phoneNumber,
+                            doctorId: selectedDoctorId,
+                            appointmentDate: selectedDate
+                        },
                         success: function (response) {
 
                             Swal.close();
 
-                            if (response.success === false && response.message === "UserNotFound") {
+                            // --- YENİ EKLENEN KONTROL YAKALAYICI ---
+                            if (response.success === false && response.message === "AlreadyBooked") {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Randevu Alınamaz',
+                                    text: 'Seçtiğiniz tarihte bu doktor için zaten onaylanmış bir randevunuz bulunmaktadır. Lütfen farklı bir gün veya farklı bir doktor seçiniz.',
+                                    confirmButtonText: 'Tamam',
+                                    confirmButtonColor: '#007bff'
+                                });
+                                return; // İşlemi burada kesiyoruz
+                            }
+                            // ----------------------------------------
+
+                            if (response.success === false && response.message === "UserNotFound")
+                            {
                                 Swal.fire({
                                     icon: 'info',
                                     title: 'Hasta Kaydı Gerekli',
@@ -477,10 +499,14 @@
                                             type: 'POST',
                                             data: finalData
                                         }).then(res => {
-                                            if (!res.success) throw new Error(res.message);
+                                            // Aradaki boş then bloğu silindi, direkt kontrole geçiyoruz
+                                            if (!res.success) {
+                                                if (res.message === "AlreadyBooked") throw new Error("Aynı gün için zaten randevunuz var!");
+                                                throw new Error(res.message);
+                                            }
                                             return res;
                                         }).catch(err => {
-                                            Swal.showValidationMessage('Hatalı kod, lütfen kontrol ediniz.');
+                                            Swal.showValidationMessage(err.message === "WrongCode" ? 'Hatalı kod, lütfen kontrol ediniz.' : err.message);
                                         });
                                     }
                                 }).then((result) => {

@@ -49,7 +49,7 @@ namespace Medinova.Controllers
                 return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
             }else if(user.RoleId==1)
             {
-                return RedirectToAction("Index", "About", new { area = "User" });
+                return RedirectToAction("Index", "Appointment", new { area = "User" });
             }
             return View(model);
 
